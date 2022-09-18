@@ -1,1 +1,1 @@
-# Objektinis-program-projektavimas-
+# Objektinis-programu-projektavimas
