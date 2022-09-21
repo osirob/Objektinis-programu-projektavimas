@@ -22,8 +22,15 @@ namespace Client
             {
                 label4.Text = message;
             });
+
+            connection.On<string>("checkOnline", (message) =>
+            {
+                label5.Text = "Online now is:" + message;
+            });
+
             await connection.StartAsync();
             label2.Text = "Yes";
+            connectButton.Visible = false;
         }
 
         private async void button2_Click(object sender, EventArgs e)
