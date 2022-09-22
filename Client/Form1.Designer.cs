@@ -37,6 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.nicknameLabel = new System.Windows.Forms.Label();
+            this.nicknameTextBox = new System.Windows.Forms.TextBox();
+            this.startGameButton = new System.Windows.Forms.Button();
+            this.unreadyButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // connectButton
@@ -83,10 +87,40 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
+            // nicknameLabel
+            // 
+            resources.ApplyResources(this.nicknameLabel, "nicknameLabel");
+            this.nicknameLabel.Name = "nicknameLabel";
+            // 
+            // nicknameTextBox
+            // 
+            resources.ApplyResources(this.nicknameTextBox, "nicknameTextBox");
+            this.nicknameTextBox.Name = "nicknameTextBox";
+            // 
+            // startGameButton
+            // 
+            resources.ApplyResources(this.startGameButton, "startGameButton");
+            this.startGameButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.startGameButton.Name = "startGameButton";
+            this.startGameButton.UseVisualStyleBackColor = false;
+            this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
+            // 
+            // unreadyButton
+            // 
+            resources.ApplyResources(this.unreadyButton, "unreadyButton");
+            this.unreadyButton.BackColor = System.Drawing.Color.Red;
+            this.unreadyButton.Name = "unreadyButton";
+            this.unreadyButton.UseVisualStyleBackColor = false;
+            this.unreadyButton.Click += new System.EventHandler(this.unreadyButton_Click);
+            // 
             // BLOCKS
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.unreadyButton);
+            this.Controls.Add(this.startGameButton);
+            this.Controls.Add(this.nicknameTextBox);
+            this.Controls.Add(this.nicknameLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -112,5 +146,9 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private Label nicknameLabel;
+        private TextBox nicknameTextBox;
+        private Button startGameButton;
+        private Button unreadyButton;
     }
 }
