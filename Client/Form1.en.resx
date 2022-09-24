@@ -143,14 +143,8 @@
   <data name="startGameButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="unreadyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>987, 152</value>
-  </data>
   <data name="unreadyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>441, 103</value>
-  </data>
-  <data name="unreadyButton.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
   </data>
   <data name="unreadyButton.Text" xml:space="preserve">
     <value>I'm not ready</value>
