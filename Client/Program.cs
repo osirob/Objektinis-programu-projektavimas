@@ -12,7 +12,7 @@ namespace Client
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new BLOCKS());
-            Application.Run(new Game()); //Changed to test new game form
+            Application.Run(new BLOCKS()); //Changed to test new game form
         }
     }
 }
