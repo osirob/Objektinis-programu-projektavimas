@@ -87,6 +87,7 @@ namespace Client
         //Still testing this
         private async void StartGame()
         {
+            var openedForms = 0;
             label4.Text = "Start game maybe will start";
             connection.On<string>("counter", (message) =>
             {
@@ -97,6 +98,15 @@ namespace Client
                 else
                 {
                     label4.Text = "Game is Started";
+                    Thread.Sleep(300);
+                    //this.Visible = false;
+                    if(openedForms == 0)
+                    {
+                        Game gameForm = new Game();
+                        gameForm.Visible = true;
+                        openedForms++;
+                    }
+
                 }
                 
             });
