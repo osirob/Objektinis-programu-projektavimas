@@ -59,68 +59,20 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="connectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 567</value>
+    <value>193, 192</value>
   </data>
   <data name="connectButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>543, 90</value>
+    <value>188, 52</value>
   </data>
   <data name="connectButton.Text" xml:space="preserve">
     <value>Connect to The Game Server</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 40</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 40</value>
-  </data>
-  <data name="label2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 148</value>
-  </data>
-  <data name="textBox1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>566, 201</value>
-  </data>
-  <data name="button2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>521, 327</value>
-  </data>
-  <data name="label3.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 364</value>
-  </data>
-  <data name="label4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 93</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 15</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="label5.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="nicknameLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="nicknameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 91</value>
   </data>
   <data name="nicknameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 15</value>
@@ -128,31 +80,106 @@
   <data name="nicknameLabel.Text" xml:space="preserve">
     <value>Enter nickname</value>
   </data>
+  <data name="nicknameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 137</value>
+  </data>
   <data name="nicknameTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 23</value>
   </data>
-  <data name="startGameButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>987, 40</value>
+  <data name="readyButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 45</value>
   </data>
-  <data name="startGameButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>441, 103</value>
-  </data>
-  <data name="startGameButton.Text" xml:space="preserve">
+  <data name="readyButton.Text" xml:space="preserve">
     <value>I'm Ready</value>
   </data>
-  <data name="startGameButton.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="notReadyButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 45</value>
   </data>
-  <data name="unreadyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>441, 103</value>
-  </data>
-  <data name="unreadyButton.Text" xml:space="preserve">
+  <data name="notReadyButton.Text" xml:space="preserve">
     <value>I'm not ready</value>
   </data>
-  <data name="unreadyButton.Visible" type="System.Boolean, mscorlib">
+  <data name="notReadyButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="countdownLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="countdownLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 15</value>
+  </data>
+  <data name="countdownLabel.Text" xml:space="preserve">
+    <value>number</value>
+  </data>
+  <data name="countdownLabel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="countdownHeader.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="countdownHeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 15</value>
+  </data>
+  <data name="countdownHeader.Text" xml:space="preserve">
+    <value>Game begins in</value>
+  </data>
+  <data name="countdownHeader.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="player2Name.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="player2Name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 120</value>
+  </data>
+  <data name="player2Name.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 15</value>
+  </data>
+  <data name="player2Name.Text" xml:space="preserve">
+    <value>playername</value>
+  </data>
+  <data name="player2Desc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="player2Desc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="player2Desc.Text" xml:space="preserve">
+    <value>Other player: </value>
+  </data>
+  <data name="player1Name.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="player1Name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 83</value>
+  </data>
+  <data name="player1Name.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 15</value>
+  </data>
+  <data name="player1Name.Text" xml:space="preserve">
+    <value>playername</value>
+  </data>
+  <data name="player1Desc.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="player1Desc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 15</value>
+  </data>
+  <data name="player1Desc.Text" xml:space="preserve">
+    <value>You: </value>
+  </data>
+  <data name="connectedToLobbyPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="connectedToLobbyPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 440</value>
+  </data>
+  <data name="connectPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="connectPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>614, 545</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1536, 763</value>
+    <value>614, 547</value>
   </data>
 </root>

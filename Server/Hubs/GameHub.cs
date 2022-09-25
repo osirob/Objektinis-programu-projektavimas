@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Shared.Shared;
 
 namespace Server.Hubs
 {
@@ -7,28 +8,69 @@ namespace Server.Hubs
         public static HashSet<string> ConnectedIds = new HashSet<string>();
 
         public static bool[] Players = new bool[2];
+
+        public static List<Player> GamePlayers = new List<Player>();
     }
 
     static class GameInfo
     {
         public static int HowManyIsRead { get; set; } = 0;
         public static bool GameIsStarted { get; set; } = false;
+        public static int MaxPlayers = 2;
     }
 
     //https://localhost:7021/gameHub
     public class GameHub : Hub
     {
-        public async Task SendMessage(string message)
+        public GameHub()
         {
-            Console.WriteLine($"Message recieved: {message}");
-            await Clients.All.SendAsync("recievingMessage", message);
+
         }
 
-        public async override Task<Task> OnConnectedAsync()
+        /*public async override Task<Task> OnConnectedAsync()
         {
             UserHandler.ConnectedIds.Add(Context.ConnectionId);
             await CheckHowManyOnlineIs("Connected");
             return base.OnConnectedAsync();
+        }*/
+
+        public async Task<Player> ConnectPlayer(string nickname)
+        {
+            if(UserHandler.GamePlayers.Count == 2)
+            {
+                return null;
+            }
+
+            var player = new Player()
+            {
+                Id = UserHandler.GamePlayers.Count,
+                Name = nickname,
+                isReady = false
+            };
+            UserHandler.GamePlayers.Add(player);
+
+            await Clients.Others.SendAsync("NewPlayer", player);
+            Console.WriteLine($"Player {player.Name} connected!");
+            return player;
+        }
+
+        public async Task<Player> GetOtherPlayer(int id)
+        {
+            foreach(Player p in UserHandler.GamePlayers)
+            {
+                if(p.Id != id)
+                {
+                    return p;
+                }
+            }
+
+            return null;
+        }
+
+        public async Task CheckHowManyOnlineIs(string message)
+        {
+            Console.WriteLine($"Check recieved: {message}");
+            await Clients.All.SendAsync("checkOnline", UserHandler.ConnectedIds.Count.ToString());
         }
 
         public async override Task<Task> OnDisconnectedAsync(Exception exception)
@@ -38,12 +80,6 @@ namespace Server.Hubs
             UserHandler.Players[1] = false;
             await CheckHowManyOnlineIs("Disconected");
             return base.OnDisconnectedAsync(exception);
-        }
-
-        public async Task CheckHowManyOnlineIs(string message)
-        {
-            Console.WriteLine($"Check recieved: {message}");
-            await Clients.All.SendAsync("checkOnline", UserHandler.ConnectedIds.Count.ToString());
         }
 
         public async Task AsignPlayer(string message)
@@ -82,7 +118,7 @@ namespace Server.Hubs
 
         public async Task StartCounting(string message)
         {
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var time = i + 1;
                 await Clients.All.SendAsync("counter", time.ToString());

@@ -13,4 +13,6 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.9" />
   </ItemGroup>
 
+  <Import Project="..\Shared\Shared.projitems" Label="Shared" />
+
 </Project>
