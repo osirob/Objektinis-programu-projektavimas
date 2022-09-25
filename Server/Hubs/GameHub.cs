@@ -6,6 +6,7 @@ namespace Server.Hubs
     {
         public static HashSet<string> ConnectedIds = new HashSet<string>();
 
+        public static bool[] Players = new bool[2];
     }
 
     static class GameInfo
@@ -33,6 +34,8 @@ namespace Server.Hubs
         public async override Task<Task> OnDisconnectedAsync(Exception exception)
         {
             UserHandler.ConnectedIds.Remove(Context.ConnectionId);
+            UserHandler.Players[0] = false;
+            UserHandler.Players[1] = false;
             await CheckHowManyOnlineIs("Disconected");
             return base.OnDisconnectedAsync(exception);
         }
@@ -43,6 +46,22 @@ namespace Server.Hubs
             await Clients.All.SendAsync("checkOnline", UserHandler.ConnectedIds.Count.ToString());
         }
 
+        public async Task AsignPlayer(string message)
+        {
+            int index = 0;
+            if (!UserHandler.Players[0])
+            {
+                index = 1;
+                UserHandler.Players[0] = true;
+            }
+            else
+            {
+                index = 2;
+                UserHandler.Players[1] = true;
+            }
+            await Clients.Caller.SendAsync("asigningPlayers", index.ToString());
+        }
+
         public async Task CheckHowManyReadyIs(string message)
         {
             //if (!UserHandler.ConnectedIds.Contains(Context.ConnectionId))
@@ -50,6 +69,7 @@ namespace Server.Hubs
                 GameInfo.HowManyIsRead++;
             }
             Console.WriteLine(GameInfo.HowManyIsRead);
+            Console.WriteLine(UserHandler.ConnectedIds.ToString());
             await Clients.All.SendAsync("checkReady", GameInfo.HowManyIsRead.ToString());
         }
 
