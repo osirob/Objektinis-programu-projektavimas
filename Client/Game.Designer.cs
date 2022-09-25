@@ -32,11 +32,14 @@
             this.hpLabel = new System.Windows.Forms.Label();
             this.groundPlatform = new System.Windows.Forms.PictureBox();
             this.floatingPlatform = new System.Windows.Forms.PictureBox();
-            this.player = new System.Windows.Forms.PictureBox();
+            this.player1 = new System.Windows.Forms.PictureBox();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.player2 = new System.Windows.Forms.PictureBox();
+            this.playerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player2)).BeginInit();
             this.SuspendLayout();
             // 
             // hpLabel
@@ -68,15 +71,16 @@
             this.floatingPlatform.TabStop = false;
             this.floatingPlatform.Tag = "platform";
             // 
-            // player
+            // player1
             // 
-            this.player.BackColor = System.Drawing.Color.Blue;
-            this.player.Location = new System.Drawing.Point(785, 541);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(35, 60);
-            this.player.TabIndex = 3;
-            this.player.TabStop = false;
-            this.player.Tag = "player";
+            this.player1.BackColor = System.Drawing.Color.Blue;
+            this.player1.Location = new System.Drawing.Point(802, 545);
+            this.player1.Name = "player1";
+            this.player1.Size = new System.Drawing.Size(35, 60);
+            this.player1.TabIndex = 3;
+            this.player1.TabStop = false;
+            this.player1.Tag = "player1";
+            this.player1.Click += new System.EventHandler(this.player_Click);
             // 
             // gameTimer
             // 
@@ -84,23 +88,46 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
+            // player2
+            // 
+            this.player2.BackColor = System.Drawing.Color.Red;
+            this.player2.Location = new System.Drawing.Point(33, 545);
+            this.player2.Name = "player2";
+            this.player2.Size = new System.Drawing.Size(35, 60);
+            this.player2.TabIndex = 4;
+            this.player2.TabStop = false;
+            this.player2.Tag = "player2";
+            // 
+            // playerLabel
+            // 
+            this.playerLabel.Font = new System.Drawing.Font("Consolas", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.playerLabel.Location = new System.Drawing.Point(370, 9);
+            this.playerLabel.Name = "playerLabel";
+            this.playerLabel.Size = new System.Drawing.Size(235, 25);
+            this.playerLabel.TabIndex = 5;
+            this.playerLabel.Text = "Player1: Name";
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(934, 661);
-            this.Controls.Add(this.player);
+            this.Controls.Add(this.playerLabel);
+            this.Controls.Add(this.player2);
+            this.Controls.Add(this.player1);
             this.Controls.Add(this.floatingPlatform);
             this.Controls.Add(this.groundPlatform);
             this.Controls.Add(this.hpLabel);
             this.Name = "Game";
             this.Text = "Game";
+            this.Load += new System.EventHandler(this.Game_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -110,7 +137,9 @@
         private Label hpLabel;
         private PictureBox groundPlatform;
         private PictureBox floatingPlatform;
-        private PictureBox player;
+        private PictureBox player1;
         private System.Windows.Forms.Timer gameTimer;
+        private PictureBox player2;
+        private Label playerLabel;
     }
 }
