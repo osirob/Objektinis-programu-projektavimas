@@ -9,6 +9,8 @@ namespace Shared.Shared
         public int Id { get; set; }
         public string Name { get; set; }
         public bool isReady { get; set; }
+        public int X;
+        public int Y;
 
         //Coordinates and all the other stuff
     }

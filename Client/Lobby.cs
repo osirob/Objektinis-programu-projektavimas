@@ -112,17 +112,19 @@ namespace Client
         //Still testing this
         private async void StartGame()
         {
+            
             var openedForms = 0;
+            counter.Visible = true;
             ////label4.Text = "Start game maybe will start";
             connection.On<string>("counter", (message) =>
             {
                 if (message != "BEGIN")
                 {
-                    //label4.Text = message;
+                    counter.Text = message;
                 }
                 else
                 {
-                    //label4.Text = "Game is Started";
+                    counter.Text = "Game is Started";
                     Thread.Sleep(300);
                     //this.Visible = false;
                     if(openedForms == 0)

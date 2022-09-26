@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Shared.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,7 @@ namespace Client
         int jumpSpeed = 10;
         int playerSpeed = 5;
         int force = 8;
+        bool StartGame = false;
 
         // Stats
         int health = 0;
@@ -33,13 +35,16 @@ namespace Client
         // Player index
         int playerIndex = -1;
 
+
         PictureBox player;
 
         public Game()
         {
             InitializeComponent();
+            player = player1;
             AsignPlayers();
-            CheckPlayerIndex();
+            StartGame = true;
+            SendCordinatesTimer.Start();
         }
 
         private async void AsignPlayers()
@@ -48,7 +53,20 @@ namespace Client
             await connection.StartAsync();
             connection.On<string>("asigningPlayers", (message) =>
             {
-                playerIndex = int.Parse(message);
+                if(message == "1")
+                {
+                    playerIndex = int.Parse(message);
+                    playerLabel.Text = message;
+                    player = player1;
+                    
+                }
+                else
+                {
+                    playerIndex = int.Parse(message);
+                    playerLabel.Text = message;
+                    player = player2;
+                    
+                }
             });
             await connection.SendAsync("AsignPlayer", "");
         }
@@ -66,78 +84,112 @@ namespace Client
         }
 
         //This method executes each 20ms, basically making it the engine
-        private void gameTimer_Tick(object sender, EventArgs e)
+        private void gameTimer_TickAsync(object sender, EventArgs e)
         {
-            player.Top += jumpSpeed;
+            if (StartGame)
+            {
+                player.Top += jumpSpeed;
 
-            if (jumping && force < 0)
-            {
-                jumping = false;
-            }
-
-            if (goleft)
-            {
-                player.Left -= playerSpeed;
-            }
-
-            if (goright)
-            {
-                player.Left += playerSpeed;
-            }
-
-            if (jumping)
-            {
-                jumpSpeed = -12;
-                force -= 1;
-            }
-            else
-            {
-                jumpSpeed = 12;
-            }
-
-            foreach (Control x in this.Controls)
-            {
-                if (x is PictureBox && x.Tag == "platform")
+                if (jumping && force < 0)
                 {
-                    if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                    jumping = false;
+                }
+
+                if (goleft)
+                {
+                    player.Left -= playerSpeed;
+                }
+
+                if (goright)
+                {
+                    player.Left += playerSpeed;
+                }
+
+                if (jumping)
+                {
+                    jumpSpeed = -12;
+                    force -= 1;
+                }
+                else
+                {
+                    jumpSpeed = 12;
+                }
+
+                foreach (Control x in this.Controls)
+                {
+                    if (x is PictureBox && x.Tag == "platform")
                     {
-                        force = 8;
-                        player.Top = x.Top - player.Height;
+                        if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                        {
+                            force = 8;
+                            player.Top = x.Top - player.Height;
+                        }
                     }
                 }
             }
         }
 
+
+        public async Task SendCordinates_TickAsync()
+        {
+            if (int.Parse(playerLabel.Text) == 1)
+            {
+                connection.On<string>("secondPlayer", (message) =>
+                {
+                    string[] splitedText = message.Split(',');
+                    player2.Left = Convert.ToInt32(splitedText[0]);
+                    player2.Top = Convert.ToInt32(splitedText[1]);
+                });
+                await connection.SendAsync("GetFirtPlayerCordinates", player.Left + "," + player.Top);
+            }
+            else
+            {
+                connection.On<string>("firstPlayer", (message) =>
+                {
+                    string[] splitedText = message.Split(',');
+                    player1.Left = Convert.ToInt32(splitedText[0]);
+                    player1.Top = Convert.ToInt32(splitedText[1]);
+                });
+                await connection.SendAsync("GetSecondPlayerCordinates", player.Left + "," + player.Top);
+            }
+        }
+
         private void keyIsDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
+            if (StartGame)
             {
-                goleft = true;
-            }
-            if (e.KeyCode == Keys.Right)
-            {
-                goright = true;
-            }
-            if (e.KeyCode == Keys.Space && !jumping)
-            {
-                jumping = true;
+                if (e.KeyCode == Keys.Left)
+                {
+                    goleft = true;
+                }
+                if (e.KeyCode == Keys.Right)
+                {
+                    goright = true;
+                }
+                if (e.KeyCode == Keys.Space && !jumping)
+                {
+                    jumping = true;
+                }
             }
         }
 
         private void keyIsUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
+            if (StartGame)
             {
-                goleft = false;
-            }
+                if (e.KeyCode == Keys.Left)
+                {
+                    goleft = false;
+                }
 
-            if (e.KeyCode == Keys.Right)
-            {
-                goright = false;
-            }
-            if (jumping)
-            {
-                jumping = false;
+                if (e.KeyCode == Keys.Right)
+                {
+                    goright = false;
+                }
+                if (jumping)
+                {
+                    jumping = false;
+                }
             }
         }
 
@@ -149,6 +201,11 @@ namespace Client
         private void Game_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SendCordinatesTimer_Tick(object sender, EventArgs e)
+        {
+            SendCordinates_TickAsync();
         }
     }
 }
