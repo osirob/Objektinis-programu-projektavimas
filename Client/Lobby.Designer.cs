@@ -35,8 +35,7 @@
             this.readyButton = new System.Windows.Forms.Button();
             this.notReadyButton = new System.Windows.Forms.Button();
             this.connectedToLobbyPanel = new System.Windows.Forms.Panel();
-            this.countdownLabel = new System.Windows.Forms.Label();
-            this.countdownHeader = new System.Windows.Forms.Label();
+            this.counter = new System.Windows.Forms.Label();
             this.player2Name = new System.Windows.Forms.Label();
             this.player2Desc = new System.Windows.Forms.Label();
             this.player1Name = new System.Windows.Forms.Label();
@@ -82,8 +81,7 @@
             // connectedToLobbyPanel
             // 
             resources.ApplyResources(this.connectedToLobbyPanel, "connectedToLobbyPanel");
-            this.connectedToLobbyPanel.Controls.Add(this.countdownLabel);
-            this.connectedToLobbyPanel.Controls.Add(this.countdownHeader);
+            this.connectedToLobbyPanel.Controls.Add(this.counter);
             this.connectedToLobbyPanel.Controls.Add(this.player2Name);
             this.connectedToLobbyPanel.Controls.Add(this.player2Desc);
             this.connectedToLobbyPanel.Controls.Add(this.player1Name);
@@ -92,15 +90,10 @@
             this.connectedToLobbyPanel.Controls.Add(this.notReadyButton);
             this.connectedToLobbyPanel.Name = "connectedToLobbyPanel";
             // 
-            // countdownLabel
+            // counter
             // 
-            resources.ApplyResources(this.countdownLabel, "countdownLabel");
-            this.countdownLabel.Name = "countdownLabel";
-            // 
-            // countdownHeader
-            // 
-            resources.ApplyResources(this.countdownHeader, "countdownHeader");
-            this.countdownHeader.Name = "countdownHeader";
+            resources.ApplyResources(this.counter, "counter");
+            this.counter.Name = "counter";
             // 
             // player2Name
             // 
@@ -154,12 +147,11 @@
         private Button readyButton;
         private Button notReadyButton;
         private Panel connectedToLobbyPanel;
-        private Label countdownLabel;
-        private Label countdownHeader;
         private Label player2Name;
         private Label player2Desc;
         private Label player1Name;
         private Label player1Desc;
         private Panel connectPanel;
+        private Label counter;
     }
 }

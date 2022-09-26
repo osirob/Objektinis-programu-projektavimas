@@ -36,6 +36,7 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.player2 = new System.Windows.Forms.PictureBox();
             this.playerLabel = new System.Windows.Forms.Label();
+            this.SendCordinatesTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
@@ -86,7 +87,7 @@
             // 
             this.gameTimer.Enabled = true;
             this.gameTimer.Interval = 20;
-            this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
+            this.gameTimer.Tick += new System.EventHandler(this.gameTimer_TickAsync);
             // 
             // player2
             // 
@@ -106,6 +107,11 @@
             this.playerLabel.Size = new System.Drawing.Size(235, 25);
             this.playerLabel.TabIndex = 5;
             this.playerLabel.Text = "Player1: Name";
+            // 
+            // SendCordinatesTimer
+            // 
+            this.SendCordinatesTimer.Interval = 20;
+            this.SendCordinatesTimer.Tick += new System.EventHandler(this.SendCordinatesTimer_Tick);
             // 
             // Game
             // 
@@ -141,5 +147,6 @@
         private System.Windows.Forms.Timer gameTimer;
         private PictureBox player2;
         private Label playerLabel;
+        private System.Windows.Forms.Timer SendCordinatesTimer;
     }
 }

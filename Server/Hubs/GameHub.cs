@@ -95,6 +95,7 @@ namespace Server.Hubs
                 index = 2;
                 UserHandler.Players[1] = true;
             }
+            Console.WriteLine("PLayer index:" + index); 
             await Clients.Caller.SendAsync("asigningPlayers", index.ToString());
         }
 
@@ -133,6 +134,19 @@ namespace Server.Hubs
         {
             GameInfo.HowManyIsRead = 0;
             await Clients.All.SendAsync("resetCount", "Reseted");
+        }
+
+        public async Task GetFirtPlayerCordinates(string message)
+        {
+            //Console.WriteLine("Player first:" + message);
+            await Clients.All.SendAsync("firstPlayer", message);
+        }
+
+
+        public async Task GetSecondPlayerCordinates(string message)
+        {
+            //Console.WriteLine("Player Second:" + message);
+            await Clients.All.SendAsync("secondPlayer", message);
         }
     }
 }

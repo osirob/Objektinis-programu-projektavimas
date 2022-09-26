@@ -101,28 +101,32 @@
   <data name="notReadyButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="countdownLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="counter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="countdownLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 15</value>
+  <data name="counter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 26.25pt</value>
   </data>
-  <data name="countdownLabel.Text" xml:space="preserve">
-    <value>number</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="counter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="countdownLabel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="counter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 317</value>
   </data>
-  <data name="countdownHeader.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="counter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 49</value>
   </data>
-  <data name="countdownHeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 15</value>
+  <data name="counter.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
-  <data name="countdownHeader.Text" xml:space="preserve">
-    <value>Game begins in</value>
+  <data name="counter.Text" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="countdownHeader.Visible" type="System.Boolean, mscorlib">
+  <data name="counter.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="counter.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="player2Name.AutoSize" type="System.Boolean, mscorlib">
@@ -177,7 +181,7 @@
     <value>0, 0</value>
   </data>
   <data name="connectPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>614, 545</value>
+    <value>608, 545</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>614, 547</value>
