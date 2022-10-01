@@ -6,6 +6,7 @@ namespace Client
     public partial class BLOCKS : Form
     {
         private HubConnection connection;
+        GameManager gameManager = GameManager.Instance;
         private Player me;
         private Player other;
 
@@ -40,6 +41,7 @@ namespace Client
                 }
 
                 this.me = task.Result;
+                gameManager.SetPlayer(task.Result, true);
                 setMyPlayer();
             });
 
@@ -52,6 +54,7 @@ namespace Client
                 }
 
                 this.other = task.Result;
+                gameManager.SetPlayer(task.Result, false);
                 setOtherPlayer();
             });
 

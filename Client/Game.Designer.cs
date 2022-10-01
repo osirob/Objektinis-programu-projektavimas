@@ -37,6 +37,7 @@
             this.player2 = new System.Windows.Forms.PictureBox();
             this.playerLabel = new System.Windows.Forms.Label();
             this.SendCordinatesTimer = new System.Windows.Forms.Timer(this.components);
+            this.testLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
@@ -98,6 +99,7 @@
             this.player2.TabIndex = 4;
             this.player2.TabStop = false;
             this.player2.Tag = "player2";
+            this.player2.Click += new System.EventHandler(this.player2_Click);
             // 
             // playerLabel
             // 
@@ -113,12 +115,23 @@
             this.SendCordinatesTimer.Interval = 20;
             this.SendCordinatesTimer.Tick += new System.EventHandler(this.SendCordinatesTimer_Tick);
             // 
+            // testLabel
+            // 
+            this.testLabel.AutoSize = true;
+            this.testLabel.Location = new System.Drawing.Point(443, 184);
+            this.testLabel.Name = "testLabel";
+            this.testLabel.Size = new System.Drawing.Size(26, 15);
+            this.testLabel.TabIndex = 6;
+            this.testLabel.Text = "test";
+            this.testLabel.Visible = false;
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(934, 661);
+            this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
             this.Controls.Add(this.player2);
             this.Controls.Add(this.player1);
@@ -135,6 +148,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.player1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,5 +162,6 @@
         private PictureBox player2;
         private Label playerLabel;
         private System.Windows.Forms.Timer SendCordinatesTimer;
+        private Label testLabel;
     }
 }

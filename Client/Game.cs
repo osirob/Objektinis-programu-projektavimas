@@ -28,6 +28,8 @@ namespace Client
         int force = 8;
         bool StartGame = false;
 
+        GameManager gameManager = GameManager.Instance;
+
         // Stats
         int health = 0;
         int score = 0;
@@ -42,11 +44,19 @@ namespace Client
         {
             InitializeComponent();
             player = player1;
-            AsignPlayers();
+            CheckPlayerIndex();
+            //AsignPlayers();
+            _=InilitizeConectionAsync();
             StartGame = true;
             SendCordinatesTimer.Start();
         }
 
+        public async Task InilitizeConectionAsync()
+        {
+            connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
+            await connection.StartAsync();
+        }
+        /**
         private async void AsignPlayers()
         {
             connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
@@ -70,15 +80,17 @@ namespace Client
             });
             await connection.SendAsync("AsignPlayer", "");
         }
-
+        */
         private void CheckPlayerIndex()
         {
-            if (playerIndex == 1)
+            if (gameManager.GetYourId() == 0)
             {
                 player = player1;
+                playerLabel.Text = gameManager.GetName();
             }
             else
             {
+                playerLabel.Text = gameManager.GetName();
                 player = player2;
             }
         }
@@ -132,8 +144,10 @@ namespace Client
 
         public async Task SendCordinates_TickAsync()
         {
-            if (int.Parse(playerLabel.Text) == 1)
+
+            if (gameManager.GetYourId() == 0)
             {
+                testLabel.Text = "Player 0";
                 connection.On<string>("secondPlayer", (message) =>
                 {
                     string[] splitedText = message.Split(',');
@@ -144,6 +158,7 @@ namespace Client
             }
             else
             {
+                testLabel.Text = "Player 1";
                 connection.On<string>("firstPlayer", (message) =>
                 {
                     string[] splitedText = message.Split(',');
@@ -206,6 +221,11 @@ namespace Client
         private void SendCordinatesTimer_Tick(object sender, EventArgs e)
         {
             SendCordinates_TickAsync();
+        }
+
+        private void player2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
