@@ -47,6 +47,7 @@ namespace Server.Hubs
                 Name = nickname,
                 isReady = false
             };
+            Console.WriteLine(player.Id);
             UserHandler.GamePlayers.Add(player);
 
             await Clients.Others.SendAsync("NewPlayer", player);
@@ -138,15 +139,21 @@ namespace Server.Hubs
 
         public async Task GetFirtPlayerCordinates(string message)
         {
-            //Console.WriteLine("Player first:" + message);
+            Console.WriteLine("Player first:" + message);
             await Clients.All.SendAsync("firstPlayer", message);
         }
 
 
         public async Task GetSecondPlayerCordinates(string message)
         {
-            //Console.WriteLine("Player Second:" + message);
+            Console.WriteLine("Player Second:" + message);
             await Clients.All.SendAsync("secondPlayer", message);
+        }
+
+        public async Task TestMethod(string message)
+        {
+            Console.WriteLine("REQUEST WAS GOT");
+            await Clients.All.SendAsync("testMethod", message);
         }
     }
 }
