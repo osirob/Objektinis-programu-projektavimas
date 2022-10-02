@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Shared.Shared;
+using System.Diagnostics;
 
 namespace Server.Hubs
 {
@@ -17,6 +18,19 @@ namespace Server.Hubs
         public static int HowManyIsRead { get; set; } = 0;
         public static bool GameIsStarted { get; set; } = false;
         public static int MaxPlayers = 2;
+        public static Stopwatch stopwatch = new Stopwatch();
+        // LIST of coins
+        public static void CalculateSeconds()
+        {
+            if (stopwatch.IsRunning) { return; }
+
+            stopwatch.Start();
+            while (true)
+            {
+                Thread.Sleep(1000);
+                //Console.WriteLine($"Elapsed {stopwatch.Elapsed.TotalSeconds} seconds.");
+            }
+        }
     }
 
     //https://localhost:7021/gameHub
@@ -96,7 +110,7 @@ namespace Server.Hubs
                 index = 2;
                 UserHandler.Players[1] = true;
             }
-            Console.WriteLine("PLayer index:" + index); 
+            //Console.WriteLine("PLayer index:" + index); 
             await Clients.Caller.SendAsync("asigningPlayers", index.ToString());
         }
 
@@ -106,8 +120,8 @@ namespace Server.Hubs
             {
                 GameInfo.HowManyIsRead++;
             }
-            Console.WriteLine(GameInfo.HowManyIsRead);
-            Console.WriteLine(UserHandler.ConnectedIds.ToString());
+            //Console.WriteLine(GameInfo.HowManyIsRead);
+            //Console.WriteLine(UserHandler.ConnectedIds.ToString());
             await Clients.All.SendAsync("checkReady", GameInfo.HowManyIsRead.ToString());
         }
 
@@ -133,20 +147,21 @@ namespace Server.Hubs
 
         public async Task ResetReady(string message)
         {
+            new Thread(delegate () { GameInfo.CalculateSeconds(); }).Start(); //starts GameTimer in server when game starts, very important
             GameInfo.HowManyIsRead = 0;
             await Clients.All.SendAsync("resetCount", "Reseted");
         }
 
         public async Task GetFirtPlayerCordinates(string message)
         {
-            Console.WriteLine("Player first:" + message);
+            //Console.WriteLine("Player first:" + message);
             await Clients.All.SendAsync("firstPlayer", message);
         }
 
 
         public async Task GetSecondPlayerCordinates(string message)
         {
-            Console.WriteLine("Player Second:" + message);
+            //.WriteLine("Player Second:" + message);
             await Clients.All.SendAsync("secondPlayer", message);
         }
 
