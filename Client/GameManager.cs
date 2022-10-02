@@ -35,13 +35,17 @@ namespace Client
 
         public void SetPlayer(Player player, bool ItsMe)
         {
-            if (ItsMe)
+            lock (padlock)
             {
-                player1 = player;
-            }
-            else
-            {
-                player2 = player;
+
+                if (ItsMe)
+                {
+                    player1 = player;
+                }
+                else
+                {
+                    player2 = player;
+                }
             }
         }
 
