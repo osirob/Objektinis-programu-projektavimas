@@ -3,11 +3,11 @@ using Shared.Shared;
 
 namespace Server.Src.Classes
 {
-    public class CoinFactory : ICollectableFactory
+    public class ArmorFactory : ICollectableFactory
     {
         public ICollectable CreateCollectable(int value, int xCoord)
         {
-            return new Coin(value, xCoord);
+            return new Armor(value, xCoord);
         }
     }
 }

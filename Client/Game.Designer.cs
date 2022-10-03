@@ -38,6 +38,7 @@
             this.playerLabel = new System.Windows.Forms.Label();
             this.SendCordinatesTimer = new System.Windows.Forms.Timer(this.components);
             this.testLabel = new System.Windows.Forms.Label();
+            this.trashLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
@@ -82,7 +83,6 @@
             this.player1.TabIndex = 3;
             this.player1.TabStop = false;
             this.player1.Tag = "player1";
-            this.player1.Click += new System.EventHandler(this.player_Click);
             // 
             // gameTimer
             // 
@@ -99,7 +99,6 @@
             this.player2.TabIndex = 4;
             this.player2.TabStop = false;
             this.player2.Tag = "player2";
-            this.player2.Click += new System.EventHandler(this.player2_Click);
             // 
             // playerLabel
             // 
@@ -125,12 +124,22 @@
             this.testLabel.Text = "test";
             this.testLabel.Visible = false;
             // 
+            // trashLabel
+            // 
+            this.trashLabel.AutoSize = true;
+            this.trashLabel.Location = new System.Drawing.Point(213, 233);
+            this.trashLabel.Name = "trashLabel";
+            this.trashLabel.Size = new System.Drawing.Size(38, 15);
+            this.trashLabel.TabIndex = 7;
+            this.trashLabel.Text = "label1";
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(934, 661);
+            this.Controls.Add(this.trashLabel);
             this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
             this.Controls.Add(this.player2);
@@ -140,7 +149,6 @@
             this.Controls.Add(this.hpLabel);
             this.Name = "Game";
             this.Text = "Game";
-            this.Load += new System.EventHandler(this.Game_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).EndInit();
@@ -163,5 +171,6 @@
         private Label playerLabel;
         private System.Windows.Forms.Timer SendCordinatesTimer;
         private Label testLabel;
+        private Label trashLabel;
     }
 }

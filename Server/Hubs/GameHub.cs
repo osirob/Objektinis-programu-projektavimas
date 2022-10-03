@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Server.Src.Classes;
 using Shared.Shared;
 using System.Diagnostics;
 
@@ -19,18 +20,9 @@ namespace Server.Hubs
         public static bool GameIsStarted { get; set; } = false;
         public static int MaxPlayers = 2;
         public static Stopwatch stopwatch = new Stopwatch();
-        // LIST of coins
-        public static void CalculateSeconds()
-        {
-            if (stopwatch.IsRunning) { return; }
-
-            stopwatch.Start();
-            while (true)
-            {
-                Thread.Sleep(1000);
-                //Console.WriteLine($"Elapsed {stopwatch.Elapsed.TotalSeconds} seconds.");
-            }
-        }
+        public static CollectableFactory collectableFactory = new CollectableFactory();
+        public static List<Coin> coins = new List<Coin>();
+        public static int coinsRequested = 0;
     }
 
     //https://localhost:7021/gameHub
@@ -40,13 +32,21 @@ namespace Server.Hubs
         {
 
         }
-
-        /*public async override Task<Task> OnConnectedAsync()
+        public async Task RequestCoins()
         {
-            UserHandler.ConnectedIds.Add(Context.ConnectionId);
-            await CheckHowManyOnlineIs("Connected");
-            return base.OnConnectedAsync();
-        }*/
+            if(GameInfo.coinsRequested == 2 && GameInfo.coins.Count == 0)
+            {
+                GameInfo.coinsRequested = 0;
+                for(int i = 0; i < 5; i++)
+                {
+                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, i*20+100, 150);
+                    GameInfo.coins.Add(coin as Coin);
+                }
+                await Clients.All.SendAsync("sendCoins", GameInfo.coins);
+                Console.WriteLine($"Sent coins {GameInfo.coins.Count}");
+            }
+            else { GameInfo.coinsRequested++; }
+        }
 
         public async Task<Player> ConnectPlayer(string nickname)
         {
@@ -147,7 +147,6 @@ namespace Server.Hubs
 
         public async Task ResetReady(string message)
         {
-            new Thread(delegate () { GameInfo.CalculateSeconds(); }).Start(); //starts GameTimer in server when game starts, very important
             GameInfo.HowManyIsRead = 0;
             await Clients.All.SendAsync("resetCount", "Reseted");
         }

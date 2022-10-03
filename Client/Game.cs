@@ -1,17 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Client
 {
@@ -27,6 +15,7 @@ namespace Client
         int playerSpeed = 5;
         int force = 8;
         bool StartGame = false;
+        int ticks = 0; //20ms is 1 tick
 
         GameManager gameManager = GameManager.Instance;
 
@@ -39,6 +28,7 @@ namespace Client
 
 
         PictureBox player;
+        List<Coin> gameCoins;
 
         public Game()
         {
@@ -47,6 +37,7 @@ namespace Client
             CheckPlayerIndex();
             //AsignPlayers();
             _=InilitizeConectionAsync();
+            InitializeCllectableListeners();
             StartGame = true;
             SendCordinatesTimer.Start();
         }
@@ -56,31 +47,27 @@ namespace Client
             connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
             await connection.StartAsync();
         }
-        /**
-        private async void AsignPlayers()
+
+        public void InitializeCllectableListeners()
         {
-            connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
-            await connection.StartAsync();
-            connection.On<string>("asigningPlayers", (message) =>
-            {
-                if(message == "1")
+            gameCoins = new List<Coin>();
+            connection.On<List<Coin>>("sendCoins", coins => {
+                gameCoins.AddRange(coins);
+                trashLabel.Text = $"Recieved {coins.Count} coins";
+                foreach(Coin coin in gameCoins)
                 {
-                    playerIndex = int.Parse(message);
-                    playerLabel.Text = message;
-                    player = player1;
-                    
-                }
-                else
-                {
-                    playerIndex = int.Parse(message);
-                    playerLabel.Text = message;
-                    player = player2;
-                    
+                    var box = new PictureBox
+                    {
+                        Tag = coin.Tag,
+                        Size = new Size(15, 15),
+                        Location = new Point(coin.XCoord, 50), //change coord logic later
+                        BackColor = Color.Yellow
+                    };
+                    this.Controls.Add(box);
                 }
             });
-            await connection.SendAsync("AsignPlayer", "");
         }
-        */
+        
         private void CheckPlayerIndex()
         {
             if (gameManager.GetYourId() == 0)
@@ -96,10 +83,12 @@ namespace Client
         }
 
         //This method executes each 20ms, basically making it the engine
-        private void gameTimer_TickAsync(object sender, EventArgs e)
+        private async void gameTimer_TickAsync(object sender, EventArgs e)
         {
             if (StartGame)
             {
+                ticks++;
+
                 player.Top += jumpSpeed;
 
                 if (jumping && force < 0)
@@ -137,6 +126,12 @@ namespace Client
                             player.Top = x.Top - player.Height;
                         }
                     }
+                }
+
+                if(ticks >= 10) //if 10 secs or more elapsed 500
+                {
+                    ticks = 0;
+                    await connection.SendAsync("RequestCoins");
                 }
             }
         }
@@ -208,24 +203,9 @@ namespace Client
             }
         }
 
-        private void player_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Game_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void SendCordinatesTimer_Tick(object sender, EventArgs e)
         {
             SendCordinates_TickAsync();
-        }
-
-        private void player2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

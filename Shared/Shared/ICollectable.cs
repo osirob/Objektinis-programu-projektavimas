@@ -1,6 +1,7 @@
-﻿namespace Server.Src.Interfaces
+﻿namespace Shared.Shared
 {
     public interface ICollectable
     {
+
     }
 }

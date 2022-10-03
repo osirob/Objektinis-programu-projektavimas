@@ -1,4 +1,6 @@
-﻿namespace Server.Src.Interfaces
+﻿using Shared.Shared;
+
+namespace Server.Src.Interfaces
 {
     public interface ICollectableFactory
     {
