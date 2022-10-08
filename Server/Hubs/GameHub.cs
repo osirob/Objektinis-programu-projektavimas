@@ -153,21 +153,23 @@ namespace Server.Hubs
 
         public async Task GetFirtPlayerCordinates(string message)
         {
-            //Console.WriteLine("Player first:" + message);
+            Console.WriteLine(message);
             await Clients.All.SendAsync("firstPlayer", message);
         }
 
-
         public async Task GetSecondPlayerCordinates(string message)
         {
-            //.WriteLine("Player Second:" + message);
             await Clients.All.SendAsync("secondPlayer", message);
         }
 
-        public async Task TestMethod(string message)
+        public async Task SendPlayer1WeaponCoordinatesToPlayer2(string coordinates)
         {
-            Console.WriteLine("REQUEST WAS GOT");
-            await Clients.All.SendAsync("testMethod", message);
+            await Clients.Others.SendAsync("receivePlayer1WeaponCoordinates", coordinates);
+        }
+
+        public async Task SendPlayer2WeaponCoordinatesToPlayer1(string coordinates)
+        {
+            await Clients.Others.SendAsync("receivePlayer2WeaponCoordinates", coordinates);
         }
     }
 }
