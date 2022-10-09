@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    internal class Observer
+    public abstract class Observer
     {
+        public abstract void UpdateCordinatesFirstPlayer(string cordinates);
     }
 }
