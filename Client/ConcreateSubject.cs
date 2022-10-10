@@ -22,14 +22,21 @@ namespace Client
         {
             await connection.StartAsync();
         }
-        public override void ReceiveCordinates(string cordinates, string PlayerNumber)
+        public override string ReceiveCordinates(string cordinates, string PlayerNumber)
         {
-            throw new NotImplementedException();
+            var returnedCordinates = "";
+            connection.On<string>(PlayerNumber, (message) =>
+            {
+                returnedCordinates = message;
+            });
+            SendCordinatesAsync(cordinates, PlayerNumber);
+            UpdateCord();
         }
 
-        public override void SendCordinates(string cordinates, string PlayerNumber)
+        public override async void SendCordinatesAsync(string cordinates, string PlayerNumber)
         {
-            throw new NotImplementedException();
+            string[] cordinatesAlone = cordinates.Split(',');
+            await connection.SendAsync(PlayerNumber, cordinatesAlone[0] + "," + cordinatesAlone[1]);
         }
     }
 }

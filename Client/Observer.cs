@@ -8,6 +8,7 @@ namespace Client
 {
     public abstract class Observer
     {
+        public Subject? subject = null;
         public abstract void UpdateCordinatesFirstPlayer(string cordinates);
     }
 }

@@ -28,7 +28,7 @@ namespace Client
             }
         }
 
-        public abstract void SendCordinates(string cordinates, string PlayerNumber);
+        public abstract void SendCordinatesAsync(string cordinates, string PlayerNumber);
         public abstract void ReceiveCordinates(string cordinates, string PlayerNumber);
     }
 }
