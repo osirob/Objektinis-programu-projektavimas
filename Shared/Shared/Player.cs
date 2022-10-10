@@ -15,7 +15,10 @@ namespace Shared.Shared
 
         public override void UpdateCordinatesFirstPlayer(string cordinates)
         {
-            throw new NotImplementedException();
+            string[] splited = cordinates.Split(',');
+
+            X = Convert.ToInt32(splited[0]);
+            Y = Convert.ToInt32(splited[1]);
         }
 
 

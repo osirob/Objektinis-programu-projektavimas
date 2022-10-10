@@ -326,5 +326,10 @@ namespace Client
                 });
             }
         }
+
+        private void SendCordinatesTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

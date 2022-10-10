@@ -11,7 +11,8 @@ namespace Client
     {
 
         private HubConnection connection;
-
+        private string CoorinatesOfPlayer = "";
+       
         public ConcreateSubject()
         {
             this.connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
@@ -22,15 +23,28 @@ namespace Client
         {
             await connection.StartAsync();
         }
-        public override string ReceiveCordinates(string cordinates, string PlayerNumber)
+        public override void ReceiveCordinates(string cordinates, string PlayerNumber)
         {
-            var returnedCordinates = "";
-            connection.On<string>(PlayerNumber, (message) =>
+            string WhichReceive = "";
+            string WhichSend = "";
+            if (Convert.ToInt32(PlayerNumber) == 0)
             {
-                returnedCordinates = message;
+                WhichReceive = "SecondPlayer";
+                WhichSend = "FirstPlayer";
+
+            }
+            else
+            {
+                WhichReceive = "FirstPlayer";
+                WhichSend = "SecondPlayer";
+            }
+            connection.On<string>(WhichReceive, (message) =>
+            {
+                CoorinatesOfPlayer = message;
+                UpdateCord(CoorinatesOfPlayer);
             });
-            SendCordinatesAsync(cordinates, PlayerNumber);
-            UpdateCord();
+            SendCordinatesAsync(cordinates, WhichSend);
+
         }
 
         public override async void SendCordinatesAsync(string cordinates, string PlayerNumber)

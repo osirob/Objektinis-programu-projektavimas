@@ -8,6 +8,6 @@ namespace Client
 {
     public abstract class Unit : Observer
     {
-        private string name ="";
+       
     }
 }
