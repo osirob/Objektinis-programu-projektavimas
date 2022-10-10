@@ -48,19 +48,18 @@
             // hpLabel
             // 
             this.hpLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.hpLabel.Location = new System.Drawing.Point(917, 12);
+            this.hpLabel.Location = new System.Drawing.Point(802, 9);
             this.hpLabel.Name = "hpLabel";
-            this.hpLabel.Size = new System.Drawing.Size(137, 33);
+            this.hpLabel.Size = new System.Drawing.Size(120, 25);
             this.hpLabel.TabIndex = 0;
             this.hpLabel.Text = "HP: 100";
             // 
             // groundPlatform
             // 
             this.groundPlatform.BackColor = System.Drawing.Color.Green;
-            this.groundPlatform.Location = new System.Drawing.Point(-21, 849);
-            this.groundPlatform.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groundPlatform.Location = new System.Drawing.Point(-18, 637);
             this.groundPlatform.Name = "groundPlatform";
-            this.groundPlatform.Size = new System.Drawing.Size(1122, 40);
+            this.groundPlatform.Size = new System.Drawing.Size(982, 30);
             this.groundPlatform.TabIndex = 1;
             this.groundPlatform.TabStop = false;
             this.groundPlatform.Tag = "platform";
@@ -68,10 +67,9 @@
             // floatingPlatform
             // 
             this.floatingPlatform.BackColor = System.Drawing.Color.Brown;
-            this.floatingPlatform.Location = new System.Drawing.Point(170, 704);
-            this.floatingPlatform.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.floatingPlatform.Location = new System.Drawing.Point(149, 528);
             this.floatingPlatform.Name = "floatingPlatform";
-            this.floatingPlatform.Size = new System.Drawing.Size(216, 40);
+            this.floatingPlatform.Size = new System.Drawing.Size(189, 30);
             this.floatingPlatform.TabIndex = 2;
             this.floatingPlatform.TabStop = false;
             this.floatingPlatform.Tag = "platform";
@@ -79,10 +77,9 @@
             // player1
             // 
             this.player1.BackColor = System.Drawing.Color.Blue;
-            this.player1.Location = new System.Drawing.Point(917, 727);
-            this.player1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.player1.Location = new System.Drawing.Point(802, 545);
             this.player1.Name = "player1";
-            this.player1.Size = new System.Drawing.Size(40, 80);
+            this.player1.Size = new System.Drawing.Size(35, 60);
             this.player1.TabIndex = 3;
             this.player1.TabStop = false;
             this.player1.Tag = "player1";
@@ -96,10 +93,9 @@
             // player2
             // 
             this.player2.BackColor = System.Drawing.Color.Red;
-            this.player2.Location = new System.Drawing.Point(38, 727);
-            this.player2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.player2.Location = new System.Drawing.Point(33, 545);
             this.player2.Name = "player2";
-            this.player2.Size = new System.Drawing.Size(40, 80);
+            this.player2.Size = new System.Drawing.Size(35, 60);
             this.player2.TabIndex = 4;
             this.player2.TabStop = false;
             this.player2.Tag = "player2";
@@ -107,22 +103,23 @@
             // playerLabel
             // 
             this.playerLabel.Font = new System.Drawing.Font("Consolas", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.playerLabel.Location = new System.Drawing.Point(423, 12);
+            this.playerLabel.Location = new System.Drawing.Point(370, 9);
             this.playerLabel.Name = "playerLabel";
-            this.playerLabel.Size = new System.Drawing.Size(269, 33);
+            this.playerLabel.Size = new System.Drawing.Size(235, 25);
             this.playerLabel.TabIndex = 5;
             this.playerLabel.Text = "Player1: Name";
             // 
             // SendCordinatesTimer
             // 
             this.SendCordinatesTimer.Interval = 20;
+            this.SendCordinatesTimer.Tick += new System.EventHandler(this.SendCordinatesTimer_Tick);
             // 
             // testLabel
             // 
             this.testLabel.AutoSize = true;
-            this.testLabel.Location = new System.Drawing.Point(506, 245);
+            this.testLabel.Location = new System.Drawing.Point(443, 184);
             this.testLabel.Name = "testLabel";
-            this.testLabel.Size = new System.Drawing.Size(33, 20);
+            this.testLabel.Size = new System.Drawing.Size(26, 15);
             this.testLabel.TabIndex = 6;
             this.testLabel.Text = "test";
             this.testLabel.Visible = false;
@@ -130,18 +127,18 @@
             // trashLabel
             // 
             this.trashLabel.AutoSize = true;
-            this.trashLabel.Location = new System.Drawing.Point(243, 311);
+            this.trashLabel.Location = new System.Drawing.Point(213, 233);
             this.trashLabel.Name = "trashLabel";
-            this.trashLabel.Size = new System.Drawing.Size(50, 20);
+            this.trashLabel.Size = new System.Drawing.Size(38, 15);
             this.trashLabel.TabIndex = 7;
             this.trashLabel.Text = "label1";
             // 
             // Game
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(1067, 881);
+            this.ClientSize = new System.Drawing.Size(934, 661);
             this.Controls.Add(this.trashLabel);
             this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
@@ -150,7 +147,6 @@
             this.Controls.Add(this.floatingPlatform);
             this.Controls.Add(this.groundPlatform);
             this.Controls.Add(this.hpLabel);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Game";
             this.Text = "Game";
             this.Load += new System.EventHandler(this.Game_Load);

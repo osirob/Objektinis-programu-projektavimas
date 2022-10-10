@@ -20,11 +20,11 @@ namespace Client
             observers.Remove(observer);
         }
 
-        public void UpdateCord()
+        public void UpdateCord(string Coordinates)
         {
             foreach(Observer observer in observers)
             {
-                observer.UpdateCordinatesFirstPlayer("Test");
+                observer.UpdateCordinatesFirstPlayer(Coordinates);
             }
         }
 
