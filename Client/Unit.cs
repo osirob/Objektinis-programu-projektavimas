@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    internal class Unit
+    public abstract class Unit : Observer
     {
+        private string name ="";
     }
 }
