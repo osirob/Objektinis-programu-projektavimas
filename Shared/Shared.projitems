@@ -9,8 +9,10 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\AmmoPack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Armor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Coin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\HealthPack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\ICollectable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Player.cs" />
   </ItemGroup>

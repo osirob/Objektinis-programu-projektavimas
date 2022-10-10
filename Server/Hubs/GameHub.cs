@@ -19,9 +19,11 @@ namespace Server.Hubs
         public static int HowManyIsRead { get; set; } = 0;
         public static bool GameIsStarted { get; set; } = false;
         public static int MaxPlayers = 2;
-        public static Stopwatch stopwatch = new Stopwatch();
+
         public static CollectableFactory collectableFactory = new CollectableFactory();
         public static List<Coin> coins = new List<Coin>();
+        public static List<Armor> armor = new List<Armor>();
+        public static List<HealthPack> healthPacks = new List<HealthPack>();
         public static int coinsRequested = 0;
     }
 

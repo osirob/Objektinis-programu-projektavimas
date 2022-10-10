@@ -7,7 +7,7 @@ namespace Server.Src.Classes
     {
         public enum CollectableTypes
         {
-            Coin, Armor
+            Coin, Armor, HealthPack
         }
 
         private Dictionary<CollectableTypes, ICollectableFactory> factories =
