@@ -5,19 +5,10 @@ using System.Diagnostics;
 
 namespace Server.Hubs
 {
-    public static class UserHandler
-    {
-        public static HashSet<string> ConnectedIds = new HashSet<string>();
-
-        public static bool[] Players = new bool[2];
-
-        public static List<Player> GamePlayers = new List<Player>();
-    }
-
     static class GameInfo
     {
-        public static int HowManyIsRead { get; set; } = 0;
-        public static bool GameIsStarted { get; set; } = false;
+        //public static int HowManyIsRead { get; set; } = 0;
+        //public static bool GameIsStarted { get; set; } = false;
         public static int MaxPlayers = 2;
 
         public static CollectableFactory collectableFactory = new CollectableFactory();
@@ -30,6 +21,8 @@ namespace Server.Hubs
     //https://localhost:7021/gameHub
     public class GameHub : Hub
     {
+        GameManagerServer gameManagerServer = GameManagerServer.Instance;
+
         public GameHub()
         {
 
@@ -52,19 +45,20 @@ namespace Server.Hubs
 
         public async Task<Player> ConnectPlayer(string nickname)
         {
-            if(UserHandler.GamePlayers.Count == 2)
+            if(gameManagerServer.GetPlayersCount() == 2)
             {
                 return null;
             }
 
             var player = new Player()
             {
-                Id = UserHandler.GamePlayers.Count,
+                Id = gameManagerServer.GetPlayersCount(),
                 Name = nickname,
                 isReady = false
             };
             Console.WriteLine(player.Id);
-            UserHandler.GamePlayers.Add(player);
+            gameManagerServer.AddNewPlayer(player);
+            //UserHandler.GamePlayers.Add(player);
 
             await Clients.Others.SendAsync("NewPlayer", player);
             Console.WriteLine($"Player {player.Name} connected!");
@@ -73,12 +67,12 @@ namespace Server.Hubs
 
         public async Task<Player> GetOtherPlayer(int id)
         {
-            foreach(Player p in UserHandler.GamePlayers)
+
+            Player p = gameManagerServer.GetOthersPlayers(id);
+
+            if(p != null)
             {
-                if(p.Id != id)
-                {
-                    return p;
-                }
+                return p;
             }
 
             return null;
@@ -87,51 +81,59 @@ namespace Server.Hubs
         public async Task CheckHowManyOnlineIs(string message)
         {
             Console.WriteLine($"Check recieved: {message}");
-            await Clients.All.SendAsync("checkOnline", UserHandler.ConnectedIds.Count.ToString());
+            await Clients.All.SendAsync("checkOnline", gameManagerServer.ConnectIDCount());
         }
 
         public async override Task<Task> OnDisconnectedAsync(Exception exception)
         {
-            UserHandler.ConnectedIds.Remove(Context.ConnectionId);
-            UserHandler.Players[0] = false;
-            UserHandler.Players[1] = false;
+            //UserHandler.ConnectedIds.Remove(Context.ConnectionId);
+            gameManagerServer.RemoveConnect(Context.ConnectionId);
+            gameManagerServer.SetUnReady(0);
+            gameManagerServer.SetUnReady(1);
+            //UserHandler.Players[0] = false;
+            //UserHandler.Players[1] = false;
             await CheckHowManyOnlineIs("Disconected");
             return base.OnDisconnectedAsync(exception);
         }
 
+        /*
         public async Task AsignPlayer(string message)
         {
             int index = 0;
-            if (!UserHandler.Players[0])
+            if (gameManagerServer.GetIfPlayersAreReady())
             {
                 index = 1;
-                UserHandler.Players[0] = true;
+                //UserHandler.Players[0] = true;
+                gameManagerServer.SetReady(0);
             }
             else
             {
                 index = 2;
-                UserHandler.Players[1] = true;
+                //UserHandler.Players[1] = true;
+                gameManagerServer.SetReady(1);
             }
             //Console.WriteLine("PLayer index:" + index); 
             await Clients.Caller.SendAsync("asigningPlayers", index.ToString());
         }
-
+        */
         public async Task CheckHowManyReadyIs(string message)
         {
             //if (!UserHandler.ConnectedIds.Contains(Context.ConnectionId))
             {
-                GameInfo.HowManyIsRead++;
+                //GameInfo.HowManyIsRead++;
             }
+            gameManagerServer.AddReady();
             //Console.WriteLine(GameInfo.HowManyIsRead);
             //Console.WriteLine(UserHandler.ConnectedIds.ToString());
-            await Clients.All.SendAsync("checkReady", GameInfo.HowManyIsRead.ToString());
+            await Clients.All.SendAsync("checkReady", gameManagerServer.CheckHowManyIsReady().ToString());
         }
 
         public async Task UndoReady(string message)
         {
-            GameInfo.HowManyIsRead--;
+            //GameInfo.HowManyIsRead--;
             //Console.WriteLine($"Check recieved: {message}");
-            await Clients.All.SendAsync("undoReady", GameInfo.HowManyIsRead.ToString());
+            gameManagerServer.RemoveReady();
+            await Clients.All.SendAsync("undoReady", gameManagerServer.CheckHowManyIsReady().ToString());
         }
 
         public async Task StartCounting(string message)
@@ -142,14 +144,14 @@ namespace Server.Hubs
                 await Clients.All.SendAsync("counter", time.ToString());
                 Thread.Sleep(1000);
             }
-            GameInfo.GameIsStarted = true;
+            gameManagerServer.SetGameStarted();
             Thread.Sleep(1000);
             await Clients.All.SendAsync("counter", "BEGIN");
         }
 
         public async Task ResetReady(string message)
         {
-            GameInfo.HowManyIsRead = 0;
+            //GameInfo.HowManyIsRead = 0;
             await Clients.All.SendAsync("resetCount", "Reseted");
         }
 

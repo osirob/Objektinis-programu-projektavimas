@@ -331,5 +331,10 @@ namespace Client
         {
 
         }
+
+        private void testLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
