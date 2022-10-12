@@ -9,7 +9,7 @@ namespace Server.Hubs
     {
         //public static int HowManyIsRead { get; set; } = 0;
         //public static bool GameIsStarted { get; set; } = false;
-        public static int MaxPlayers = 2;
+        //public static int MaxPlayers = 2;
 
         public static CollectableFactory collectableFactory = new CollectableFactory();
         public static List<Coin> coins = new List<Coin>();
