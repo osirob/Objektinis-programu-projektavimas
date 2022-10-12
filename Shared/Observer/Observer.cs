@@ -1,9 +1,9 @@
 
-namespace Server.Observer
+namespace Shared.Observer
 {
     public abstract class Observer
     {
         private Subject subject;
-        public abstract void UpdateUnits();
+        public abstract void UpdateCords(string cords);
     }
 }
