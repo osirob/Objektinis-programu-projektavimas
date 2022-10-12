@@ -21,6 +21,8 @@ namespace Shared.Shared
         private static int HowManyIsRead = 0;
         private static bool GameIsStarted = false;
 
+        //private static CollectableFactory collectableFactory = new CollectableFactory();
+
         private GameManagerServer()
         {
 
