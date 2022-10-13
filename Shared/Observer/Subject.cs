@@ -13,10 +13,22 @@ namespace Shared.Observer
         protected Subject(List<Observer> observers)
         {
             Observers = observers;
+
         }
 
-        public abstract void Update(string cords);
-        public abstract void Subscribe(Observer observer);
-        public abstract void Unsubscribe(Observer observer);
+        public abstract void ReportAboutDeath(int id);
+        public abstract void ReceiveAboutDeath(int id);
+        
+        public void Subscribe(Observer o)
+        {
+            Console.WriteLine("Subscribed");
+            Observers.Add(o);
+            o.SetSubject(this);
+        }
+
+        public void Unsubscribe(Observer o)
+        {
+            Observers.Remove(o);
+        }
     }
 }

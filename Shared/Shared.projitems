@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Subject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\AmmoPack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Armor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\DamageDealed.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Position.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Coin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\GameManagerServer.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Observer;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,9 +10,14 @@ namespace Shared.Shared
     {
         protected Position position = new Position();
 
-        public override void UpdateCords(string cords)
+
+        /*
+        public Unit(Subject subject)
         {
-            position.SetCordinates(cords);
+            this.subject = subject;
+            this.subject.Subscribe(this);
         }
+        */
+
     }
 }

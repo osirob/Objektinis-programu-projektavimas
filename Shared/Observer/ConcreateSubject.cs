@@ -1,16 +1,21 @@
 
 namespace Shared.Observer
 {
-    public abstract class ConcreateSubject :Subject
+    public class ConcreateSubject :Subject
     {
-        public ConcreateSubject() : base() { }
-
-        public override void Update(string cords)
+       
+        public override void ReportAboutDeath(int id)
         {
            foreach(var obs in Observers)
-            {
-                obs.UpdateCords(cords);
+            { 
+                obs.ReportAboutDeath(id);
             }
+        }
+
+        public override void ReceiveAboutDeath(int id)
+        {
+            Console.WriteLine("Receive info about one of players death");
+            this.ReportAboutDeath(id);
         }
     }
 }
