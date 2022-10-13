@@ -336,5 +336,15 @@ namespace Client
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _ = TestDeathAsync();
+        }
+
+        async Task TestDeathAsync()
+        {
+            await connection.SendAsync("Die", playerId);
+        }
     }
 }

@@ -128,5 +128,10 @@ namespace Shared.Shared
             GameIsStarted = true;
         }
 
+        public Player GetPlayer(int id)
+        {
+            return GamePlayers[id];
+        }
+
     }
 }

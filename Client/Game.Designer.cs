@@ -39,6 +39,7 @@
             this.SendCordinatesTimer = new System.Windows.Forms.Timer(this.components);
             this.testLabel = new System.Windows.Forms.Label();
             this.trashLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
@@ -134,12 +135,24 @@
             this.trashLabel.TabIndex = 7;
             this.trashLabel.Text = "label1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 71);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Test Die Method";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(934, 661);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.trashLabel);
             this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
@@ -174,5 +187,6 @@
         private System.Windows.Forms.Timer SendCordinatesTimer;
         private Label testLabel;
         private Label trashLabel;
+        private Button button1;
     }
 }

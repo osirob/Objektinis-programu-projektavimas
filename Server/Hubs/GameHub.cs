@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Shared.Observer;
 using Server.Src.Classes;
 using Shared.Shared;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace Server.Hubs
     public class GameHub : Hub
     {
         GameManagerServer gameManagerServer = GameManagerServer.Instance;
+        private static Subject subject = new ConcreateSubject();
 
         public GameHub()
         {
@@ -56,6 +58,8 @@ namespace Server.Hubs
                 Name = nickname,
                 isReady = false
             };
+
+            subject.Subscribe(player);
             Console.WriteLine(player.Id);
             gameManagerServer.AddNewPlayer(player);
             //UserHandler.GamePlayers.Add(player);
@@ -76,6 +80,13 @@ namespace Server.Hubs
             }
 
             return null;
+        }
+
+        public async Task Die(int id)
+        {
+            Console.WriteLine("Reached die async id: {0}",id);
+            gameManagerServer.GetPlayer(id).Die();
+            return;
         }
 
         public async Task CheckHowManyOnlineIs(string message)
@@ -157,7 +168,7 @@ namespace Server.Hubs
 
         public async Task GetFirtPlayerCordinates(string message)
         {
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
             await Clients.All.SendAsync("firstPlayer", message);
         }
 

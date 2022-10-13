@@ -1,4 +1,5 @@
 ﻿//using Client;
+using Shared.Observer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,22 +11,46 @@ namespace Shared.Shared
         public int Id { get; set; }
         public string Name { get; set; }
         public bool isReady { get; set; }
-       
+        public bool isDead { get; set; }
 
+        public List<DamageDealed> damageDealedList = new List<DamageDealed>();
 
-        public Player()
+        public override void ReportAboutDeath(int id)
         {
+            Console.WriteLine("It was reported that {0} died", id);
+            if(this.Id != id && isDead == false)
+            {
+                //Add coints to player
+
+                //Remove from damageDealedLIst
+
+                var element = damageDealedList.Where(x=>x.PlayerId == id).FirstOrDefault();
+                if (element != null)
+                {
+                    damageDealedList.Remove(element);
+                }
+            }
+            else
+            {
+                if (this.subject != null && isDead == false)
+                {
+                    this.isDead = true;
+                    this.subject.ReceiveAboutDeath(id);
+                }
+            }
+
 
         }
-public override void UpdateCordinatesFirstPlayer(string cordinates)
-{
-   string[] splited = cordinates.Split(',');
 
-   X = Convert.ToInt32(splited[0]);
-   Y = Convert.ToInt32(splited[1]);
-}
+        public void Die()
+        {
+            this.ReportAboutDeath(this.Id);
+            //this.isDead = true;
+        }
 
-*/
-        //Coordinates and all the other stuff
+        public void AddDamagesBonus(int damageBonus, int damagePlayerIndex)
+        {
+            this.damageDealedList.Where(x=>x.PlayerId == damagePlayerIndex ).FirstOrDefault().AddBonus(damageBonus);
+        }
     }
 }
