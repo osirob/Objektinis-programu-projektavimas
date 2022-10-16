@@ -12,6 +12,7 @@ namespace Shared.Shared
         public string Name { get; set; }
         public bool isReady { get; set; }
         public bool isDead { get; set; }
+        public int HasCoinValue { get; set; } = 0;
 
         public List<DamageDealed> damageDealedList = new List<DamageDealed>();
 
@@ -25,8 +26,10 @@ namespace Shared.Shared
                 //Remove from damageDealedLIst
 
                 var element = damageDealedList.Where(x=>x.PlayerId == id).FirstOrDefault();
+                
                 if (element != null)
                 {
+                    HasCoinValue += element.Damage / 2;
                     damageDealedList.Remove(element);
                 }
             }
