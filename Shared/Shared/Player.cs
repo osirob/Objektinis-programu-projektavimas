@@ -51,6 +51,11 @@ namespace Shared.Shared
             //this.isDead = true;
         }
 
+        public void Revive()
+        {
+            this.isDead = true;
+        }
+
         public void AddDamagesBonus(int damageBonus, int damagePlayerIndex)
         {
             this.damageDealedList.Where(x=>x.PlayerId == damagePlayerIndex ).FirstOrDefault().AddBonus(damageBonus);

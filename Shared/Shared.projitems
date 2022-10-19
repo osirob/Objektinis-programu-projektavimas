@@ -9,6 +9,9 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Command\CommandInvoker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\DieCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\ConcreateSubject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Observer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Subject.cs" />
