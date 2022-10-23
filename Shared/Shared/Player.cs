@@ -13,6 +13,7 @@ namespace Shared.Shared
         public bool isReady { get; set; }
         public bool isDead { get; set; }
         public int HasCoinValue { get; set; } = 0;
+        public int Health = 100;
 
         public List<DamageDealed> damageDealedList = new List<DamageDealed>();
 
@@ -59,6 +60,16 @@ namespace Shared.Shared
         public void AddDamagesBonus(int damageBonus, int damagePlayerIndex)
         {
             this.damageDealedList.Where(x=>x.PlayerId == damagePlayerIndex ).FirstOrDefault().AddBonus(damageBonus);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            this.Health -= damage;
+        }
+
+        public void UndoDamage(int damage)
+        {
+            this.Health += damage;
         }
     }
 }
