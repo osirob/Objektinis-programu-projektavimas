@@ -3,6 +3,7 @@ using Shared.Observer;
 using Server.Src.Classes;
 using Shared.Shared;
 using System.Diagnostics;
+using Shared.Command;
 
 namespace Server.Hubs
 {
@@ -23,6 +24,7 @@ namespace Server.Hubs
     public class GameHub : Hub
     {
         GameManagerServer gameManagerServer = GameManagerServer.Instance;
+        CommandInvoker invoker = new CommandInvoker();
         private static Subject subject = new ConcreateSubject();
 
         public GameHub()
@@ -85,7 +87,8 @@ namespace Server.Hubs
         public async Task Die(int id)
         {
             Console.WriteLine("Reached die async id: {0}",id);
-            gameManagerServer.GetPlayer(id).Die();
+            ICommand command = new DieCommand(gameManagerServer.GetPlayer(id));
+            invoker.Run(command);
             return;
         }
 
