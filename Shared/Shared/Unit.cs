@@ -8,8 +8,7 @@ namespace Shared.Shared
 {
     public abstract class Unit : Observer.Observer
     {
-        protected Position position = new Position();
-
+     
 
         /*
         public Unit(Subject subject)
