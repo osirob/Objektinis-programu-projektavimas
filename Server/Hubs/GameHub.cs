@@ -92,6 +92,14 @@ namespace Server.Hubs
             return;
         }
 
+        public async Task TakeDamage(int id,int damage)
+        {
+            Console.WriteLine("Reached die async id: {0}", id);
+            ICommand command = new TakeDamageCommand(gameManagerServer.GetPlayer(id),damage);
+            invoker.Run(command);
+            return;
+        }
+
         public async Task CheckHowManyOnlineIs(string message)
         {
             Console.WriteLine($"Check recieved: {message}");

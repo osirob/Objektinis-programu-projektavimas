@@ -14,6 +14,7 @@ namespace Shared.Shared
         public bool isDead { get; set; }
         public int HasCoinValue { get; set; } = 0;
         public int Health = 100;
+        protected Position position = new Position();
 
         public List<DamageDealed> damageDealedList = new List<DamageDealed>();
 
@@ -70,6 +71,11 @@ namespace Shared.Shared
         public void UndoDamage(int damage)
         {
             this.Health += damage;
+        }
+
+        public void SetCords(string cords)
+        {
+            position.SetCordinates(cords);
         }
     }
 }
