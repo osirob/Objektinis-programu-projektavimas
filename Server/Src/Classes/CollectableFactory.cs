@@ -22,9 +22,9 @@ namespace Server.Src.Classes
             }
         }
 
-        public ICollectable MakeCollectable(CollectableTypes type, int value, int xCoord)
+        public ICollectable MakeCollectable(CollectableTypes type, int value, int xCoord, int yCoord, int id)
         {
-            return factories[type].CreateCollectable(value, xCoord);
+            return factories[type].CreateCollectable(value, xCoord, yCoord, id);
         }
     }
 }

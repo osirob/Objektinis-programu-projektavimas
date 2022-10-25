@@ -4,19 +4,19 @@ namespace Server.Src.Classes
 {
     public static class AmmoFactory
     {
-        public static AmmoPack CreateSmallAmmoPack(int xcoord)
+        public static AmmoPack CreateSmallAmmoPack(int xcoord, int ycoord, int id)
         {
-            return new AmmoPack(25, xcoord);
+            return new AmmoPack(25, xcoord, ycoord, id);
         }
 
-        public static AmmoPack CreateMediumAmmoPack(int xcoord)
+        public static AmmoPack CreateMediumAmmoPack(int xcoord, int ycoord, int id)
         {
-            return new AmmoPack(50, xcoord);
+            return new AmmoPack(50, xcoord, ycoord, id);
         }
 
-        public static AmmoPack CreateBigAmmoPack(int xcoord)
+        public static AmmoPack CreateBigAmmoPack(int xcoord, int ycoord, int id)
         {
-            return new AmmoPack(100, xcoord);
+            return new AmmoPack(100, xcoord, ycoord, id);
         }
     }
 }

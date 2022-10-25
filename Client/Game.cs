@@ -19,8 +19,9 @@ namespace Client
         int ticks = 0; //20ms is 1 tick
 
         // Stats
-        int health = 0;
+        int health = 100;
         int score = 0;
+        int money = 0;
 
         // Player
         int playerId;
@@ -51,6 +52,7 @@ namespace Client
             CheckPlayerIndex();
             _=InilitizeConectionAsync();
             InitializeCllectableListeners();
+            UpdateStats();
             StartGame = true;
             SendCordinatesTimer.Start();
 
@@ -66,24 +68,52 @@ namespace Client
             await connection.StartAsync();
         }
 
+        //width: 0 - 900
+        //height: 0 - 600
+        //upper left corner is 0 0, lower right is 900, 600
         public void InitializeCllectableListeners()
         {
             gameCoins = new List<Coin>();
             connection.On<List<Coin>>("sendCoins", coins => {
                 gameCoins.AddRange(coins);
-                trashLabel.Text = $"Recieved {coins.Count} coins";
                 foreach(Coin coin in gameCoins)
                 {
                     var box = new PictureBox
                     {
                         Tag = coin.Tag,
                         Size = new Size(15, 15),
-                        Location = new Point(coin.XCoord, 50), //change coord logic later
+                        Location = new Point(coin.XCoord, coin.YCoord),
                         BackColor = Color.Yellow
                     };
                     this.Controls.Add(box);
                 }
             });
+
+            connection.On<int>("removeCoin", id => {
+                removeCoin(id);
+            });
+        }
+
+        private void removeCoin(int coinId)
+        {
+            var coin = this.gameCoins.Where(c => c.Id == coinId).FirstOrDefault();
+            if(coin != null)
+            {
+                foreach (Control x in this.Controls)
+                {
+                    if (x is PictureBox && (string)x.Tag == "coin" && x.Location.X == coin.XCoord && x.Location.Y == coin.YCoord)
+                    {
+                        this.Controls.Remove(x);
+                        this.gameCoins.Remove(coin);
+                    }
+                }
+            }
+        }
+
+        private void UpdateStats()
+        {
+            this.hpCountLabel.Text = this.health.ToString();
+            this.moneyCountLabel.Text = this.money.ToString();
         }
         
         private void CheckPlayerIndex()
@@ -110,8 +140,10 @@ namespace Client
                 CalculateAndSendPositionToAnotherPlayer();
                 UpdateWeaponPositions();
                 Movement();
+                CoinIntersect();
+                ticks++;
 
-                if (ticks >= 10) //if 10 secs or more elapsed 500
+                if (ticks >= 100 && this.gameCoins.Count == 0)
                 {
                     ticks = 0;
                     await connection.SendAsync("RequestCoins");
@@ -208,6 +240,26 @@ namespace Client
             this.enemyWeapon.Location = new Point(this.enemyWeaponX, this.enemyWeaponY);
         }
 
+        private async void CoinIntersect()
+        {
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "coin")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        var coin = gameCoins.Where( c => c.XCoord == x.Location.X && c.YCoord == x.Location.Y).FirstOrDefault();
+                        this.money += coin.Value;
+                        UpdateStats();
+                        this.Controls.Remove(x);
+                        this.gameCoins.Remove(coin);
+                        //send to server for other player to remove same coin
+                        await connection.SendAsync("PickedUpCoin", coin.Id);
+                    }
+                }
+            }
+        }
+
         private void Movement()
         {
             player.Top += jumpSpeed;
@@ -248,7 +300,7 @@ namespace Client
 
             foreach (Control x in this.Controls)
             {
-                if (x is PictureBox && x.Tag == "platform")
+                if (x is PictureBox && (string)x.Tag == "platform")
                 {
                     if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
                     {

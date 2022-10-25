@@ -40,6 +40,9 @@
             this.testLabel = new System.Windows.Forms.Label();
             this.trashLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.hpCountLabel = new System.Windows.Forms.Label();
+            this.moneyLabel = new System.Windows.Forms.Label();
+            this.moneyCountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
@@ -53,7 +56,7 @@
             this.hpLabel.Name = "hpLabel";
             this.hpLabel.Size = new System.Drawing.Size(120, 25);
             this.hpLabel.TabIndex = 0;
-            this.hpLabel.Text = "HP: 100";
+            this.hpLabel.Text = "HP:";
             // 
             // groundPlatform
             // 
@@ -146,12 +149,45 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // hpCountLabel
+            // 
+            this.hpCountLabel.AutoSize = true;
+            this.hpCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.hpCountLabel.Location = new System.Drawing.Point(833, 9);
+            this.hpCountLabel.Name = "hpCountLabel";
+            this.hpCountLabel.Size = new System.Drawing.Size(80, 22);
+            this.hpCountLabel.TabIndex = 9;
+            this.hpCountLabel.Text = "hpCount";
+            // 
+            // moneyLabel
+            // 
+            this.moneyLabel.AutoSize = true;
+            this.moneyLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.moneyLabel.Location = new System.Drawing.Point(772, 31);
+            this.moneyLabel.Name = "moneyLabel";
+            this.moneyLabel.Size = new System.Drawing.Size(70, 22);
+            this.moneyLabel.TabIndex = 10;
+            this.moneyLabel.Text = "Money:";
+            // 
+            // moneyCountLabel
+            // 
+            this.moneyCountLabel.AutoSize = true;
+            this.moneyCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.moneyCountLabel.Location = new System.Drawing.Point(833, 31);
+            this.moneyCountLabel.Name = "moneyCountLabel";
+            this.moneyCountLabel.Size = new System.Drawing.Size(110, 22);
+            this.moneyCountLabel.TabIndex = 11;
+            this.moneyCountLabel.Text = "moneyCount";
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(934, 661);
+            this.Controls.Add(this.moneyCountLabel);
+            this.Controls.Add(this.moneyLabel);
+            this.Controls.Add(this.hpCountLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.trashLabel);
             this.Controls.Add(this.testLabel);
@@ -188,5 +224,8 @@
         private Label testLabel;
         private Label trashLabel;
         private Button button1;
+        private Label hpCountLabel;
+        private Label moneyLabel;
+        private Label moneyCountLabel;
     }
 }
