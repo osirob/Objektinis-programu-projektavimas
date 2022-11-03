@@ -47,11 +47,13 @@ namespace Server.Hubs
             else { GameInfo.coinsRequested++; }
         }
 
-        public async Task PickedUpCoin(int coinId)
+        public async Task PickedUpCoin(int coinId,int playerId)
         {
             var coin = GameInfo.coins.Where(c => c.Id == coinId).FirstOrDefault();
             if(coin != null)
             {
+                ICommand command = new TakeMoneyCommand(gameManagerServer.GetPlayer(playerId),coin.Value);
+                invoker.Run(command);
                 GameInfo.coins.Remove(coin);
                 await Clients.Others.SendAsync("removeCoin", coinId);
             }
