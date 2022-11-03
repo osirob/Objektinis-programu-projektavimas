@@ -254,7 +254,7 @@ namespace Client
                         this.Controls.Remove(x);
                         this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
-                        await connection.SendAsync("PickedUpCoin", coin.Id);
+                        await connection.SendAsync("PickedUpCoin", coin.Id,playerId);
                     }
                 }
             }
