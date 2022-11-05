@@ -77,5 +77,11 @@ namespace Shared.Shared
         {
             position.SetCordinates(cords);
         }
+
+        public void AddMoney(int value)
+        {
+            this.HasCoinValue = this.HasCoinValue + value;
+            Console.WriteLine(HasCoinValue);
+        }
     }
 }
