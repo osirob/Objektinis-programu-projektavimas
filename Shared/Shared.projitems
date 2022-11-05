@@ -27,5 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\ICollectable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\Map.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Builder\FirstLevelMapBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Builder\MapBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Builder\MapDirector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Builder\MapPlan.cs" />
   </ItemGroup>
 </Project>
