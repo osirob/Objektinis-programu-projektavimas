@@ -127,7 +127,6 @@
             this.testLabel.TabIndex = 6;
             this.testLabel.Text = "test";
             this.testLabel.Visible = false;
-            this.testLabel.Click += new System.EventHandler(this.testLabel_Click);
             // 
             // trashLabel
             // 
