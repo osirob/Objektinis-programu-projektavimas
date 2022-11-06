@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
+using Timer = System.Windows.Forms.Timer;
+
 
 namespace Client
 {
@@ -28,6 +30,8 @@ namespace Client
         PictureBox player;
 
         // Weapons
+        int shootingPower = 2;
+        int bulletTime = 300;
         int weaponSize = 10;
         PictureBox playerWeapon;
         bool rotatingUp = false;
@@ -42,8 +46,24 @@ namespace Client
         PictureBox enemyWeapon;
         int enemyWeaponX;
         int enemyWeaponY;
+        Pistol pistol = new Pistol("Pistol");
+        Rifle rifle = new Rifle("Rifle");
+        Shotgun shotgun = new Shotgun("Shotgun");
+        Bazooka bazooka = new Bazooka("Bazooka");
+
+        // Bullets
+        PictureBox pistolBullet;
+        Timer pistonBulletTimer;
 
         List<Coin> gameCoins;
+
+        //Strategy 
+        private IShooting _shooting;
+
+        public void setStrategy(IShooting strategy)
+        {
+            _shooting = strategy;
+        }
 
         public Game()
         {
@@ -175,6 +195,7 @@ namespace Client
                 {
                     rotatingDown = true;
                 }
+
             }
         }
 
@@ -203,6 +224,11 @@ namespace Client
                 {
                     rotatingDown = false;
                 }
+
+                if (e.KeyCode == Keys.G)
+                {
+                    ShootBullet();
+                }
             }
         }
 
@@ -225,6 +251,12 @@ namespace Client
             this.enemyWeapon.BackColor = playerId == 0 ? Color.DarkRed : Color.DarkBlue;
             this.enemyWeapon.Location = this.player2.Location;
             this.Controls.Add(this.enemyWeapon);
+
+            setStrategy(pistol);
+            /*setStrategy(rifle);
+            setStrategy(shotgun);
+            setStrategy(bazooka);*/
+            shootingPower = _shooting.Shoot(shootingPower);
         }
 
         private double ConvertToRadians(double angle)
@@ -384,11 +416,6 @@ namespace Client
 
         }
 
-        private void testLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             _ = TestDeathAsync();
@@ -397,6 +424,54 @@ namespace Client
         async Task TestDeathAsync()
         {
             await connection.SendAsync("Die", playerId);
+        }
+
+        public void MakeBullet()
+        {
+            pistolBullet = new PictureBox();
+            pistolBullet.BackColor = Color.Black;
+            pistolBullet.Size = new Size(10, 10);
+            pistolBullet.Tag = "bullet";
+            pistolBullet.Location = playerWeapon.Location;
+            pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
+            pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
+            pistolBullet.BringToFront();
+            Controls.Add(pistolBullet);
+
+            pistonBulletTimer = new Timer();
+            pistonBulletTimer.Interval = 20;
+            pistonBulletTimer.Tick += new EventHandler(BulletTimerEvent);
+            pistonBulletTimer.Start();
+        }
+
+        private void BulletTimerEvent(object sender, EventArgs e)
+        {
+
+            if (weaponAngle >= 0 && weaponAngle <= 180)
+            {
+                trashLabel.Text = "ShootRight";
+                moneyLabel.Text = shootingPower.ToString();
+                pistolBullet.Left +=shootingPower;
+            }
+            if (weaponAngle <= 360 && weaponAngle >= 180)
+            {
+                trashLabel.Text = "ShootLeft";
+                moneyLabel.Text = shootingPower.ToString();
+                pistolBullet.Left -= shootingPower;
+            }
+            /*if (pistolBullet.Left > 1000 || pistolBullet.Top > 400)
+            {
+                pistonBulletTimer.Stop(); // stop the timer
+                pistonBulletTimer.Dispose(); // dispose the timer event and component from the program
+                pistonBulletTimer.Dispose(); // dispose the bullet
+                pistonBulletTimer = null; // nullify the timer object
+                pistolBullet = null; // nullify the bullet object
+            }*/
+        }
+
+        private void ShootBullet()
+        {
+            MakeBullet();
         }
     }
 }

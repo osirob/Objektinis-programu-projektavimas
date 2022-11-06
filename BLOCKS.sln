@@ -10,11 +10,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{370669BF-1F9F-40D7-BF15-69B9C0266806}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\Shared.projitems*{370669bf-1f9f-40d7-bf15-69b9c0266806}*SharedItemsImports = 13
-		Shared\Shared.projitems*{a60966c8-47d6-4376-a843-8e0ae9208e87}*SharedItemsImports = 5
-		Shared\Shared.projitems*{f53ac7a7-ca6a-4db2-be22-ea9f79dbc043}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -34,5 +29,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08734CA9-6703-46C0-BF41-C99EF1555096}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.projitems*{370669bf-1f9f-40d7-bf15-69b9c0266806}*SharedItemsImports = 13
+		Shared\Shared.projitems*{a60966c8-47d6-4376-a843-8e0ae9208e87}*SharedItemsImports = 5
+		Shared\Shared.projitems*{f53ac7a7-ca6a-4db2-be22-ea9f79dbc043}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
