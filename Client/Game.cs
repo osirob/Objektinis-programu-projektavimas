@@ -31,7 +31,6 @@ namespace Client
 
         // Weapons
         int shootingPower = 2;
-        int bulletTime = 300;
         int weaponSize = 10;
         PictureBox playerWeapon;
         bool rotatingUp = false;
@@ -52,8 +51,11 @@ namespace Client
         Bazooka bazooka = new Bazooka("Bazooka");
 
         // Bullets
+        private PistolBullet pistolBulletClass;
         PictureBox pistolBullet;
         Timer pistonBulletTimer;
+        private int standartWidth = 1;
+        private int standartHeight = 1;
 
         List<Coin> gameCoins;
 
@@ -253,6 +255,7 @@ namespace Client
             this.Controls.Add(this.enemyWeapon);
 
             setStrategy(pistol);
+            pistolBulletClass = new PistolBullet();
             /*setStrategy(rifle);
             setStrategy(shotgun);
             setStrategy(bazooka);*/
@@ -429,9 +432,25 @@ namespace Client
         public void MakeBullet()
         {
             pistolBullet = new PictureBox();
-            pistolBullet.BackColor = Color.Black;
-            pistolBullet.Size = new Size(10, 10);
-            pistolBullet.Tag = "bullet";
+
+            //Pistol Standart Bullet
+            /*StandartBullet standartBullet = new StandartBullet(pistolBulletClass);
+            pistolBullet.BackColor = Color.Silver;
+            pistolBullet.Size = new Size(standartBullet.CalculateWidth(standartWidth), standartBullet.CalculateHeight(standartHeight));
+            pistolBullet.Tag = pistolBulletClass.Tag;*/
+
+            //Pistol Gold Bullet
+            GoldBullet goldBullet = new GoldBullet(pistolBulletClass);
+            pistolBullet.BackColor = Color.Gold;
+            pistolBullet.Size = new Size(goldBullet.CalculateWidth(standartWidth), goldBullet.CalculateHeight(standartHeight));
+            pistolBullet.Tag = pistolBulletClass.Tag;
+
+            //Pistol Diamond Bullet
+            /*DiamondBullet diamondBullet = new DiamondBullet(pistolBulletClass);
+            pistolBullet.BackColor = Color.DodgerBlue;
+            pistolBullet.Size = new Size(diamondBullet.CalculateWidth(standartWidth), diamondBullet.CalculateHeight(standartHeight));
+            pistolBullet.Tag = pistolBulletClass.Tag;*/
+
             pistolBullet.Location = playerWeapon.Location;
             pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
             pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
