@@ -26,8 +26,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BulletDecorator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DamageDealed.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DiamondBullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\FakeCoinAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\GoldBullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\IFake.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\IShooting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Pistol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\PistolBullet.cs" />

@@ -74,6 +74,19 @@ namespace Server.Hubs
             else { GameInfo.coinsRequested++; }
         }
 
+        public async Task RequestFakeCoins()
+        {
+            
+                for (int i = 1; i < 1; i++)
+                {
+                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 50, i*150 + 40, 570, i + 5);
+                    GameInfo.coins.Add(coin as Coin);
+                }
+                await Clients.All.SendAsync("sendFakeCoins", GameInfo.coins);
+                Console.WriteLine($"Sent coins {GameInfo.coins.Count}");
+
+        }
+
         public async Task PickedUpCoin(int coinId,int playerId)
         {
             var coin = GameInfo.coins.Where(c => c.Id == coinId).FirstOrDefault();
