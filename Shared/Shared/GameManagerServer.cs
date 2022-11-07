@@ -20,12 +20,14 @@ namespace Shared.Shared
 
         private static int HowManyIsRead = 0;
         private static bool GameIsStarted = false;
+        private static int counter = 0;
 
         //private static CollectableFactory collectableFactory = new CollectableFactory();
 
         private GameManagerServer()
         {
-
+            counter++;
+            Console.WriteLine("Counter Value " + counter.ToString());
         }
 
         public static GameManagerServer Instance
@@ -132,6 +134,13 @@ namespace Shared.Shared
         {
             return GamePlayers[id];
         }
+
+        //Only for testing purpose
+        public void PrintDetails(string text)
+        {
+            Console.WriteLine(text);
+        }
+
 
     }
 }
