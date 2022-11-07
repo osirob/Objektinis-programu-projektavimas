@@ -60,6 +60,7 @@ namespace Client
         private int standartHeight = 1;
 
         List<Coin> gameCoins;
+        private FakeCoinAdapter fakeCoin;
 
         //Strategy 
         private IShooting _shooting;
@@ -77,6 +78,7 @@ namespace Client
             player2 = (PictureBox)this.Controls["player2"];
             _=InilitizeConectionAsync();
             InitializeCllectableListeners();
+            InitializeFakeCoins();
             UpdateStats();
             CheckPlayerIndex();
             StartGame = true;
@@ -113,6 +115,33 @@ namespace Client
                     };
                     this.Controls.Add(box);
                 }
+            });
+
+            connection.On<int>("removeCoin", id => {
+                removeCoin(id);
+            });
+        }
+
+        public void InitializeFakeCoins()
+        {
+            gameCoins = new List<Coin>();
+            connection.On<List<Coin>>("sendFakeCoins", coins => {
+                gameCoins.AddRange(coins);
+                for (int i = 0; i < 1; i++)
+                {
+                    Coin coin = gameCoins[6];
+                    fakeCoin = new FakeCoinAdapter(coin);
+                    fakeCoin.isFake();
+                    var fakeBox = new PictureBox
+                    {
+                        Tag = coin.Tag,
+                        Size = new Size(15, 15),
+                        Location = new Point(coin.XCoord, coin.YCoord),
+                        BackColor = Color.Red
+                    };
+                    Controls.Add(fakeBox);
+                }
+                
             });
 
             connection.On<int>("removeCoin", id => {
@@ -174,6 +203,7 @@ namespace Client
                 {
                     ticks = 0;
                     await connection.SendAsync("RequestCoins");
+                    await connection.SendAsync("RequestFakeCoins");
                 }
             }
         }
