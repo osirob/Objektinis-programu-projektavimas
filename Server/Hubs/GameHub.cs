@@ -4,6 +4,8 @@ using Server.Src.Classes;
 using Shared.Shared;
 using System.Diagnostics;
 using Shared.Command;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Server.Hubs
 {
@@ -23,13 +25,37 @@ namespace Server.Hubs
     //https://localhost:7021/gameHub
     public class GameHub : Hub
     {
-        GameManagerServer gameManagerServer = GameManagerServer.Instance;
+
+        GameManagerServer gameManagerServer;
         CommandInvoker invoker = new CommandInvoker();
         private static Subject subject = new ConcreateSubject();
 
+
+
         public GameHub()
         {
+            TestSingleton();
+        }
 
+        //OnlyForTesting
+        public void TestSingleton()
+        {
+            Parallel.Invoke(
+                () => CreateSingleton1(),
+                () => CreateSingleton2()
+                );
+            Console.ReadLine();
+            gameManagerServer = GameManagerServer.Instance;
+        }
+        public static void CreateSingleton1()
+        {
+            GameManagerServer singleton1 = GameManagerServer.Instance;
+            singleton1.PrintDetails("Singleton1");
+        }
+        public static void CreateSingleton2()
+        {
+            GameManagerServer singleton1 = GameManagerServer.Instance;
+            singleton1.PrintDetails("Singleton2");
         }
         public async Task RequestCoins()
         {
