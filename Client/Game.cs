@@ -163,6 +163,7 @@ namespace Client
                 UpdateWeaponPositions();
                 Movement();
                 CoinIntersect();
+                BulletIntersect();
                 ticks++;
 
                 if (ticks >= 100 && this.gameCoins.Count == 0)
@@ -290,6 +291,32 @@ namespace Client
                         this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
                         await connection.SendAsync("PickedUpCoin", coin.Id,playerId);
+                    }
+                }
+            }
+        }
+
+        private async void BulletIntersect()
+        {
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "bullet")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        //var coin = gameCoins.Where(c => c.XCoord == x.Location.X && c.YCoord == x.Location.Y).FirstOrDefault();
+                        //this.money += coin.Value;
+                        this.health -= 10;
+                        UpdateStats();
+                        this.Controls.Remove(x);
+                        
+                        //this.gameCoins.Remove(coin);
+                        //send to server for other player to remove same coin
+                        await connection.SendAsync("TakeDamage", playerId, 10);
+                        if(this.health <= 0){
+                            _ = TestDeathAsync();
+                        }
+
                     }
                 }
             }
@@ -432,6 +459,7 @@ namespace Client
         public void MakeBullet()
         {
             pistolBullet = new PictureBox();
+            pistolBullet.Tag = "bullet";
 
             //Pistol Standart Bullet
             /*StandartBullet standartBullet = new StandartBullet(pistolBulletClass);
@@ -443,7 +471,7 @@ namespace Client
             GoldBullet goldBullet = new GoldBullet(pistolBulletClass);
             pistolBullet.BackColor = Color.Gold;
             pistolBullet.Size = new Size(goldBullet.CalculateWidth(standartWidth), goldBullet.CalculateHeight(standartHeight));
-            pistolBullet.Tag = pistolBulletClass.Tag;
+            //pistolBullet.Tag = pistolBulletClass.Tag;
 
             //Pistol Diamond Bullet
             /*DiamondBullet diamondBullet = new DiamondBullet(pistolBulletClass);

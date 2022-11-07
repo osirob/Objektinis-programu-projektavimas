@@ -65,6 +65,7 @@ namespace Shared.Shared
 
         public void TakeDamage(int damage)
         {
+            Console.WriteLine(damage);
             this.Health -= damage;
         }
 
