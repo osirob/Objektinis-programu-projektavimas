@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Shared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace Shared.Builder
 {
     public interface MapPlan
     {
-        public MapPlan setBlockSize(int blockSize);
-        public MapPlan setMapGrid(int[] mapGrid);
+        public List<MapEntity> getMapEntities();
+        public MapPlan addMapEntity(MapEntity mapEntity);
     }
 }

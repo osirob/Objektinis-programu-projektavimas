@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Shared.Command;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Server.Hubs
 {
@@ -217,7 +218,6 @@ namespace Server.Hubs
 
         public async Task GetFirtPlayerCordinates(string message)
         {
-            //Console.WriteLine(message);
             await Clients.All.SendAsync("firstPlayer", message);
         }
 

@@ -49,6 +49,8 @@ namespace Client
         Rifle rifle = new Rifle("Rifle");
         Shotgun shotgun = new Shotgun("Shotgun");
         Bazooka bazooka = new Bazooka("Bazooka");
+        PictureBox player1 = null;
+        PictureBox player2 = null;
 
         // Bullets
         private PistolBullet pistolBulletClass;
@@ -69,12 +71,14 @@ namespace Client
 
         public Game()
         {
+            BuildMap();
             InitializeComponent();
-            player = player1;
-            CheckPlayerIndex();
+            player1 = (PictureBox)this.Controls["player1"];
+            player2 = (PictureBox)this.Controls["player2"];
             _=InilitizeConectionAsync();
             InitializeCllectableListeners();
             UpdateStats();
+            CheckPlayerIndex();
             StartGame = true;
             SendCordinatesTimer.Start();
 
@@ -148,7 +152,7 @@ namespace Client
             else
             {
                 playerLabel.Text = gameManager.GetName();
-                player = player2;
+                player = (PictureBox)this.Controls["player2"];
             }
         }
 
@@ -468,13 +472,13 @@ namespace Client
 
             if (weaponAngle >= 0 && weaponAngle <= 180)
             {
-                trashLabel.Text = "ShootRight";
+                //trashLabel.Text = "ShootRight";
                 moneyLabel.Text = shootingPower.ToString();
                 pistolBullet.Left +=shootingPower;
             }
             if (weaponAngle <= 360 && weaponAngle >= 180)
             {
-                trashLabel.Text = "ShootLeft";
+                //trashLabel.Text = "ShootLeft";
                 moneyLabel.Text = shootingPower.ToString();
                 pistolBullet.Left -= shootingPower;
             }
@@ -491,6 +495,23 @@ namespace Client
         private void ShootBullet()
         {
             MakeBullet();
+        }
+
+        private void BuildMap()
+        {
+            Map map = GameManagerServer.Instance.GetMap();
+            foreach (MapEntity mapEntity in map.getMapEntities())
+            {
+                PictureBox mapObject = new PictureBox
+                {
+                    Tag = mapEntity.getTag(),
+                    Size = new Size(mapEntity.getSizeX(), mapEntity.getSizeY()),
+                    Location = new Point(mapEntity.getPosX(), mapEntity.getPosY()),
+                    BackColor = mapEntity.getColor(),
+                    Name = mapEntity.getName(),
+                };
+                this.Controls.Add(mapObject);
+            }
         }
     }
 }

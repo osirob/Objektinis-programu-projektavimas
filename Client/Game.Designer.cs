@@ -30,11 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.hpLabel = new System.Windows.Forms.Label();
-            this.groundPlatform = new System.Windows.Forms.PictureBox();
-            this.floatingPlatform = new System.Windows.Forms.PictureBox();
-            this.player1 = new System.Windows.Forms.PictureBox();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.player2 = new System.Windows.Forms.PictureBox();
             this.playerLabel = new System.Windows.Forms.Label();
             this.SendCordinatesTimer = new System.Windows.Forms.Timer(this.components);
             this.testLabel = new System.Windows.Forms.Label();
@@ -43,50 +39,16 @@
             this.hpCountLabel = new System.Windows.Forms.Label();
             this.moneyLabel = new System.Windows.Forms.Label();
             this.moneyCountLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player2)).BeginInit();
             this.SuspendLayout();
             // 
             // hpLabel
             // 
             this.hpLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.hpLabel.Location = new System.Drawing.Point(802, 9);
+            this.hpLabel.Location = new System.Drawing.Point(917, 12);
             this.hpLabel.Name = "hpLabel";
-            this.hpLabel.Size = new System.Drawing.Size(120, 25);
+            this.hpLabel.Size = new System.Drawing.Size(137, 33);
             this.hpLabel.TabIndex = 0;
             this.hpLabel.Text = "HP:";
-            // 
-            // groundPlatform
-            // 
-            this.groundPlatform.BackColor = System.Drawing.Color.Green;
-            this.groundPlatform.Location = new System.Drawing.Point(-18, 637);
-            this.groundPlatform.Name = "groundPlatform";
-            this.groundPlatform.Size = new System.Drawing.Size(982, 30);
-            this.groundPlatform.TabIndex = 1;
-            this.groundPlatform.TabStop = false;
-            this.groundPlatform.Tag = "platform";
-            // 
-            // floatingPlatform
-            // 
-            this.floatingPlatform.BackColor = System.Drawing.Color.Brown;
-            this.floatingPlatform.Location = new System.Drawing.Point(149, 528);
-            this.floatingPlatform.Name = "floatingPlatform";
-            this.floatingPlatform.Size = new System.Drawing.Size(189, 30);
-            this.floatingPlatform.TabIndex = 2;
-            this.floatingPlatform.TabStop = false;
-            this.floatingPlatform.Tag = "platform";
-            // 
-            // player1
-            // 
-            this.player1.BackColor = System.Drawing.Color.Blue;
-            this.player1.Location = new System.Drawing.Point(802, 545);
-            this.player1.Name = "player1";
-            this.player1.Size = new System.Drawing.Size(35, 60);
-            this.player1.TabIndex = 3;
-            this.player1.TabStop = false;
-            this.player1.Tag = "player1";
             // 
             // gameTimer
             // 
@@ -94,22 +56,12 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_TickAsync);
             // 
-            // player2
-            // 
-            this.player2.BackColor = System.Drawing.Color.Red;
-            this.player2.Location = new System.Drawing.Point(33, 545);
-            this.player2.Name = "player2";
-            this.player2.Size = new System.Drawing.Size(35, 60);
-            this.player2.TabIndex = 4;
-            this.player2.TabStop = false;
-            this.player2.Tag = "player2";
-            // 
             // playerLabel
             // 
             this.playerLabel.Font = new System.Drawing.Font("Consolas", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.playerLabel.Location = new System.Drawing.Point(370, 9);
+            this.playerLabel.Location = new System.Drawing.Point(423, 12);
             this.playerLabel.Name = "playerLabel";
-            this.playerLabel.Size = new System.Drawing.Size(235, 25);
+            this.playerLabel.Size = new System.Drawing.Size(269, 33);
             this.playerLabel.TabIndex = 5;
             this.playerLabel.Text = "Player1: Name";
             // 
@@ -121,9 +73,9 @@
             // testLabel
             // 
             this.testLabel.AutoSize = true;
-            this.testLabel.Location = new System.Drawing.Point(443, 184);
+            this.testLabel.Location = new System.Drawing.Point(506, 245);
             this.testLabel.Name = "testLabel";
-            this.testLabel.Size = new System.Drawing.Size(26, 15);
+            this.testLabel.Size = new System.Drawing.Size(33, 20);
             this.testLabel.TabIndex = 6;
             this.testLabel.Text = "test";
             this.testLabel.Visible = false;
@@ -131,17 +83,18 @@
             // trashLabel
             // 
             this.trashLabel.AutoSize = true;
-            this.trashLabel.Location = new System.Drawing.Point(213, 233);
+            this.trashLabel.Location = new System.Drawing.Point(243, 311);
             this.trashLabel.Name = "trashLabel";
-            this.trashLabel.Size = new System.Drawing.Size(38, 15);
+            this.trashLabel.Size = new System.Drawing.Size(77, 20);
             this.trashLabel.TabIndex = 7;
-            this.trashLabel.Text = "label1";
+            this.trashLabel.Text = "trashLabel";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 71);
+            this.button1.Location = new System.Drawing.Point(-9, -3);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 31);
             this.button1.TabIndex = 8;
             this.button1.Text = "Test Die Method";
             this.button1.UseVisualStyleBackColor = true;
@@ -152,9 +105,9 @@
             // 
             this.hpCountLabel.AutoSize = true;
             this.hpCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.hpCountLabel.Location = new System.Drawing.Point(833, 9);
+            this.hpCountLabel.Location = new System.Drawing.Point(952, 12);
             this.hpCountLabel.Name = "hpCountLabel";
-            this.hpCountLabel.Size = new System.Drawing.Size(80, 22);
+            this.hpCountLabel.Size = new System.Drawing.Size(103, 28);
             this.hpCountLabel.TabIndex = 9;
             this.hpCountLabel.Text = "hpCount";
             // 
@@ -162,9 +115,9 @@
             // 
             this.moneyLabel.AutoSize = true;
             this.moneyLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.moneyLabel.Location = new System.Drawing.Point(772, 31);
+            this.moneyLabel.Location = new System.Drawing.Point(882, 41);
             this.moneyLabel.Name = "moneyLabel";
-            this.moneyLabel.Size = new System.Drawing.Size(70, 22);
+            this.moneyLabel.Size = new System.Drawing.Size(90, 28);
             this.moneyLabel.TabIndex = 10;
             this.moneyLabel.Text = "Money:";
             // 
@@ -172,18 +125,18 @@
             // 
             this.moneyCountLabel.AutoSize = true;
             this.moneyCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.moneyCountLabel.Location = new System.Drawing.Point(833, 31);
+            this.moneyCountLabel.Location = new System.Drawing.Point(952, 41);
             this.moneyCountLabel.Name = "moneyCountLabel";
-            this.moneyCountLabel.Size = new System.Drawing.Size(110, 22);
+            this.moneyCountLabel.Size = new System.Drawing.Size(142, 28);
             this.moneyCountLabel.TabIndex = 11;
             this.moneyCountLabel.Text = "moneyCount";
             // 
             // Game
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(934, 661);
+            this.ClientSize = new System.Drawing.Size(1067, 881);
             this.Controls.Add(this.moneyCountLabel);
             this.Controls.Add(this.moneyLabel);
             this.Controls.Add(this.hpCountLabel);
@@ -191,20 +144,13 @@
             this.Controls.Add(this.trashLabel);
             this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
-            this.Controls.Add(this.player2);
-            this.Controls.Add(this.player1);
-            this.Controls.Add(this.floatingPlatform);
-            this.Controls.Add(this.groundPlatform);
             this.Controls.Add(this.hpLabel);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Game";
             this.Text = "Game";
             this.Load += new System.EventHandler(this.Game_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyIsUp);
-            ((System.ComponentModel.ISupportInitialize)(this.groundPlatform)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.floatingPlatform)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,11 +159,7 @@
         #endregion
 
         private Label hpLabel;
-        private PictureBox groundPlatform;
-        private PictureBox floatingPlatform;
-        private PictureBox player1;
         private System.Windows.Forms.Timer gameTimer;
-        private PictureBox player2;
         private Label playerLabel;
         private System.Windows.Forms.Timer SendCordinatesTimer;
         private Label testLabel;

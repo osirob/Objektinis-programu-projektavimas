@@ -7,25 +7,15 @@ namespace Shared.Shared
 {
     public class Map : MapPlan
     {
-        private int blockSize;
-        private int[] mapGrid;
+        private List<MapEntity> mapEntities = new List<MapEntity>();
 
-        public int getBlockSize()
+        public List<MapEntity> getMapEntities()
         {
-            return this.blockSize;
+            return this.mapEntities;
         }
-        public MapPlan setBlockSize(int blockSize)
+        public MapPlan addMapEntity(MapEntity mapEntity)
         {
-            this.blockSize = blockSize;
-            return this;
-        }
-        public int[] getMapGrid()
-        {
-            return this.mapGrid;
-        }
-        public MapPlan setMapGrid(int[] mapGrid)
-        {
-            this.mapGrid = mapGrid;
+            this.mapEntities.Add(mapEntity);
             return this;
         }
     }
