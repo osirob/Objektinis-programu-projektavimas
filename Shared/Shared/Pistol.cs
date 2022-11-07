@@ -6,7 +6,10 @@ namespace Shared.Shared
 {
     public class Pistol : IShooting
     {
-        private string Name { get; set; }
+        public string Name { get; set; }
+        public int Ammunition { get; set; }
+        public int AmmoPrice { get; } = 25;
+        public int Price { get; } = 200;
 
         public Pistol(string name)
         {
@@ -16,6 +19,11 @@ namespace Shared.Shared
         public int Shoot(int shootingPower)
         {
             return shootingPower * 2;
+        }
+
+        public void AddAmmunition(int ammoCount)
+        {
+            this.Ammunition += ammoCount;
         }
     }
 }

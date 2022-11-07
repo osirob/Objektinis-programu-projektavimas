@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Client.Facade;
+using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
 using Timer = System.Windows.Forms.Timer;
 
 
 namespace Client
 {
+    public enum CurrentWeaponType
+    {
+        Pistol = 1,
+        Rifle = 2,
+        Shotgun = 3,
+        Bazooka = 4
+    }
     public partial class Game : Form
     {
         private HubConnection connection;
         GameManager gameManager = GameManager.Instance;
+        private WeaponShop weaponShop;
 
         // Movement
         bool goleft = false;
@@ -46,9 +55,6 @@ namespace Client
         int enemyWeaponX;
         int enemyWeaponY;
         Pistol pistol = new Pistol("Pistol");
-        Rifle rifle = new Rifle("Rifle");
-        Shotgun shotgun = new Shotgun("Shotgun");
-        Bazooka bazooka = new Bazooka("Bazooka");
         PictureBox player1 = null;
         PictureBox player2 = null;
 
@@ -76,13 +82,16 @@ namespace Client
             InitializeComponent();
             player1 = (PictureBox)this.Controls["player1"];
             player2 = (PictureBox)this.Controls["player2"];
-            _=InilitizeConectionAsync();
+            _ = InilitizeConectionAsync();
             InitializeCllectableListeners();
             InitializeFakeCoins();
             UpdateStats();
             CheckPlayerIndex();
             StartGame = true;
+            weaponShop = new WeaponShop();
             SendCordinatesTimer.Start();
+            shopPanel.Visible = false;
+            shopPanel.Enabled = false;
 
             this.weaponAngle = 0;
             this.playerWeaponOffsetX = 0;
@@ -102,9 +111,10 @@ namespace Client
         public void InitializeCllectableListeners()
         {
             gameCoins = new List<Coin>();
-            connection.On<List<Coin>>("sendCoins", coins => {
+            connection.On<List<Coin>>("sendCoins", coins =>
+            {
                 gameCoins.AddRange(coins);
-                foreach(Coin coin in gameCoins)
+                foreach (Coin coin in gameCoins)
                 {
                     var box = new PictureBox
                     {
@@ -117,7 +127,8 @@ namespace Client
                 }
             });
 
-            connection.On<int>("removeCoin", id => {
+            connection.On<int>("removeCoin", id =>
+            {
                 removeCoin(id);
             });
         }
@@ -125,7 +136,8 @@ namespace Client
         public void InitializeFakeCoins()
         {
             gameCoins = new List<Coin>();
-            connection.On<List<Coin>>("sendFakeCoins", coins => {
+            connection.On<List<Coin>>("sendFakeCoins", coins =>
+            {
                 gameCoins.AddRange(coins);
                 for (int i = 0; i < 1; i++)
                 {
@@ -141,10 +153,11 @@ namespace Client
                     };
                     Controls.Add(fakeBox);
                 }
-                
+
             });
 
-            connection.On<int>("removeCoin", id => {
+            connection.On<int>("removeCoin", id =>
+            {
                 removeCoin(id);
             });
         }
@@ -152,7 +165,7 @@ namespace Client
         private void removeCoin(int coinId)
         {
             var coin = this.gameCoins.Where(c => c.Id == coinId).FirstOrDefault();
-            if(coin != null)
+            if (coin != null)
             {
                 foreach (Control x in this.Controls)
                 {
@@ -170,7 +183,7 @@ namespace Client
             this.hpCountLabel.Text = this.health.ToString();
             this.moneyCountLabel.Text = this.money.ToString();
         }
-        
+
         private void CheckPlayerIndex()
         {
             if (gameManager.GetYourId() == 0)
@@ -232,7 +245,11 @@ namespace Client
                 {
                     rotatingDown = true;
                 }
-
+                if (e.KeyCode == Keys.B)
+                {
+                    shopPanel.Visible = true;
+                    shopPanel.Enabled = true;
+                }
             }
         }
 
@@ -295,6 +312,8 @@ namespace Client
             setStrategy(shotgun);
             setStrategy(bazooka);*/
             shootingPower = _shooting.Shoot(shootingPower);
+            weaponNameLabel.Text = _shooting.Name;
+            ammoCountLabel.Text = _shooting.Ammunition.ToString();
         }
 
         private double ConvertToRadians(double angle)
@@ -318,13 +337,13 @@ namespace Client
                 {
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        var coin = gameCoins.Where( c => c.XCoord == x.Location.X && c.YCoord == x.Location.Y).FirstOrDefault();
+                        var coin = gameCoins.Where(c => c.XCoord == x.Location.X && c.YCoord == x.Location.Y).FirstOrDefault();
                         this.money += coin.Value;
                         UpdateStats();
                         this.Controls.Remove(x);
                         this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
-                        await connection.SendAsync("PickedUpCoin", coin.Id,playerId);
+                        await connection.SendAsync("PickedUpCoin", coin.Id, playerId);
                     }
                 }
             }
@@ -343,11 +362,12 @@ namespace Client
                         this.health -= 10;
                         UpdateStats();
                         this.Controls.Remove(x);
-                        
+
                         //this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
                         await connection.SendAsync("TakeDamage", playerId, 10);
-                        if(this.health <= 0){
+                        if (this.health <= 0)
+                        {
                             _ = TestDeathAsync();
                         }
 
@@ -532,7 +552,7 @@ namespace Client
             {
                 //trashLabel.Text = "ShootRight";
                 moneyLabel.Text = shootingPower.ToString();
-                pistolBullet.Left +=shootingPower;
+                pistolBullet.Left += shootingPower;
             }
             if (weaponAngle <= 360 && weaponAngle >= 180)
             {
@@ -570,6 +590,88 @@ namespace Client
                 };
                 this.Controls.Add(mapObject);
             }
+        }
+
+        private void buyPistolButton_Click(object sender, EventArgs e)
+        {
+            var weap = weaponShop.BuyWeapon(CurrentWeaponType.Pistol, ref this.money);
+            if (weap != null)
+            {
+                _shooting = weap;
+                weaponNameLabel.Text = _shooting.Name;
+                moneyCountLabel.Text = money.ToString();
+                ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            }
+        }
+
+        private void closeShopButton_Click(object sender, EventArgs e)
+        {
+            shopPanel.Visible = false;
+            shopPanel.Enabled = false;
+        }
+
+        private void buyRifleButton_Click(object sender, EventArgs e)
+        {
+            var weap = weaponShop.BuyWeapon(CurrentWeaponType.Rifle, ref this.money);
+            if (weap != null)
+            {
+                _shooting = weap;
+                weaponNameLabel.Text = _shooting.Name;
+                moneyCountLabel.Text = money.ToString();
+                ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            }
+        }
+
+        private void buyShotgunButton_Click(object sender, EventArgs e)
+        {
+            var weap = weaponShop.BuyWeapon(CurrentWeaponType.Shotgun, ref this.money);
+            if (weap != null)
+            {
+                _shooting = weap;
+                weaponNameLabel.Text = _shooting.Name;
+                moneyCountLabel.Text = money.ToString();
+                ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            }
+        }
+
+        private void buyBazookaButton_Click(object sender, EventArgs e)
+        {
+            var weap = weaponShop.BuyWeapon(CurrentWeaponType.Bazooka, ref this.money);
+            if (weap != null)
+            {
+                _shooting = weap;
+                weaponNameLabel.Text = _shooting.Name;
+                moneyCountLabel.Text = money.ToString();
+                ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            }
+        }
+
+        private void buyPistolAmmoButton_Click(object sender, EventArgs e)
+        {
+            weaponShop.BuyAmmunition(CurrentWeaponType.Pistol, ref _shooting, ref this.money);
+            ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            moneyCountLabel.Text = money.ToString();
+        }
+
+        private void buyRifleAmmoButton_Click(object sender, EventArgs e)
+        {
+            weaponShop.BuyAmmunition(CurrentWeaponType.Rifle, ref _shooting, ref this.money);
+            ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            moneyCountLabel.Text = money.ToString();
+        }
+
+        private void buyShotgunAmmoButton_Click(object sender, EventArgs e)
+        {
+            weaponShop.BuyAmmunition(CurrentWeaponType.Shotgun, ref _shooting, ref this.money);
+            ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            moneyCountLabel.Text = money.ToString();
+        }
+
+        private void buyBazookaAmmoButton_Click(object sender, EventArgs e)
+        {
+            weaponShop.BuyAmmunition(CurrentWeaponType.Bazooka, ref _shooting, ref this.money);
+            ammoCountLabel.Text = _shooting.Ammunition.ToString();
+            moneyCountLabel.Text = money.ToString();
         }
     }
 }

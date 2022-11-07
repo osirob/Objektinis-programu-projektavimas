@@ -6,7 +6,10 @@ namespace Shared.Shared
 {
     public class Bazooka : IShooting
     {
-        private string Name { get; set; }
+        public string Name { get; set; }
+        public int Ammunition { get; set; }
+        public int Price { get; } = 500;
+        public int AmmoPrice { get; } = 55;
         public Bazooka(string name)
         {
             Name = name;
@@ -14,6 +17,11 @@ namespace Shared.Shared
         public int Shoot(int shootingPower)
         {
             return shootingPower * 6;
+        }
+
+        public void AddAmmunition(int ammoCount)
+        {
+            this.Ammunition += ammoCount;
         }
     }
 }
