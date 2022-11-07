@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Builder;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,12 +23,16 @@ namespace Shared.Shared
         private static bool GameIsStarted = false;
         private static int counter = 0;
 
+        private static Map map = null;
+
         //private static CollectableFactory collectableFactory = new CollectableFactory();
 
         private GameManagerServer()
         {
             counter++;
             Console.WriteLine("Counter Value " + counter.ToString());
+
+            BuildMap();
         }
 
         public static GameManagerServer Instance
@@ -141,6 +146,17 @@ namespace Shared.Shared
             Console.WriteLine(text);
         }
 
+        private void BuildMap()
+        {
+            MapBuilder mapBuilder = new SecondLevelMapBuilder();
+            MapDirector mapDirector = new MapDirector(mapBuilder);
+            mapDirector.buildMap();
+            map = mapDirector.getMap();
+        }
 
+        public Map GetMap()
+        {
+            return map;
+        }
     }
 }

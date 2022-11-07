@@ -16,8 +16,9 @@ namespace Shared.Shared
 
         public void buildMap()
         {
-            this.mapBuilder.buildBlockSize();
-            this.mapBuilder.buildMapGrid();
+            this.mapBuilder.buildPlayers();
+            this.mapBuilder.buildGround();
+            this.mapBuilder.buildFloatingPlatforms();
         }
 
         public Map getMap()

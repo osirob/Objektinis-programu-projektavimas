@@ -7,9 +7,9 @@ namespace Shared.Builder
 {
     public interface MapBuilder
     {
-        public void buildBlockSize();
-        public void buildMapGrid();
-
+        public void buildPlayers();
+        public void buildGround();
+        public void buildFloatingPlatforms();
         public Map getMap();
     }
 }

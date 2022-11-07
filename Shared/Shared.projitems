@@ -9,6 +9,7 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Builder\SecondLevelMapBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\CommandInvoker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\DieCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
@@ -21,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Armor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bazooka.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BazookaBullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\MapEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BulletDecorator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DamageDealed.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DiamondBullet.cs" />
