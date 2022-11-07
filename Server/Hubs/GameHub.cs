@@ -34,7 +34,8 @@ namespace Server.Hubs
 
         public GameHub()
         {
-            TestSingleton();
+            //TestSingleton();
+            gameManagerServer = GameManagerServer.Instance;
         }
 
         //OnlyForTesting
@@ -45,7 +46,6 @@ namespace Server.Hubs
                 () => CreateSingleton2()
                 );
             Console.ReadLine();
-            gameManagerServer = GameManagerServer.Instance;
         }
         public static void CreateSingleton1()
         {
