@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
 using Timer = System.Windows.Forms.Timer;
+using Shared.Prototype;
 
 
 namespace Client
@@ -578,17 +579,35 @@ namespace Client
         private void BuildMap()
         {
             Map map = GameManagerServer.Instance.GetMap();
-            foreach (MapEntity mapEntity in map.getMapEntities())
+            foreach (MapObject mapEntity in map.getMapEntities())
             {
-                PictureBox mapObject = new PictureBox
+                if (mapEntity is MapEntity)
                 {
-                    Tag = mapEntity.getTag(),
-                    Size = new Size(mapEntity.getSizeX(), mapEntity.getSizeY()),
-                    Location = new Point(mapEntity.getPosX(), mapEntity.getPosY()),
-                    BackColor = mapEntity.getColor(),
-                    Name = mapEntity.getName(),
-                };
-                this.Controls.Add(mapObject);
+                    MapEntity tempMapEntity = (MapEntity)mapEntity;
+                    PictureBox mapObject = new PictureBox
+                    {
+                        Tag = tempMapEntity.getTag(),
+                        Size = new Size(tempMapEntity.getSizeX(), tempMapEntity.getSizeY()),
+                        Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY()),
+                        BackColor = tempMapEntity.getColor(),
+                        Name = tempMapEntity.getName(),
+                    };
+                    this.Controls.Add(mapObject);
+                }
+                else if (mapEntity is MapLabel)
+                {
+                    MapLabel tempMapLabel = (MapLabel)mapEntity;
+                    Label mapObject = new Label
+                    {
+                        Tag = tempMapLabel.getTag(),
+                        Size = new Size(tempMapLabel.getSizeX(), tempMapLabel.getSizeY()),
+                        Location = new Point(tempMapLabel.getPosX(), tempMapLabel.getPosY()),
+                        BackColor = tempMapLabel.getColor(),
+                        Name = tempMapLabel.getName(),
+                        Text = tempMapLabel.getText()
+                    };
+                    this.Controls.Add(mapObject);
+                }
             }
         }
 

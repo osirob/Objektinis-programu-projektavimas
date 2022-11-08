@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Shared.Prototype;
+using System.Transactions;
 
 namespace Shared.Shared
 {
-    public class MapEntity : MapObject
+    public class MapLabel : MapObject
     {
         private int posX;
         private int posY;
@@ -15,8 +16,9 @@ namespace Shared.Shared
         private Color color;
         private string tag;
         private string name;
+        private string text;
 
-        public MapEntity(int posX, int posY, int sizeX, int sizeY, Color color, string tag, string name)
+        public MapLabel(int posX, int posY, int sizeX, int sizeY, Color color, string tag, string name, string text)
         {
             this.posX = posX;
             this.posY = posY;
@@ -25,6 +27,7 @@ namespace Shared.Shared
             this.color = color;
             this.tag = tag;
             this.name = name;
+            this.text = text;
         }
 
         public int getPosX()
@@ -59,10 +62,14 @@ namespace Shared.Shared
         {
             return this.name;
         }
+        public string getText()
+        {
+            return this.text;
+        }
 
         public MapObject makeCopy()
         {
-            return (MapEntity)this.MemberwiseClone();
+            return (MapLabel)this.MemberwiseClone();
         }
     }
 }

@@ -18,6 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Observer\ConcreateSubject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Observer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Subject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Prototype\MapLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Prototype\MapObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\AmmoPack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Armor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bazooka.cs" />
