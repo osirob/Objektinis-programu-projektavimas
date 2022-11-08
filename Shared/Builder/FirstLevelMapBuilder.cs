@@ -17,16 +17,16 @@ namespace Shared.Builder
         }
         public void buildPlayers()
         {
-            MapObject player1 = new MapEntity(38, 727, 40, 80, Color.Red, "player1", "player1");
-            MapObject player2 = new MapEntity(950, 727, 40, 80, Color.Blue, "player2", "player2");
+            MapObject player1 = new MapEntity(38, 527, 40, 80, Color.Red, "player1", "player1");
+            MapObject player2 = new MapEntity(950, 527, 40, 80, Color.Blue, "player2", "player2");
             this.map.addMapEntity(player1);
             this.map.addMapEntity(player2);
         }
 
         public void buildGround()
         {
-            MapObject dirtBlock = new MapEntity(0, 830, 50, 50, Color.Brown, "platform", "dirtBlock" + 0);
-            MapObject grassBlock = new MapEntity(0, 820, 10, 10, Color.Green, "platform", "grassBlock" + 0);
+            MapObject dirtBlock = new MapEntity(0, 630, 50, 50, Color.Brown, "platform", "dirtBlock" + 0);
+            MapObject grassBlock = new MapEntity(0, 620, 10, 10, Color.Green, "platform", "grassBlock" + 0);
             Console.WriteLine("Original dirt block hashcode: " + dirtBlock.GetHashCode());
             Console.WriteLine("Original grass block hashcode: " + grassBlock.GetHashCode());
             for (int i = 0; i <= 1085; i += 10)
@@ -44,10 +44,10 @@ namespace Shared.Builder
 
         public void buildFloatingPlatforms()
         {
-            MapObject floatingPlatform1 = new MapEntity(170, 650, 216, 20, Color.BurlyWood, "platform", "floatingPlatform1");
-            MapObject floatingPlatform2 = new MapEntity(650, 600, 150, 20, Color.BurlyWood, "platform", "floatingPlatform2");
-            MapObject floatingPlatform3 = new MapEntity(200, 550, 300, 20, Color.BurlyWood, "platform", "floatingPlatform3");
-            MapObject floatingPlatform4 = new MapEntity(350, 450, 300, 20, Color.BurlyWood, "platform", "floatingPlatform4");
+            MapObject floatingPlatform1 = new MapEntity(170, 500, 216, 20, Color.BurlyWood, "platform", "floatingPlatform1");
+            MapObject floatingPlatform2 = new MapEntity(650, 450, 150, 20, Color.BurlyWood, "platform", "floatingPlatform2");
+            MapObject floatingPlatform3 = new MapEntity(200, 350, 300, 20, Color.BurlyWood, "platform", "floatingPlatform3");
+            MapObject floatingPlatform4 = new MapEntity(350, 250, 300, 20, Color.BurlyWood, "platform", "floatingPlatform4");
             this.map.addMapEntity(floatingPlatform1);
             this.map.addMapEntity(floatingPlatform2);
             this.map.addMapEntity(floatingPlatform3);
