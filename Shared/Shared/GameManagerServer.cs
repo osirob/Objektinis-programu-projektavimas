@@ -148,7 +148,7 @@ namespace Shared.Shared
 
         private void BuildMap()
         {
-            MapBuilder mapBuilder = new SecondLevelMapBuilder();
+            MapBuilder mapBuilder = new FirstLevelMapBuilder();
             MapDirector mapDirector = new MapDirector(mapBuilder);
             mapDirector.buildMap();
             map = mapDirector.getMap();
