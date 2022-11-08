@@ -15,5 +15,10 @@ namespace Shared.Shared
         {
             coin.Value = 0;
         }
+
+        public Coin getCoin()
+        {
+            return coin;
+        }
     }
 }
