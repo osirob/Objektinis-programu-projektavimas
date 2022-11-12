@@ -38,7 +38,7 @@ namespace Client
         // Player
         int playerId;
         PictureBox player;
-
+        int testCount = 0;
         // Weapons
         int shootingPower = 2;
         int weaponSize = 10;
@@ -88,14 +88,16 @@ namespace Client
             InitializeFakeCoins();
             UpdateStats();
             CheckPlayerIndex();
+            ManageBulletShot();
             StartGame = true;
+            
             weaponShop = new WeaponShop();
             SendCordinatesTimer.Start();
             shopPanel.Visible = false;
             shopPanel.Enabled = false;
 
             this.weaponAngle = 0;
-            this.playerWeaponOffsetX = 0;
+            this.playerWeaponOffsetX = 20;
             this.playerWeaponOffsetY = 0;
             this.playerId = gameManager.GetYourId();
         }
@@ -352,6 +354,7 @@ namespace Client
 
         private async void BulletIntersect()
         {
+            int count = 1;
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "bullet")
@@ -363,7 +366,8 @@ namespace Client
                         this.health -= 10;
                         UpdateStats();
                         this.Controls.Remove(x);
-
+                        //trashLabel.Text = count.ToString();
+                        count++;
                         //this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
                         await connection.SendAsync("TakeDamage", playerId, 10);
@@ -501,6 +505,15 @@ namespace Client
 
         }
 
+        private async void ManageBulletShot()
+        {
+            connection.On<string>("bulletCords", cords =>
+            {
+                string[] cordsArr = cords.Split(',');
+                ShootBullet(Convert.ToInt32(cordsArr[0]), Convert.ToInt32(cordsArr[1]), Convert.ToInt32(cordsArr[2]), Convert.ToInt32(cordsArr[3]), Convert.ToInt32(cordsArr[4]), Convert.ToInt32(cordsArr[5]));
+            });
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             _ = TestDeathAsync();
@@ -511,7 +524,7 @@ namespace Client
             await connection.SendAsync("Die", playerId);
         }
 
-        public void MakeBullet()
+        public async Task MakeBulletAsync(int? weaponCordX = null,int? weaponCordY = null,int? left =null, int? width = null, int? top = null, int? heigt = null)
         {
             pistolBullet = new PictureBox();
             pistolBullet.Tag = "bullet";
@@ -524,7 +537,7 @@ namespace Client
 
             //Pistol Gold Bullet
             GoldBullet goldBullet = new GoldBullet(pistolBulletClass);
-            pistolBullet.BackColor = Color.Gold;
+            pistolBullet.BackColor = Color.Green;
             pistolBullet.Size = new Size(goldBullet.CalculateWidth(standartWidth), goldBullet.CalculateHeight(standartHeight));
             //pistolBullet.Tag = pistolBulletClass.Tag;
 
@@ -534,9 +547,22 @@ namespace Client
             pistolBullet.Size = new Size(diamondBullet.CalculateWidth(standartWidth), diamondBullet.CalculateHeight(standartHeight));
             pistolBullet.Tag = pistolBulletClass.Tag;*/
 
-            pistolBullet.Location = playerWeapon.Location;
-            pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
-            pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
+            if (weaponCordX != null && weaponCordY != null)
+            {
+                pistolBullet.Location = new Point(Convert.ToInt32(weaponCordX), Convert.ToInt32(weaponCordY));
+                pistolBullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width) / 2;
+                pistolBullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt) / 2;
+            }
+            else
+            {
+                pistolBullet.Location = playerWeapon.Location;
+                trashLabel.Text = testCount.ToString();
+                testCount++;
+                pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
+                pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
+
+                await connection.SendAsync("SendBulletCords", pistolBullet.Location.X + "," + pistolBullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height);
+            }
             pistolBullet.BringToFront();
             Controls.Add(pistolBullet);
 
@@ -571,9 +597,16 @@ namespace Client
             }*/
         }
 
-        private void ShootBullet()
+        private void ShootBullet(int? weaponCordX = null, int? weaponCordY = null, int? left = null, int? width = null, int? top = null, int? heigth = null)
         {
-            MakeBullet();
+            if(weaponCordX != null && weaponCordY != null)
+            {
+                _ = MakeBulletAsync(weaponCordX, weaponCordY,left,width,top,heigth);
+            }
+            else
+            {
+                MakeBulletAsync();
+            }
         }
 
         private void BuildMap()
