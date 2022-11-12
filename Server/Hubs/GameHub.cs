@@ -74,6 +74,15 @@ namespace Server.Hubs
             else { GameInfo.coinsRequested++; }
         }
 
+        public async Task SendBulletCords(string cords)
+        {
+            string[] cordsArr = cords.Split(',');
+
+            Console.WriteLine(cords);
+
+            await Clients.Others.SendAsync("bulletCords", cords);
+        }
+
         public async Task RequestFakeCoins()
         {
             
