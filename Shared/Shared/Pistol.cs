@@ -18,7 +18,7 @@ namespace Shared.Shared
 
         public int Shoot(int shootingPower)
         {
-            return shootingPower * 2;
+            return shootingPower * 1;
         }
 
         public void AddAmmunition(int ammoCount)
