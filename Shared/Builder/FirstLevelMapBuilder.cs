@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Shared.Prototype;
+using Shared.Bridge;
 
 namespace Shared.Builder
 {
@@ -31,8 +32,8 @@ namespace Shared.Builder
             Console.WriteLine("Original grass block hashcode: " + grassBlock.GetHashCode());
             for (int i = 0; i <= 1085; i += 10)
             {
-                MapObject dirtBlockClone = dirtBlock.makeCopy();
-                MapObject grassBlockClone = grassBlock.makeCopy();
+                MapEntity dirtBlockClone = (MapEntity)dirtBlock.makeCopy();
+                MapEntity grassBlockClone = (MapEntity)grassBlock.makeCopy();
                 Console.WriteLine("Clone dirt block hashcode: " + dirtBlockClone.GetHashCode());
                 Console.WriteLine("Clone grass block hashcode: " + grassBlockClone.GetHashCode());
                 dirtBlockClone.setPosX(i);
@@ -44,14 +45,14 @@ namespace Shared.Builder
 
         public void buildFloatingPlatforms()
         {
-            MapObject floatingPlatform1 = new MapEntity(170, 500, 216, 20, Color.BurlyWood, "platform", "floatingPlatform1");
-            MapObject floatingPlatform2 = new MapEntity(650, 450, 150, 20, Color.BurlyWood, "platform", "floatingPlatform2");
-            MapObject floatingPlatform3 = new MapEntity(200, 350, 300, 20, Color.BurlyWood, "platform", "floatingPlatform3");
-            MapObject floatingPlatform4 = new MapEntity(350, 250, 300, 20, Color.BurlyWood, "platform", "floatingPlatform4");
-            this.map.addMapEntity(floatingPlatform1);
-            this.map.addMapEntity(floatingPlatform2);
-            this.map.addMapEntity(floatingPlatform3);
-            this.map.addMapEntity(floatingPlatform4);
+            MapObject floatingPlatform1 = new BouncyPlatform(new HealingBlock(170, 500, 216, 20, "floatingPlatform1"));
+            this.map.addFloatingPlatform(floatingPlatform1);
+            MapObject floatingPlatform2 = new StickyPlatform(new MaliciousBlock(650, 450, 150, 20, "floatingPlatform1"));
+            this.map.addFloatingPlatform(floatingPlatform2);
+            MapObject floatingPlatform3 = new StickyPlatform(new HealingBlock(300, 400, 150, 20, "floatingPlatform1"));
+            this.map.addFloatingPlatform(floatingPlatform3);
+            MapObject floatingPlatform4 = new StickyPlatform(new HealingBlock(400, 350, 150, 20, "floatingPlatform1"));
+            this.map.addFloatingPlatform(floatingPlatform4);
         }
 
         public Map getMap()

@@ -9,6 +9,12 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\DynamicBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\FloatingPlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\HealingBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\BouncyPlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\MaliciousBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bridge\StickyPlatform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\SecondLevelMapBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\CommandInvoker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\DieCommand.cs" />
