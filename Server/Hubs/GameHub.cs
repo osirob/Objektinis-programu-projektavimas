@@ -66,7 +66,7 @@ namespace Server.Hubs
                 GameInfo.coinsRequested = 0;
                 for(int i = 1; i < 6; i++)
                 {
-                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 50, i * 150, 570, i);
+                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 500, i * 150, 570, i);
                     GameInfo.coins.Add(coin as Coin);
                 }
                 await Clients.All.SendAsync("sendCoins", GameInfo.coins);
