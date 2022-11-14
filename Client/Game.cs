@@ -76,6 +76,8 @@ namespace Client
         List<Coin> gameCoins;
         private FakeCoinAdapter fakeCoin;
 
+        Map map;
+
         //Strategy 
         private IShooting _shooting;
         public void setStrategy(IShooting strategy)
@@ -114,6 +116,141 @@ namespace Client
         {
             connection = new HubConnectionBuilder().WithUrl("https://localhost:7021/gameHub").Build();
             await connection.StartAsync();
+
+            connection.On<int>("level2Map", async n =>
+            {
+                foreach (Control c in this.Controls)
+                {
+                    if (c is PictureBox)
+                    {
+                        if ((string)c.Tag != "player1")
+                        {
+                            if ((string)c.Tag != "player2")
+                            {
+                                if ((string)c.Name != "weapon1")
+                                {
+                                    if ((string)c.Name != "weapon0")
+                                    {
+                                        this.Controls.Remove(c);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                PictureBox mapObject = null;
+                foreach (MapObject mapEntity in GameManagerServer.Instance.GetMap2().getMapEntities())
+                {
+                    if (mapEntity is MapEntity)
+                    {
+                        MapEntity tempMapEntity = (MapEntity)mapEntity;
+                        if (tempMapEntity.getTag() == "player1")
+                        {
+                            player1.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                        }
+                        else if (tempMapEntity.getTag() == "player2")
+                        {
+                            player2.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                        }
+                        else
+                        {
+                            mapObject = new PictureBox
+                            {
+                                Tag = tempMapEntity.getTag(),
+                                Size = new Size(tempMapEntity.getSizeX(), tempMapEntity.getSizeY()),
+                                Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY()),
+                                BackColor = tempMapEntity.getColor(),
+                                Name = tempMapEntity.getName(),
+                            };
+                            this.Controls.Add(mapObject);
+                        }
+                    }
+                };
+                foreach (MapObject mapEntity in map.getFloatingPlatforms())
+                {
+                    if (mapEntity is FloatingPlatform)
+                    {
+                        FloatingPlatform tempFloatingPlatform = (FloatingPlatform)mapEntity;
+                        mapObject = new PictureBox
+                        {
+                            Tag = tempFloatingPlatform.block.tag,
+                            Size = new Size(tempFloatingPlatform.block.sizeX, tempFloatingPlatform.block.sizeY),
+                            Location = new Point(tempFloatingPlatform.block.x, tempFloatingPlatform.block.y),
+                            BackColor = tempFloatingPlatform.block.color,
+                            Name = tempFloatingPlatform.block.name,
+                            BorderStyle = BorderStyle.FixedSingle
+                        };
+                    }
+                    this.Controls.Add(mapObject);
+                }
+            });
+            connection.On<int>("level3Map", async n =>
+            {
+                foreach (Control c in this.Controls)
+                {
+                    if (c is PictureBox)
+                    {
+                        if ((string)c.Tag != "player1")
+                        {
+                            if ((string)c.Tag != "player2")
+                            {
+                                if ((string)c.Name != "weapon1")
+                                {
+                                    if ((string)c.Name != "weapon0")
+                                    {
+                                        this.Controls.Remove(c);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                PictureBox mapObject = null;
+                foreach (MapObject mapEntity in GameManagerServer.Instance.GetMap3().getMapEntities())
+                {
+                    if (mapEntity is MapEntity)
+                    {
+                        MapEntity tempMapEntity = (MapEntity)mapEntity;
+                        if (tempMapEntity.getTag() == "player1")
+                        {
+                            player1.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                        }
+                        else if (tempMapEntity.getTag() == "player2")
+                        {
+                            player2.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                        }
+                        else
+                        {
+                            mapObject = new PictureBox
+                            {
+                                Tag = tempMapEntity.getTag(),
+                                Size = new Size(tempMapEntity.getSizeX(), tempMapEntity.getSizeY()),
+                                Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY()),
+                                BackColor = tempMapEntity.getColor(),
+                                Name = tempMapEntity.getName(),
+                            };
+                            this.Controls.Add(mapObject);
+                        }
+                    }
+                };
+                foreach (MapObject mapEntity in map.getFloatingPlatforms())
+                {
+                    if (mapEntity is FloatingPlatform)
+                    {
+                        FloatingPlatform tempFloatingPlatform = (FloatingPlatform)mapEntity;
+                        mapObject = new PictureBox
+                        {
+                            Tag = tempFloatingPlatform.block.tag,
+                            Size = new Size(tempFloatingPlatform.block.sizeX, tempFloatingPlatform.block.sizeY),
+                            Location = new Point(tempFloatingPlatform.block.x, tempFloatingPlatform.block.y),
+                            BackColor = tempFloatingPlatform.block.color,
+                            Name = tempFloatingPlatform.block.name,
+                            BorderStyle = BorderStyle.FixedSingle
+                        };
+                    }
+                    this.Controls.Add(mapObject);
+                }
+            });
         }
 
         //width: 0 - 900
@@ -381,6 +518,19 @@ namespace Client
                         if (this.health <= 0)
                         {
                             _ = TestDeathAsync();
+                            MessageBox.Show(GameManagerServer.currLevel.ToString());
+                            if (GameManagerServer.currLevel == 1)
+                            {
+                                GameManagerServer.currLevel = 2;
+                                BuildNewLevel2(2);
+                                this.health = 100;
+                            }
+                            if (GameManagerServer.currLevel == 2)
+                            {
+                                GameManagerServer.currLevel = 3;
+                                BuildNewLevel3(3);
+                                this.health = 100;
+                            }
                         }
 
                     }
@@ -468,6 +618,22 @@ namespace Client
                             await connection.SendAsync("TakeDamage", playerId, 1);
                             health -= 1;
                             UpdateStats();
+                            if (this.health < 0)
+                            {
+                                _ = TestDeathAsync();
+                                if (GameManagerServer.currLevel == 1)
+                                {
+                                    GameManagerServer.currLevel = 2;
+                                    BuildNewLevel2(2);
+                                    this.health = 100;
+                                }
+                                if (GameManagerServer.currLevel == 2)
+                                {
+                                    GameManagerServer.currLevel = 3;
+                                    BuildNewLevel3(3);
+                                    this.health = 100;
+                                }
+                            }
                             jumping = true;
                             player.Top = x.Top - player.Height;
                         }
@@ -480,6 +646,22 @@ namespace Client
                             jumpSpeed = -12;
                             force = 8;
                             await connection.SendAsync("TakeDamage", playerId, 1);
+                            if (this.health < 0)
+                            {
+                                _ = TestDeathAsync();
+                                if (GameManagerServer.currLevel == 1)
+                                {
+                                    this.health = 100;
+                                    GameManagerServer.currLevel = 2;
+                                    BuildNewLevel2(2);
+                                }
+                                if (GameManagerServer.currLevel == 2)
+                                {
+                                    this.health = 100;
+                                    GameManagerServer.currLevel = 3;
+                                    BuildNewLevel3(3);
+                                }
+                            }
                             health -= 1;
                             UpdateStats();
                             player.Top = x.Top - player.Height;
@@ -595,6 +777,16 @@ namespace Client
         async Task TestDeathAsync()
         {
             await connection.SendAsync("Die", playerId);
+        }
+
+        async Task BuildNewLevel2(int level)
+        {
+            await connection.SendAsync("BuildNewLevel2", level);
+        }
+
+        async Task BuildNewLevel3(int level)
+        {
+            await connection.SendAsync("BuildNewLevel3", level);
         }
 
         public async Task MakeBulletAsync(int? weaponCordX = null,int? weaponCordY = null,int? left =null, int? width = null, int? top = null, int? heigt = null)
@@ -730,6 +922,55 @@ namespace Client
                     };
                 }
                 this.Controls.Add(mapObject);
+            };
+            foreach (MapObject mapEntity in map.getFloatingPlatforms())
+            {
+                if (mapEntity is FloatingPlatform)
+                {
+                    FloatingPlatform tempFloatingPlatform = (FloatingPlatform)mapEntity;
+                    mapObject = new PictureBox
+                    {
+                        Tag = tempFloatingPlatform.block.tag,
+                        Size = new Size(tempFloatingPlatform.block.sizeX, tempFloatingPlatform.block.sizeY),
+                        Location = new Point(tempFloatingPlatform.block.x, tempFloatingPlatform.block.y),
+                        BackColor = tempFloatingPlatform.block.color,
+                        Name = tempFloatingPlatform.block.name,
+                        BorderStyle = BorderStyle.FixedSingle
+                    };
+                }
+                this.Controls.Add(mapObject);
+            }
+        }
+
+        private async void BuildMap2()
+        {
+            PictureBox mapObject = null;
+            foreach (MapObject mapEntity in this.map.getMapEntities())
+            {
+                if (mapEntity is MapEntity)
+                {
+                    MapEntity tempMapEntity = (MapEntity)mapEntity;
+                    if (tempMapEntity.getTag() == "player1")
+                    {
+                        player1.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                    }
+                    else if (tempMapEntity.getTag() == "player2")
+                    {
+                        player2.Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY());
+                    }
+                    else
+                    {
+                        mapObject = new PictureBox
+                        {
+                            Tag = tempMapEntity.getTag(),
+                            Size = new Size(tempMapEntity.getSizeX(), tempMapEntity.getSizeY()),
+                            Location = new Point(tempMapEntity.getPosX(), tempMapEntity.getPosY()),
+                            BackColor = tempMapEntity.getColor(),
+                            Name = tempMapEntity.getName(),
+                        };
+                        this.Controls.Add(mapObject);
+                    }
+                }
             };
             foreach (MapObject mapEntity in map.getFloatingPlatforms())
             {
