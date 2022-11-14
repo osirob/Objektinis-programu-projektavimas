@@ -41,7 +41,7 @@ namespace Client
         PictureBox player;
         int testCount = 0;
         // Weapons
-        int shootingPower = 2;
+        int shootingPower = 1;
         int weaponSize = 10;
         PictureBox playerWeapon;
         bool rotatingUp = false;
@@ -57,12 +57,18 @@ namespace Client
         int enemyWeaponX;
         int enemyWeaponY;
         Pistol pistol = new Pistol("Pistol");
+        Rifle riffle = new Rifle("Riffle");
+        Shotgun shotgun = new Shotgun("Shotgun");
+        Bazooka bazooka = new Bazooka("Bazooka");
         PictureBox player1 = null;
         PictureBox player2 = null;
 
         // Bullets
         private PistolBullet pistolBulletClass;
-        PictureBox pistolBullet;
+        private RiffleBullet riffleBulletClass;
+        private ShotgunBullet shotgunBulletClass;
+        private BazookaBullet bazookaBulletClass;
+        private PictureBox bullet;
         Timer pistonBulletTimer;
         private int standartWidth = 1;
         private int standartHeight = 1;
@@ -89,6 +95,8 @@ namespace Client
             UpdateStats();
             CheckPlayerIndex();
             ManageBulletShot();
+            UpdateCointsFromServer();
+
             StartGame = true;
             
             weaponShop = new WeaponShop();
@@ -213,6 +221,7 @@ namespace Client
                 Movement();
                 CoinIntersect();
                 BulletIntersect();
+                SendRequest();
                 ticks++;
 
                 if (ticks >= 100 && this.gameCoins.Count == 0)
@@ -253,6 +262,7 @@ namespace Client
                     shopPanel.Visible = true;
                     shopPanel.Enabled = true;
                 }
+                
             }
         }
 
@@ -281,11 +291,11 @@ namespace Client
                 {
                     rotatingDown = false;
                 }
-
                 if (e.KeyCode == Keys.G)
                 {
                     ShootBullet();
                 }
+
             }
         }
 
@@ -311,9 +321,6 @@ namespace Client
 
             setStrategy(pistol);
             pistolBulletClass = new PistolBullet();
-            /*setStrategy(rifle);
-            setStrategy(shotgun);
-            setStrategy(bazooka);*/
             shootingPower = _shooting.Shoot(shootingPower);
             weaponNameLabel.Text = _shooting.Name;
             ammoCountLabel.Text = _shooting.Ammunition.ToString();
@@ -564,6 +571,22 @@ namespace Client
             });
         }
 
+        private async void UpdateCointsFromServer()
+        {
+            connection.On<int>("updateCoins", value =>
+            {
+                money = value;
+                moneyCountLabel.Text = value.ToString();
+                
+            });
+    
+        }
+
+        private async void SendRequest()
+        {
+            await connection.SendAsync("RequestUpdateCoins", playerId);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             _ = TestDeathAsync();
@@ -576,45 +599,78 @@ namespace Client
 
         public async Task MakeBulletAsync(int? weaponCordX = null,int? weaponCordY = null,int? left =null, int? width = null, int? top = null, int? heigt = null)
         {
-            pistolBullet = new PictureBox();
-            pistolBullet.Tag = "bullet";
+            PictureBox bullet = new PictureBox();
+            switch (_shooting.Name)
+            {
+                case "Pistol":
+                {
+                    bullet = new PictureBox();
+                    bullet.Tag = "bullet";
+                    bullet.Size = new Size(pistolBulletClass.CalculateWidth(standartWidth),
+                        pistolBulletClass.CalculateHeight(standartHeight));
+                }
+                    break;
+                case "Riffle":
+                {
+                    bullet = new PictureBox();
+                    bullet.Tag = "bullet";
+                    bullet.Size = new Size(riffleBulletClass.CalculateWidth(standartWidth),
+                        pistolBulletClass.CalculateHeight(standartHeight));
+                    }
+                    break;
+                case "Shotgun":
+                    {
+                        bullet = new PictureBox();
+                        bullet.Tag = "bullet";
+                        bullet.Size = new Size(shotgunBulletClass.CalculateWidth(standartWidth), pistolBulletClass.CalculateHeight(standartHeight));
+                    }
+                    break;
+                case "Bazooka":
+                {
+                    bullet = new PictureBox();
+                    bullet.Tag = "bullet";
+                    bullet.Size = new Size(bazookaBulletClass.CalculateWidth(standartWidth), pistolBulletClass.CalculateHeight(standartHeight));
+                }
+                    break;
+            }
+
 
             //Pistol Standart Bullet
             /*StandartBullet standartBullet = new StandartBullet(pistolBulletClass);
-            pistolBullet.BackColor = Color.Silver;
-            pistolBullet.Size = new Size(standartBullet.CalculateWidth(standartWidth), standartBullet.CalculateHeight(standartHeight));
-            pistolBullet.Tag = pistolBulletClass.Tag;*/
+            bullet.BackColor = Color.Silver;
+            bullet.Size = new Size(standartBullet.CalculateWidth(standartWidth), standartBullet.CalculateHeight(standartHeight));
+            bullet.Tag = pistolBulletClass.Tag;*/
 
             //Pistol Gold Bullet
-            GoldBullet goldBullet = new GoldBullet(pistolBulletClass);
-            pistolBullet.BackColor = Color.Green;
-            pistolBullet.Size = new Size(goldBullet.CalculateWidth(standartWidth), goldBullet.CalculateHeight(standartHeight));
+            /*GoldBullet goldBullet = new GoldBullet(pistolBulletClass);
+            bullet.BackColor = Color.Yellow;
+            bullet.Size = new Size(goldBullet.CalculateWidth(standartWidth), goldBullet.CalculateHeight(standartHeight));*/
             //pistolBullet.Tag = pistolBulletClass.Tag;
 
             //Pistol Diamond Bullet
             /*DiamondBullet diamondBullet = new DiamondBullet(pistolBulletClass);
-            pistolBullet.BackColor = Color.DodgerBlue;
-            pistolBullet.Size = new Size(diamondBullet.CalculateWidth(standartWidth), diamondBullet.CalculateHeight(standartHeight));
-            pistolBullet.Tag = pistolBulletClass.Tag;*/
+            bullet.BackColor = Color.DodgerBlue;
+            bullet.Size = new Size(diamondBullet.CalculateWidth(standartWidth), diamondBullet.CalculateHeight(standartHeight));
+            bullet.Tag = pistolBulletClass.Tag;*/
 
             if (weaponCordX != null && weaponCordY != null)
             {
-                pistolBullet.Location = new Point(Convert.ToInt32(weaponCordX), Convert.ToInt32(weaponCordY));
-                pistolBullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width) / 2;
-                pistolBullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt) / 2;
+                bullet.Location = new Point(Convert.ToInt32(weaponCordX), Convert.ToInt32(weaponCordY));
+                bullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width) / 2;
+                bullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt) / 2;
             }
             else
             {
-                pistolBullet.Location = playerWeapon.Location;
-                trashLabel.Text = testCount.ToString();
+                bullet.Location = playerWeapon.Location;
+                //trashLabel.Text = testCount.ToString();
                 testCount++;
-                pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
-                pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
+                bullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
+                bullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
 
-                await connection.SendAsync("SendBulletCords", pistolBullet.Location.X + "," + pistolBullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height);
+                await connection.SendAsync("SendBulletCords", bullet.Location.X + "," + bullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height);
             }
-            pistolBullet.BringToFront();
-            Controls.Add(pistolBullet);
+            bullet.BringToFront();
+            Controls.Add(bullet);
 
             pistonBulletTimer = new Timer();
             pistonBulletTimer.Interval = 20;
@@ -627,15 +683,11 @@ namespace Client
 
             if (weaponAngle >= 0 && weaponAngle <= 180)
             {
-                //trashLabel.Text = "ShootRight";
-                moneyLabel.Text = shootingPower.ToString();
-                pistolBullet.Left += shootingPower;
+                bullet.Left += shootingPower;
             }
             if (weaponAngle <= 360 && weaponAngle >= 180)
             {
-                //trashLabel.Text = "ShootLeft";
-                moneyLabel.Text = shootingPower.ToString();
-                pistolBullet.Left -= shootingPower;
+                bullet.Left -= shootingPower;
             }
             /*if (pistolBullet.Left > 1000 || pistolBullet.Top > 400)
             {
@@ -703,7 +755,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Pistol, ref this.money);
             if (weap != null)
             {
-                _shooting = weap;
+                setStrategy(pistol);
                 weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
@@ -721,7 +773,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Rifle, ref this.money);
             if (weap != null)
             {
-                _shooting = weap;
+                setStrategy(riffle);
                 weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
@@ -733,7 +785,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Shotgun, ref this.money);
             if (weap != null)
             {
-                _shooting = weap;
+                setStrategy(shotgun);
                 weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
@@ -745,7 +797,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Bazooka, ref this.money);
             if (weap != null)
             {
-                _shooting = weap;
+                setStrategy(bazooka);
                 weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();

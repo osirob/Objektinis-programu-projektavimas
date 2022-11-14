@@ -5,7 +5,12 @@ using Shared.Shared;
 using System.Diagnostics;
 using Shared.Command;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Shared.Bridge;
+=======
+using System.Timers;
+using System.Numerics;
+>>>>>>> f1940e31394afb9cf414679a6df8407f04d602dc
 
 namespace Server.Hubs
 {
@@ -64,7 +69,7 @@ namespace Server.Hubs
                 GameInfo.coinsRequested = 0;
                 for(int i = 1; i < 6; i++)
                 {
-                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 50, i * 150, 570, i);
+                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 500, i * 150, 570, i);
                     GameInfo.coins.Add(coin as Coin);
                 }
                 await Clients.All.SendAsync("sendCoins", GameInfo.coins);
@@ -157,6 +162,14 @@ namespace Server.Hubs
             Console.WriteLine("Reached die async id: {0}", id);
             ICommand command = new TakeDamageCommand(gameManagerServer.GetPlayer(id),damage);
             invoker.Run(command);
+            if (id == 1)
+            {
+                gameManagerServer.GetPlayer(0).AddDamagesBonus(damage,1);
+            }
+            else
+            {
+                gameManagerServer.GetPlayer(1).AddDamagesBonus(damage,1);
+            }
             return;
         }
 
@@ -216,6 +229,11 @@ namespace Server.Hubs
             //Console.WriteLine($"Check recieved: {message}");
             gameManagerServer.RemoveReady();
             await Clients.All.SendAsync("undoReady", gameManagerServer.CheckHowManyIsReady().ToString());
+        }
+
+        public async Task RequestUpdateCoins(int id)
+        {
+            await Clients.Caller.SendAsync("updateCoins", gameManagerServer.GetPlayer(id).HasCoinValue);
         }
 
         public async Task StartCounting(string message)
