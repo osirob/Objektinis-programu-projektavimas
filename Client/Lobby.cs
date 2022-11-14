@@ -143,5 +143,10 @@ namespace Client
 
             await connection.SendAsync("StartCounting", "Counting started");
         }
+
+        private void connectPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

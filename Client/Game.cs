@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
 using Timer = System.Windows.Forms.Timer;
 using Shared.Prototype;
+using Shared.Bridge;
 
 
 namespace Client
@@ -77,7 +78,6 @@ namespace Client
 
         //Strategy 
         private IShooting _shooting;
-
         public void setStrategy(IShooting strategy)
         {
             _shooting = strategy;
@@ -388,7 +388,7 @@ namespace Client
             }
         }
 
-        private void Movement()
+        private async void Movement()
         {
             player.Top += jumpSpeed;
             if (jumping && force < 0)
@@ -428,12 +428,62 @@ namespace Client
 
             foreach (Control x in this.Controls)
             {
-                if (x is PictureBox && (string)x.Tag == "platform")
-                {
-                    if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                if (x.Tag != null) {
+                    if (x is PictureBox && (string)x.Tag == "platform")
                     {
-                        force = 8;
-                        player.Top = x.Top - player.Height;
+                        if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                        {
+                            force = 8;
+                            player.Top = x.Top - player.Height;
+                        }
+                    }
+                    if (x is PictureBox && (string)x.Tag == "healing_bouncy")
+                    {
+                        if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                        {
+                            jumping = true;
+                            jumpSpeed = -12;
+                            force = 8;
+                            await connection.SendAsync("TakeDamage", playerId, -10);
+                            health += 10;
+                            UpdateStats();
+                            player.Top = x.Top - player.Height;
+                        }
+                    }
+                    if (x is PictureBox && (string)x.Tag == "healing_sticky")
+                    {
+                        if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                        {
+                            jumping = true;
+                            await connection.SendAsync("TakeDamage", playerId, -1);
+                            health += 1;
+                            UpdateStats();
+                            player.Top = x.Top - player.Height;
+                        }
+                    }
+                    if (x is PictureBox && (string)x.Tag == "malicious_sticky")
+                    {
+                        if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                        {
+                            await connection.SendAsync("TakeDamage", playerId, 1);
+                            health -= 1;
+                            UpdateStats();
+                            jumping = true;
+                            player.Top = x.Top - player.Height;
+                        }
+                    }
+                    if (x is PictureBox && (string)x.Tag == "malicious_bouncy")
+                    {
+                        if(player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                            {
+                            jumping = true;
+                            jumpSpeed = -12;
+                            force = 8;
+                            await connection.SendAsync("TakeDamage", playerId, 1);
+                            health -= 1;
+                            UpdateStats();
+                            player.Top = x.Top - player.Height;
+                        }
                     }
                 }
             }
@@ -661,15 +711,16 @@ namespace Client
             }
         }
 
-        private void BuildMap()
+        private async void BuildMap()
         {
             Map map = GameManagerServer.Instance.GetMap();
+            PictureBox mapObject = null;
             foreach (MapObject mapEntity in map.getMapEntities())
             {
                 if (mapEntity is MapEntity)
                 {
                     MapEntity tempMapEntity = (MapEntity)mapEntity;
-                    PictureBox mapObject = new PictureBox
+                    mapObject = new PictureBox
                     {
                         Tag = tempMapEntity.getTag(),
                         Size = new Size(tempMapEntity.getSizeX(), tempMapEntity.getSizeY()),
@@ -677,22 +728,25 @@ namespace Client
                         BackColor = tempMapEntity.getColor(),
                         Name = tempMapEntity.getName(),
                     };
-                    this.Controls.Add(mapObject);
                 }
-                else if (mapEntity is MapLabel)
+                this.Controls.Add(mapObject);
+            };
+            foreach (MapObject mapEntity in map.getFloatingPlatforms())
+            {
+                if (mapEntity is FloatingPlatform)
                 {
-                    MapLabel tempMapLabel = (MapLabel)mapEntity;
-                    Label mapObject = new Label
+                    FloatingPlatform tempFloatingPlatform = (FloatingPlatform)mapEntity;
+                    mapObject = new PictureBox
                     {
-                        Tag = tempMapLabel.getTag(),
-                        Size = new Size(tempMapLabel.getSizeX(), tempMapLabel.getSizeY()),
-                        Location = new Point(tempMapLabel.getPosX(), tempMapLabel.getPosY()),
-                        BackColor = tempMapLabel.getColor(),
-                        Name = tempMapLabel.getName(),
-                        Text = tempMapLabel.getText()
+                        Tag = tempFloatingPlatform.block.tag,
+                        Size = new Size(tempFloatingPlatform.block.sizeX, tempFloatingPlatform.block.sizeY),
+                        Location = new Point(tempFloatingPlatform.block.x, tempFloatingPlatform.block.y),
+                        BackColor = tempFloatingPlatform.block.color,
+                        Name = tempFloatingPlatform.block.name,
+                        BorderStyle = BorderStyle.FixedSingle
                     };
-                    this.Controls.Add(mapObject);
                 }
+                this.Controls.Add(mapObject);
             }
         }
 

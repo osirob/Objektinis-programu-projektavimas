@@ -122,6 +122,7 @@
             this.connectPanel.Controls.Add(this.nicknameLabel);
             this.connectPanel.Controls.Add(this.connectButton);
             this.connectPanel.Name = "connectPanel";
+            this.connectPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.connectPanel_Paint);
             // 
             // BLOCKS
             // 
