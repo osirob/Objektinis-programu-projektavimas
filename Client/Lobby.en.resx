@@ -59,10 +59,14 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="connectButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 192</value>
+    <value>221, 256</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="connectButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="connectButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 52</value>
+    <value>215, 69</value>
   </data>
   <data name="connectButton.Text" xml:space="preserve">
     <value>Connect to The Game Server</value>
@@ -72,28 +76,43 @@
     <value>True</value>
   </data>
   <data name="nicknameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 91</value>
+    <value>277, 121</value>
   </data>
   <data name="nicknameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 15</value>
+    <value>110, 20</value>
   </data>
   <data name="nicknameLabel.Text" xml:space="preserve">
     <value>Enter nickname</value>
   </data>
   <data name="nicknameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 137</value>
+    <value>146, 183</value>
+  </data>
+  <data name="nicknameTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="nicknameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 23</value>
+    <value>367, 27</value>
+  </data>
+  <data name="readyButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>210, 253</value>
+  </data>
+  <data name="readyButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="readyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 45</value>
+    <value>229, 60</value>
   </data>
   <data name="readyButton.Text" xml:space="preserve">
     <value>I'm Ready</value>
   </data>
+  <data name="notReadyButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>210, 337</value>
+  </data>
+  <data name="notReadyButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
   <data name="notReadyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 45</value>
+    <value>229, 60</value>
   </data>
   <data name="notReadyButton.Text" xml:space="preserve">
     <value>I'm not ready</value>
@@ -112,10 +131,10 @@
     <value>NoControl</value>
   </data>
   <data name="counter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 317</value>
+    <value>210, 423</value>
   </data>
   <data name="counter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 49</value>
+    <value>144, 61</value>
   </data>
   <data name="counter.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -133,10 +152,10 @@
     <value>True</value>
   </data>
   <data name="player2Name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 120</value>
+    <value>302, 160</value>
   </data>
   <data name="player2Name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 15</value>
+    <value>87, 20</value>
   </data>
   <data name="player2Name.Text" xml:space="preserve">
     <value>playername</value>
@@ -144,8 +163,11 @@
   <data name="player2Desc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="player2Desc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>210, 160</value>
+  </data>
   <data name="player2Desc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 15</value>
+    <value>98, 20</value>
   </data>
   <data name="player2Desc.Text" xml:space="preserve">
     <value>Other player: </value>
@@ -154,10 +176,10 @@
     <value>True</value>
   </data>
   <data name="player1Name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 83</value>
+    <value>302, 111</value>
   </data>
   <data name="player1Name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 15</value>
+    <value>87, 20</value>
   </data>
   <data name="player1Name.Text" xml:space="preserve">
     <value>playername</value>
@@ -165,8 +187,11 @@
   <data name="player1Desc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="player1Desc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>210, 111</value>
+  </data>
   <data name="player1Desc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 15</value>
+    <value>40, 20</value>
   </data>
   <data name="player1Desc.Text" xml:space="preserve">
     <value>You: </value>
@@ -174,16 +199,28 @@
   <data name="connectedToLobbyPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="connectedToLobbyPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
   <data name="connectedToLobbyPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 440</value>
+    <value>695, 587</value>
   </data>
   <data name="connectPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="connectPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
   <data name="connectPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 545</value>
+    <value>695, 727</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>614, 547</value>
+    <value>702, 729</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
 </root>

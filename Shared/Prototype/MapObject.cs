@@ -7,6 +7,5 @@ namespace Shared.Prototype
     public interface MapObject
     {
         public MapObject makeCopy();
-        public void setPosX(int x);
     }
 }

@@ -1,4 +1,6 @@
-﻿using Shared.Builder;
+﻿using Shared.Bridge;
+using Shared.Builder;
+using Shared.Prototype;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,13 +27,14 @@ namespace Shared.Shared
 
         private static Map map = null;
 
+        public static bool openedUpdater = false;
+
         //private static CollectableFactory collectableFactory = new CollectableFactory();
 
         private GameManagerServer()
         {
             counter++;
             Console.WriteLine("Counter Value " + counter.ToString());
-
             BuildMap();
         }
 
@@ -152,11 +155,20 @@ namespace Shared.Shared
             MapDirector mapDirector = new MapDirector(mapBuilder);
             mapDirector.buildMap();
             map = mapDirector.getMap();
+            foreach (FloatingPlatform a in map.getFloatingPlatforms())
+            {
+                Console.WriteLine(a.block.name);
+            }
         }
 
         public Map GetMap()
         {
             return map;
+        }
+
+        public List<MapObject> GetFloatingPlatforms()
+        {
+            return map.getFloatingPlatforms();
         }
     }
 }
