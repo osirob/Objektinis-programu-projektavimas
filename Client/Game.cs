@@ -89,6 +89,8 @@ namespace Client
             UpdateStats();
             CheckPlayerIndex();
             ManageBulletShot();
+            UpdateCointsFromServer();
+
             StartGame = true;
             
             weaponShop = new WeaponShop();
@@ -213,6 +215,7 @@ namespace Client
                 Movement();
                 CoinIntersect();
                 BulletIntersect();
+                SendRequest();
                 ticks++;
 
                 if (ticks >= 100 && this.gameCoins.Count == 0)
@@ -514,6 +517,22 @@ namespace Client
             });
         }
 
+        private async void UpdateCointsFromServer()
+        {
+            connection.On<int>("updateCoins", value =>
+            {
+                money = value;
+                moneyCountLabel.Text = value.ToString();
+                
+            });
+    
+        }
+
+        private async void SendRequest()
+        {
+            await connection.SendAsync("RequestUpdateCoins", playerId);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             _ = TestDeathAsync();
@@ -556,7 +575,7 @@ namespace Client
             else
             {
                 pistolBullet.Location = playerWeapon.Location;
-                trashLabel.Text = testCount.ToString();
+                //trashLabel.Text = testCount.ToString();
                 testCount++;
                 pistolBullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
                 pistolBullet.Top = playerWeapon.Top + playerWeapon.Height / 2;

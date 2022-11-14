@@ -31,8 +31,10 @@ namespace Shared.Shared
                 
                 if (element != null)
                 {
+                    Console.WriteLine("Coint:" + HasCoinValue);
                     HasCoinValue += element.Damage / 2;
                     damageDealedList.Remove(element);
+                    Console.WriteLine("Coint:" + HasCoinValue);
                 }
             }
             else
@@ -60,7 +62,17 @@ namespace Shared.Shared
 
         public void AddDamagesBonus(int damageBonus, int damagePlayerIndex)
         {
-            this.damageDealedList.Where(x=>x.PlayerId == damagePlayerIndex ).FirstOrDefault().AddBonus(damageBonus);
+            Console.WriteLine(damageBonus);
+            if (this.damageDealedList.Where(x => x.PlayerId == damagePlayerIndex).FirstOrDefault() == null)
+            {
+                DamageDealed dm = new DamageDealed(damagePlayerIndex);
+                this.damageDealedList.Add(dm);
+                this.damageDealedList.Where(x => x.PlayerId == damagePlayerIndex).FirstOrDefault().AddBonus(damageBonus);
+            }
+            else
+            {
+                this.damageDealedList.Where(x => x.PlayerId == damagePlayerIndex).FirstOrDefault().AddBonus(damageBonus);
+            }
         }
 
         public void TakeDamage(int damage)

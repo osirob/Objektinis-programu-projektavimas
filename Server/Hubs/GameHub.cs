@@ -7,6 +7,7 @@ using Shared.Command;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Numerics;
 
 namespace Server.Hubs
 {
@@ -158,6 +159,14 @@ namespace Server.Hubs
             Console.WriteLine("Reached die async id: {0}", id);
             ICommand command = new TakeDamageCommand(gameManagerServer.GetPlayer(id),damage);
             invoker.Run(command);
+            if (id == 1)
+            {
+                gameManagerServer.GetPlayer(0).AddDamagesBonus(damage,1);
+            }
+            else
+            {
+                gameManagerServer.GetPlayer(1).AddDamagesBonus(damage,1);
+            }
             return;
         }
 
@@ -217,6 +226,11 @@ namespace Server.Hubs
             //Console.WriteLine($"Check recieved: {message}");
             gameManagerServer.RemoveReady();
             await Clients.All.SendAsync("undoReady", gameManagerServer.CheckHowManyIsReady().ToString());
+        }
+
+        public async Task RequestUpdateCoins(int id)
+        {
+            await Clients.Caller.SendAsync("updateCoins", gameManagerServer.GetPlayer(id).HasCoinValue);
         }
 
         public async Task StartCounting(string message)
