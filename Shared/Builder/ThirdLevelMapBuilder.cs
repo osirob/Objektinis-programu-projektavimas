@@ -6,10 +6,10 @@ using System.Drawing;
 
 namespace Shared.Builder
 {
-    internal class SecondLevelMapBuilder : MapBuilder
+    internal class ThirdLevelMapBuilder : MapBuilder
     {
         private Map map;
-        public SecondLevelMapBuilder()
+        public ThirdLevelMapBuilder()
         {
             this.map = new Map();
         }
@@ -20,35 +20,24 @@ namespace Shared.Builder
 
         public void buildGround()
         {
-            Console.WriteLine("THIS HAPPENS");
             for (int i = 0; i <= 1085; i += 10)
             {
-                MapEntity dirtBlock = new MapEntity(i, 630, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
+                MapEntity dirtBlock = new MapEntity(i, 630, 50, 50, Color.DarkRed, "platform", "dirtBlock" + i);
                 this.map.addMapEntity(dirtBlock);
             }
             for (int i = 100; i <= 985; i += 10)
             {
-                MapEntity dirtBlock = new MapEntity(i, 580, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
+                MapEntity dirtBlock = new MapEntity(i, 580, 50, 50, Color.DarkRed, "platform", "dirtBlock" + i);
                 this.map.addMapEntity(dirtBlock);
             }
             for (int i = 200; i <= 885; i += 10)
             {
-                MapEntity dirtBlock = new MapEntity(i, 530, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
+                MapEntity dirtBlock = new MapEntity(i, 530, 50, 50, Color.DarkRed, "platform", "dirtBlock" + i);
                 this.map.addMapEntity(dirtBlock);
             }
             for (int i = 300; i <= 785; i += 10)
             {
-                MapEntity dirtBlock = new MapEntity(i, 480, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
-                this.map.addMapEntity(dirtBlock);
-            }
-            for (int i = 400; i <= 685; i += 10)
-            {
-                MapEntity dirtBlock = new MapEntity(i, 430, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
-                this.map.addMapEntity(dirtBlock);
-            }
-            for (int i = 500; i <= 585; i += 10)
-            {
-                MapEntity dirtBlock = new MapEntity(i, 380, 50, 50, Color.Violet, "platform", "dirtBlock" + i);
+                MapEntity dirtBlock = new MapEntity(i, 480, 50, 50, Color.DarkRed, "platform", "dirtBlock" + i);
                 this.map.addMapEntity(dirtBlock);
             }
         }

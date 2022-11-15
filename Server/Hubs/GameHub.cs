@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Shared.Bridge;
 using System.Timers;
 using System.Numerics;
+using Shared.Prototype;
 
 namespace Server.Hubs
 {
@@ -246,6 +247,16 @@ namespace Server.Hubs
             await Clients.All.SendAsync("counter", "BEGIN");
         }
 
+        public async Task BuildNewLevel2(int level)
+        {
+            await Clients.All.SendAsync("level2Map", level);
+        }
+
+        public async Task BuildNewLevel3(int level)
+        {
+            await Clients.All.SendAsync("level3Map", level);
+        }
+
         public async Task ResetReady(string message)
         {
             //GameInfo.HowManyIsRead = 0;
@@ -270,6 +281,10 @@ namespace Server.Hubs
         public async Task SendPlayer2WeaponCoordinatesToPlayer1(string coordinates)
         {
             await Clients.Others.SendAsync("receivePlayer2WeaponCoordinates", coordinates);
+        }
+        public async Task printMessage(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

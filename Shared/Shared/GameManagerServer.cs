@@ -26,8 +26,12 @@ namespace Shared.Shared
         private static int counter = 0;
 
         private static Map map = null;
+        private static Map map2 = null;
+        private static Map map3 = null;
 
         public static bool openedUpdater = false;
+
+        public static int currLevel = 1;
 
         //private static CollectableFactory collectableFactory = new CollectableFactory();
 
@@ -155,15 +159,29 @@ namespace Shared.Shared
             MapDirector mapDirector = new MapDirector(mapBuilder);
             mapDirector.buildMap();
             map = mapDirector.getMap();
-            foreach (FloatingPlatform a in map.getFloatingPlatforms())
-            {
-                Console.WriteLine(a.block.name);
-            }
+
+            MapBuilder mapBuilder2 = new SecondLevelMapBuilder();
+            MapDirector mapDirector2 = new MapDirector(mapBuilder2);
+            mapDirector2.buildMap();
+            map2 = mapDirector2.getMap();
+
+            MapBuilder mapBuilder3 = new ThirdLevelMapBuilder();
+            MapDirector mapDirector3 = new MapDirector(mapBuilder3);
+            mapDirector3.buildMap();
+            map3 = mapDirector3.getMap();
         }
 
         public Map GetMap()
         {
             return map;
+        }
+        public Map GetMap2()
+        {
+            return map2;
+        }
+        public Map GetMap3()
+        {
+            return map3;
         }
 
         public List<MapObject> GetFloatingPlatforms()
