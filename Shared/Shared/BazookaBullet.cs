@@ -9,12 +9,12 @@ namespace Shared.Shared
         public string Tag { get; set; }
         public override int CalculateWidth(int standartWidth)
         {
-            return standartWidth * 9;
+            return standartWidth * 15;
         }
 
         public override int CalculateHeight(int standartHeight)
         {
-            return standartHeight * 9;
+            return standartHeight * 30;
         }
     }
 }

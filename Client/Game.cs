@@ -55,10 +55,10 @@ namespace Client
         PictureBox enemyWeapon;
         int enemyWeaponX;
         int enemyWeaponY;
-        Pistol pistol = new Pistol("Pistol");
-        Rifle riffle = new Rifle("Riffle");
-        Shotgun shotgun = new Shotgun("Shotgun");
-        Bazooka bazooka = new Bazooka("Bazooka");
+        private Pistol pistol;
+        private Rifle riffle;
+        private Shotgun shotgun;
+        private Bazooka bazooka;
         PictureBox player1 = null;
         PictureBox player2 = null;
 
@@ -319,9 +319,20 @@ namespace Client
             this.enemyWeapon.Location = this.player2.Location;
             this.Controls.Add(this.enemyWeapon);
 
-            setStrategy(pistol);
+            // Creating Bullets classes
+            bullet = new PictureBox();
             pistolBulletClass = new PistolBullet();
-            shootingPower = _shooting.Shoot(shootingPower);
+            riffleBulletClass = new RiffleBullet();
+            shotgunBulletClass = new ShotgunBullet();
+            bazookaBulletClass = new BazookaBullet();
+
+            // Creating weapons
+            pistol = new Pistol("Pistol");
+            riffle = new Rifle("Riffle");
+            shotgun = new Shotgun("Shotgun");
+            bazooka = new Bazooka("Bazooka");
+            setStrategy(pistol);
+
             weaponNameLabel.Text = _shooting.Name;
             ammoCountLabel.Text = _shooting.Ammunition.ToString();
         }
@@ -549,20 +560,18 @@ namespace Client
 
         public async Task MakeBulletAsync(int? weaponCordX = null,int? weaponCordY = null,int? left =null, int? width = null, int? top = null, int? heigt = null)
         {
-            PictureBox bullet = new PictureBox();
             switch (_shooting.Name)
             {
                 case "Pistol":
                 {
-                    bullet = new PictureBox();
                     bullet.Tag = "bullet";
+                    bullet.BackColor = Color.Red;
                     bullet.Size = new Size(pistolBulletClass.CalculateWidth(standartWidth),
                         pistolBulletClass.CalculateHeight(standartHeight));
                 }
                     break;
                 case "Riffle":
                 {
-                    bullet = new PictureBox();
                     bullet.Tag = "bullet";
                     bullet.Size = new Size(riffleBulletClass.CalculateWidth(standartWidth),
                         pistolBulletClass.CalculateHeight(standartHeight));
@@ -570,15 +579,15 @@ namespace Client
                     break;
                 case "Shotgun":
                     {
-                        bullet = new PictureBox();
                         bullet.Tag = "bullet";
+                        bullet.BackColor = Color.Red;
                         bullet.Size = new Size(shotgunBulletClass.CalculateWidth(standartWidth), pistolBulletClass.CalculateHeight(standartHeight));
                     }
                     break;
                 case "Bazooka":
                 {
-                    bullet = new PictureBox();
                     bullet.Tag = "bullet";
+                    bullet.BackColor = Color.Red;
                     bullet.Size = new Size(bazookaBulletClass.CalculateWidth(standartWidth), pistolBulletClass.CalculateHeight(standartHeight));
                 }
                     break;
@@ -606,16 +615,16 @@ namespace Client
             if (weaponCordX != null && weaponCordY != null)
             {
                 bullet.Location = new Point(Convert.ToInt32(weaponCordX), Convert.ToInt32(weaponCordY));
-                bullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width) / 2;
-                bullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt) / 2;
+                bullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width);
+                bullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt);
             }
             else
             {
                 bullet.Location = playerWeapon.Location;
                 //trashLabel.Text = testCount.ToString();
                 testCount++;
-                bullet.Left = playerWeapon.Left + playerWeapon.Width / 2;
-                bullet.Top = playerWeapon.Top + playerWeapon.Height / 2;
+                bullet.Left = playerWeapon.Left + playerWeapon.Width;
+                bullet.Top = playerWeapon.Top + playerWeapon.Height;
 
                 await connection.SendAsync("SendBulletCords", bullet.Location.X + "," + bullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height);
             }
