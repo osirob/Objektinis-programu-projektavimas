@@ -65,15 +65,16 @@
             this.ammoCountLabel = new System.Windows.Forms.Label();
             this.weaponLabel = new System.Windows.Forms.Label();
             this.weaponNameLabel = new System.Windows.Forms.Label();
+            this.updateWeaponNotif = new System.Windows.Forms.Label();
             this.shopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // hpLabel
             // 
             this.hpLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.hpLabel.Location = new System.Drawing.Point(1039, 8);
+            this.hpLabel.Location = new System.Drawing.Point(909, 6);
             this.hpLabel.Name = "hpLabel";
-            this.hpLabel.Size = new System.Drawing.Size(137, 33);
+            this.hpLabel.Size = new System.Drawing.Size(120, 25);
             this.hpLabel.TabIndex = 0;
             this.hpLabel.Text = "HP:";
             // 
@@ -86,9 +87,9 @@
             // playerLabel
             // 
             this.playerLabel.Font = new System.Drawing.Font("Consolas", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.playerLabel.Location = new System.Drawing.Point(423, 12);
+            this.playerLabel.Location = new System.Drawing.Point(370, 9);
             this.playerLabel.Name = "playerLabel";
-            this.playerLabel.Size = new System.Drawing.Size(269, 33);
+            this.playerLabel.Size = new System.Drawing.Size(235, 25);
             this.playerLabel.TabIndex = 5;
             this.playerLabel.Text = "Player1: Name";
             // 
@@ -100,9 +101,9 @@
             // testLabel
             // 
             this.testLabel.AutoSize = true;
-            this.testLabel.Location = new System.Drawing.Point(506, 245);
+            this.testLabel.Location = new System.Drawing.Point(443, 184);
             this.testLabel.Name = "testLabel";
-            this.testLabel.Size = new System.Drawing.Size(33, 20);
+            this.testLabel.Size = new System.Drawing.Size(26, 15);
             this.testLabel.TabIndex = 6;
             this.testLabel.Text = "test";
             this.testLabel.Visible = false;
@@ -110,18 +111,17 @@
             // trashLabel
             // 
             this.trashLabel.AutoSize = true;
-            this.trashLabel.Location = new System.Drawing.Point(243, 311);
+            this.trashLabel.Location = new System.Drawing.Point(213, 233);
             this.trashLabel.Name = "trashLabel";
-            this.trashLabel.Size = new System.Drawing.Size(77, 20);
+            this.trashLabel.Size = new System.Drawing.Size(61, 15);
             this.trashLabel.TabIndex = 7;
             this.trashLabel.Text = "trashLabel";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(-9, -3);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Location = new System.Drawing.Point(-8, -2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 31);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
             this.button1.Text = "Test Die Method";
             this.button1.UseVisualStyleBackColor = true;
@@ -132,9 +132,9 @@
             // 
             this.hpCountLabel.AutoSize = true;
             this.hpCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.hpCountLabel.Location = new System.Drawing.Point(1085, 8);
+            this.hpCountLabel.Location = new System.Drawing.Point(949, 6);
             this.hpCountLabel.Name = "hpCountLabel";
-            this.hpCountLabel.Size = new System.Drawing.Size(103, 28);
+            this.hpCountLabel.Size = new System.Drawing.Size(80, 22);
             this.hpCountLabel.TabIndex = 9;
             this.hpCountLabel.Text = "hpCount";
             // 
@@ -142,9 +142,9 @@
             // 
             this.moneyLabel.AutoSize = true;
             this.moneyLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.moneyLabel.Location = new System.Drawing.Point(1003, 41);
+            this.moneyLabel.Location = new System.Drawing.Point(878, 31);
             this.moneyLabel.Name = "moneyLabel";
-            this.moneyLabel.Size = new System.Drawing.Size(90, 28);
+            this.moneyLabel.Size = new System.Drawing.Size(70, 22);
             this.moneyLabel.TabIndex = 10;
             this.moneyLabel.Text = "Money:";
             // 
@@ -152,9 +152,9 @@
             // 
             this.moneyCountLabel.AutoSize = true;
             this.moneyCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.moneyCountLabel.Location = new System.Drawing.Point(1085, 41);
+            this.moneyCountLabel.Location = new System.Drawing.Point(949, 31);
             this.moneyCountLabel.Name = "moneyCountLabel";
-            this.moneyCountLabel.Size = new System.Drawing.Size(142, 28);
+            this.moneyCountLabel.Size = new System.Drawing.Size(110, 22);
             this.moneyCountLabel.TabIndex = 11;
             this.moneyCountLabel.Text = "moneyCount";
             // 
@@ -182,16 +182,18 @@
             this.shopPanel.Controls.Add(this.pistolAmmoPriceLabel);
             this.shopPanel.Controls.Add(this.pistolPriceLabel);
             this.shopPanel.Controls.Add(this.pistolLabel);
-            this.shopPanel.Location = new System.Drawing.Point(149, 191);
+            this.shopPanel.Location = new System.Drawing.Point(130, 143);
+            this.shopPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.shopPanel.Name = "shopPanel";
-            this.shopPanel.Size = new System.Drawing.Size(799, 241);
+            this.shopPanel.Size = new System.Drawing.Size(699, 181);
             this.shopPanel.TabIndex = 12;
             // 
             // closeShopButton
             // 
-            this.closeShopButton.Location = new System.Drawing.Point(759, 3);
+            this.closeShopButton.Location = new System.Drawing.Point(664, 2);
+            this.closeShopButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.closeShopButton.Name = "closeShopButton";
-            this.closeShopButton.Size = new System.Drawing.Size(34, 41);
+            this.closeShopButton.Size = new System.Drawing.Size(30, 31);
             this.closeShopButton.TabIndex = 20;
             this.closeShopButton.Text = "X";
             this.closeShopButton.UseVisualStyleBackColor = true;
@@ -199,9 +201,10 @@
             // 
             // buyBazookaAmmoButton
             // 
-            this.buyBazookaAmmoButton.Location = new System.Drawing.Point(579, 169);
+            this.buyBazookaAmmoButton.Location = new System.Drawing.Point(507, 127);
+            this.buyBazookaAmmoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyBazookaAmmoButton.Name = "buyBazookaAmmoButton";
-            this.buyBazookaAmmoButton.Size = new System.Drawing.Size(91, 51);
+            this.buyBazookaAmmoButton.Size = new System.Drawing.Size(80, 38);
             this.buyBazookaAmmoButton.TabIndex = 19;
             this.buyBazookaAmmoButton.Text = "BuyAmmo";
             this.buyBazookaAmmoButton.UseVisualStyleBackColor = true;
@@ -209,9 +212,10 @@
             // 
             // buyBazookaButton
             // 
-            this.buyBazookaButton.Location = new System.Drawing.Point(579, 119);
+            this.buyBazookaButton.Location = new System.Drawing.Point(507, 89);
+            this.buyBazookaButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyBazookaButton.Name = "buyBazookaButton";
-            this.buyBazookaButton.Size = new System.Drawing.Size(112, 44);
+            this.buyBazookaButton.Size = new System.Drawing.Size(98, 33);
             this.buyBazookaButton.TabIndex = 18;
             this.buyBazookaButton.Text = "Buy bazooka";
             this.buyBazookaButton.UseVisualStyleBackColor = true;
@@ -221,9 +225,9 @@
             // 
             this.bazookaAmmoCostLabel.AutoSize = true;
             this.bazookaAmmoCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bazookaAmmoCostLabel.Location = new System.Drawing.Point(579, 97);
+            this.bazookaAmmoCostLabel.Location = new System.Drawing.Point(507, 73);
             this.bazookaAmmoCostLabel.Name = "bazookaAmmoCostLabel";
-            this.bazookaAmmoCostLabel.Size = new System.Drawing.Size(112, 18);
+            this.bazookaAmmoCostLabel.Size = new System.Drawing.Size(98, 14);
             this.bazookaAmmoCostLabel.TabIndex = 17;
             this.bazookaAmmoCostLabel.Text = "Ammo cost: 55";
             // 
@@ -231,9 +235,9 @@
             // 
             this.bazookaCostLabel.AutoSize = true;
             this.bazookaCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bazookaCostLabel.Location = new System.Drawing.Point(579, 71);
+            this.bazookaCostLabel.Location = new System.Drawing.Point(507, 53);
             this.bazookaCostLabel.Name = "bazookaCostLabel";
-            this.bazookaCostLabel.Size = new System.Drawing.Size(136, 18);
+            this.bazookaCostLabel.Size = new System.Drawing.Size(119, 14);
             this.bazookaCostLabel.TabIndex = 16;
             this.bazookaCostLabel.Text = "Weapon cost: 500";
             // 
@@ -241,18 +245,19 @@
             // 
             this.bazookaLabel.AutoSize = true;
             this.bazookaLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bazookaLabel.Location = new System.Drawing.Point(579, 41);
+            this.bazookaLabel.Location = new System.Drawing.Point(507, 31);
             this.bazookaLabel.Name = "bazookaLabel";
-            this.bazookaLabel.Size = new System.Drawing.Size(103, 28);
+            this.bazookaLabel.Size = new System.Drawing.Size(80, 22);
             this.bazookaLabel.TabIndex = 15;
             this.bazookaLabel.Text = "Bazooka";
             // 
             // buyShotgunAmmoButton
             // 
             this.buyShotgunAmmoButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buyShotgunAmmoButton.Location = new System.Drawing.Point(402, 169);
+            this.buyShotgunAmmoButton.Location = new System.Drawing.Point(352, 127);
+            this.buyShotgunAmmoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyShotgunAmmoButton.Name = "buyShotgunAmmoButton";
-            this.buyShotgunAmmoButton.Size = new System.Drawing.Size(91, 51);
+            this.buyShotgunAmmoButton.Size = new System.Drawing.Size(80, 38);
             this.buyShotgunAmmoButton.TabIndex = 14;
             this.buyShotgunAmmoButton.Text = "Buy Ammo";
             this.buyShotgunAmmoButton.UseVisualStyleBackColor = true;
@@ -260,9 +265,10 @@
             // 
             // buyShotgunButton
             // 
-            this.buyShotgunButton.Location = new System.Drawing.Point(402, 119);
+            this.buyShotgunButton.Location = new System.Drawing.Point(352, 89);
+            this.buyShotgunButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyShotgunButton.Name = "buyShotgunButton";
-            this.buyShotgunButton.Size = new System.Drawing.Size(112, 44);
+            this.buyShotgunButton.Size = new System.Drawing.Size(98, 33);
             this.buyShotgunButton.TabIndex = 13;
             this.buyShotgunButton.Text = "Buy shotgun";
             this.buyShotgunButton.UseVisualStyleBackColor = true;
@@ -272,9 +278,9 @@
             // 
             this.shotgunAmmoCostLabel.AutoSize = true;
             this.shotgunAmmoCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.shotgunAmmoCostLabel.Location = new System.Drawing.Point(402, 97);
+            this.shotgunAmmoCostLabel.Location = new System.Drawing.Point(352, 73);
             this.shotgunAmmoCostLabel.Name = "shotgunAmmoCostLabel";
-            this.shotgunAmmoCostLabel.Size = new System.Drawing.Size(112, 18);
+            this.shotgunAmmoCostLabel.Size = new System.Drawing.Size(98, 14);
             this.shotgunAmmoCostLabel.TabIndex = 12;
             this.shotgunAmmoCostLabel.Text = "Ammo cost: 45";
             // 
@@ -282,9 +288,9 @@
             // 
             this.shotgunCostLabel.AutoSize = true;
             this.shotgunCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.shotgunCostLabel.Location = new System.Drawing.Point(402, 69);
+            this.shotgunCostLabel.Location = new System.Drawing.Point(352, 52);
             this.shotgunCostLabel.Name = "shotgunCostLabel";
-            this.shotgunCostLabel.Size = new System.Drawing.Size(136, 18);
+            this.shotgunCostLabel.Size = new System.Drawing.Size(119, 14);
             this.shotgunCostLabel.TabIndex = 11;
             this.shotgunCostLabel.Text = "Weapon cost: 400";
             // 
@@ -292,17 +298,18 @@
             // 
             this.shotgunLabel.AutoSize = true;
             this.shotgunLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.shotgunLabel.Location = new System.Drawing.Point(402, 41);
+            this.shotgunLabel.Location = new System.Drawing.Point(352, 31);
             this.shotgunLabel.Name = "shotgunLabel";
-            this.shotgunLabel.Size = new System.Drawing.Size(103, 28);
+            this.shotgunLabel.Size = new System.Drawing.Size(80, 22);
             this.shotgunLabel.TabIndex = 10;
             this.shotgunLabel.Text = "Shotgun";
             // 
             // buyRifleAmmoButton
             // 
-            this.buyRifleAmmoButton.Location = new System.Drawing.Point(229, 169);
+            this.buyRifleAmmoButton.Location = new System.Drawing.Point(200, 127);
+            this.buyRifleAmmoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyRifleAmmoButton.Name = "buyRifleAmmoButton";
-            this.buyRifleAmmoButton.Size = new System.Drawing.Size(89, 51);
+            this.buyRifleAmmoButton.Size = new System.Drawing.Size(78, 38);
             this.buyRifleAmmoButton.TabIndex = 9;
             this.buyRifleAmmoButton.Text = "Buy Ammo";
             this.buyRifleAmmoButton.UseVisualStyleBackColor = true;
@@ -310,9 +317,10 @@
             // 
             // buyRifleButton
             // 
-            this.buyRifleButton.Location = new System.Drawing.Point(229, 119);
+            this.buyRifleButton.Location = new System.Drawing.Point(200, 89);
+            this.buyRifleButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyRifleButton.Name = "buyRifleButton";
-            this.buyRifleButton.Size = new System.Drawing.Size(112, 44);
+            this.buyRifleButton.Size = new System.Drawing.Size(98, 33);
             this.buyRifleButton.TabIndex = 8;
             this.buyRifleButton.Text = "Buy rifle";
             this.buyRifleButton.UseVisualStyleBackColor = true;
@@ -322,9 +330,9 @@
             // 
             this.rifleAmmoCostLabel.AutoSize = true;
             this.rifleAmmoCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rifleAmmoCostLabel.Location = new System.Drawing.Point(229, 99);
+            this.rifleAmmoCostLabel.Location = new System.Drawing.Point(200, 74);
             this.rifleAmmoCostLabel.Name = "rifleAmmoCostLabel";
-            this.rifleAmmoCostLabel.Size = new System.Drawing.Size(112, 18);
+            this.rifleAmmoCostLabel.Size = new System.Drawing.Size(98, 14);
             this.rifleAmmoCostLabel.TabIndex = 7;
             this.rifleAmmoCostLabel.Text = "Ammo cost: 35";
             // 
@@ -332,9 +340,9 @@
             // 
             this.rifleCostLabel.AutoSize = true;
             this.rifleCostLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rifleCostLabel.Location = new System.Drawing.Point(229, 71);
+            this.rifleCostLabel.Location = new System.Drawing.Point(200, 53);
             this.rifleCostLabel.Name = "rifleCostLabel";
-            this.rifleCostLabel.Size = new System.Drawing.Size(136, 18);
+            this.rifleCostLabel.Size = new System.Drawing.Size(119, 14);
             this.rifleCostLabel.TabIndex = 6;
             this.rifleCostLabel.Text = "Weapon cost: 300";
             // 
@@ -342,17 +350,18 @@
             // 
             this.rifleLabel.AutoSize = true;
             this.rifleLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.rifleLabel.Location = new System.Drawing.Point(229, 41);
+            this.rifleLabel.Location = new System.Drawing.Point(200, 31);
             this.rifleLabel.Name = "rifleLabel";
-            this.rifleLabel.Size = new System.Drawing.Size(77, 28);
+            this.rifleLabel.Size = new System.Drawing.Size(60, 22);
             this.rifleLabel.TabIndex = 5;
             this.rifleLabel.Text = "Rifle";
             // 
             // buyPistolAmmoButton
             // 
-            this.buyPistolAmmoButton.Location = new System.Drawing.Point(58, 169);
+            this.buyPistolAmmoButton.Location = new System.Drawing.Point(51, 127);
+            this.buyPistolAmmoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyPistolAmmoButton.Name = "buyPistolAmmoButton";
-            this.buyPistolAmmoButton.Size = new System.Drawing.Size(80, 51);
+            this.buyPistolAmmoButton.Size = new System.Drawing.Size(70, 38);
             this.buyPistolAmmoButton.TabIndex = 4;
             this.buyPistolAmmoButton.Text = "Buy Ammo";
             this.buyPistolAmmoButton.UseVisualStyleBackColor = true;
@@ -360,9 +369,10 @@
             // 
             // buyPistolButton
             // 
-            this.buyPistolButton.Location = new System.Drawing.Point(58, 120);
+            this.buyPistolButton.Location = new System.Drawing.Point(51, 90);
+            this.buyPistolButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyPistolButton.Name = "buyPistolButton";
-            this.buyPistolButton.Size = new System.Drawing.Size(80, 43);
+            this.buyPistolButton.Size = new System.Drawing.Size(70, 32);
             this.buyPistolButton.TabIndex = 3;
             this.buyPistolButton.Text = "Buy pistol";
             this.buyPistolButton.UseVisualStyleBackColor = true;
@@ -372,9 +382,9 @@
             // 
             this.pistolAmmoPriceLabel.AutoSize = true;
             this.pistolAmmoPriceLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pistolAmmoPriceLabel.Location = new System.Drawing.Point(58, 99);
+            this.pistolAmmoPriceLabel.Location = new System.Drawing.Point(51, 74);
             this.pistolAmmoPriceLabel.Name = "pistolAmmoPriceLabel";
-            this.pistolAmmoPriceLabel.Size = new System.Drawing.Size(112, 18);
+            this.pistolAmmoPriceLabel.Size = new System.Drawing.Size(98, 14);
             this.pistolAmmoPriceLabel.TabIndex = 2;
             this.pistolAmmoPriceLabel.Text = "Ammo cost: 25";
             // 
@@ -382,9 +392,9 @@
             // 
             this.pistolPriceLabel.AutoSize = true;
             this.pistolPriceLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pistolPriceLabel.Location = new System.Drawing.Point(58, 72);
+            this.pistolPriceLabel.Location = new System.Drawing.Point(51, 54);
             this.pistolPriceLabel.Name = "pistolPriceLabel";
-            this.pistolPriceLabel.Size = new System.Drawing.Size(136, 18);
+            this.pistolPriceLabel.Size = new System.Drawing.Size(119, 14);
             this.pistolPriceLabel.TabIndex = 1;
             this.pistolPriceLabel.Text = "Weapon cost: 200";
             // 
@@ -392,9 +402,9 @@
             // 
             this.pistolLabel.AutoSize = true;
             this.pistolLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.pistolLabel.Location = new System.Drawing.Point(58, 41);
+            this.pistolLabel.Location = new System.Drawing.Point(51, 31);
             this.pistolLabel.Name = "pistolLabel";
-            this.pistolLabel.Size = new System.Drawing.Size(90, 28);
+            this.pistolLabel.Size = new System.Drawing.Size(70, 22);
             this.pistolLabel.TabIndex = 0;
             this.pistolLabel.Text = "Pistol";
             // 
@@ -402,9 +412,9 @@
             // 
             this.ammoLabel.AutoSize = true;
             this.ammoLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ammoLabel.Location = new System.Drawing.Point(1015, 75);
+            this.ammoLabel.Location = new System.Drawing.Point(888, 56);
             this.ammoLabel.Name = "ammoLabel";
-            this.ammoLabel.Size = new System.Drawing.Size(77, 28);
+            this.ammoLabel.Size = new System.Drawing.Size(60, 22);
             this.ammoLabel.TabIndex = 13;
             this.ammoLabel.Text = "Ammo:";
             // 
@@ -412,9 +422,9 @@
             // 
             this.ammoCountLabel.AutoSize = true;
             this.ammoCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ammoCountLabel.Location = new System.Drawing.Point(1085, 75);
+            this.ammoCountLabel.Location = new System.Drawing.Point(949, 56);
             this.ammoCountLabel.Name = "ammoCountLabel";
-            this.ammoCountLabel.Size = new System.Drawing.Size(129, 28);
+            this.ammoCountLabel.Size = new System.Drawing.Size(100, 22);
             this.ammoCountLabel.TabIndex = 14;
             this.ammoCountLabel.Text = "ammoCount";
             // 
@@ -422,9 +432,9 @@
             // 
             this.weaponLabel.AutoSize = true;
             this.weaponLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.weaponLabel.Location = new System.Drawing.Point(992, 104);
+            this.weaponLabel.Location = new System.Drawing.Point(868, 78);
             this.weaponLabel.Name = "weaponLabel";
-            this.weaponLabel.Size = new System.Drawing.Size(103, 28);
+            this.weaponLabel.Size = new System.Drawing.Size(80, 22);
             this.weaponLabel.TabIndex = 15;
             this.weaponLabel.Text = "Weapon:";
             // 
@@ -432,18 +442,29 @@
             // 
             this.weaponNameLabel.AutoSize = true;
             this.weaponNameLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.weaponNameLabel.Location = new System.Drawing.Point(1085, 104);
+            this.weaponNameLabel.Location = new System.Drawing.Point(949, 78);
             this.weaponNameLabel.Name = "weaponNameLabel";
-            this.weaponNameLabel.Size = new System.Drawing.Size(142, 28);
+            this.weaponNameLabel.Size = new System.Drawing.Size(110, 22);
             this.weaponNameLabel.TabIndex = 16;
             this.weaponNameLabel.Text = "weaponName";
             // 
+            // updateWeaponNotif
+            // 
+            this.updateWeaponNotif.AutoSize = true;
+            this.updateWeaponNotif.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateWeaponNotif.Location = new System.Drawing.Point(306, 59);
+            this.updateWeaponNotif.Name = "updateWeaponNotif";
+            this.updateWeaponNotif.Size = new System.Drawing.Size(0, 46);
+            this.updateWeaponNotif.TabIndex = 17;
+            this.updateWeaponNotif.Visible = false;
+            // 
             // Game
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(1279, 881);
+            this.ClientSize = new System.Drawing.Size(1119, 661);
+            this.Controls.Add(this.updateWeaponNotif);
             this.Controls.Add(this.weaponNameLabel);
             this.Controls.Add(this.weaponLabel);
             this.Controls.Add(this.ammoCountLabel);
@@ -457,7 +478,6 @@
             this.Controls.Add(this.testLabel);
             this.Controls.Add(this.playerLabel);
             this.Controls.Add(this.hpLabel);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Game";
             this.Text = "Game";
             this.Load += new System.EventHandler(this.Game_Load);
@@ -508,5 +528,6 @@
         private Label ammoCountLabel;
         private Label weaponLabel;
         private Label weaponNameLabel;
+        private Label updateWeaponNotif;
     }
 }

@@ -1006,7 +1006,7 @@ namespace Client
             if (weap != null)
             {
                 setStrategy(pistol);
-                weaponNameLabel.Text = _shooting.Name;
+                //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
             }
@@ -1024,7 +1024,7 @@ namespace Client
             if (weap != null)
             {
                 setStrategy(riffle);
-                weaponNameLabel.Text = _shooting.Name;
+                //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
             }
@@ -1036,7 +1036,7 @@ namespace Client
             if (weap != null)
             {
                 setStrategy(shotgun);
-                weaponNameLabel.Text = _shooting.Name;
+                //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
             }
@@ -1048,7 +1048,7 @@ namespace Client
             if (weap != null)
             {
                 setStrategy(bazooka);
-                weaponNameLabel.Text = _shooting.Name;
+                //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
             }
