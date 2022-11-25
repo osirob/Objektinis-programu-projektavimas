@@ -1,4 +1,5 @@
-﻿using Shared.Shared;
+﻿using Client.Template;
+using Shared.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace Client.Facade
                     pistol.AddAmmunition(20);
                 }
                 money -= pistol.Price;
+                SelectedGun selectedGun = new PistolWeapon();
+                selectedGun.SelectNewGun();
                 return pistol;
             }
 
@@ -40,6 +43,8 @@ namespace Client.Facade
                     rifle.AddAmmunition(90);
                 }
                 money -= rifle.Price;
+                SelectedGun selectedGun = new RifleWeapon();
+                selectedGun.SelectNewGun();
                 return rifle;
             }
 
@@ -50,6 +55,8 @@ namespace Client.Facade
                     shotgun.AddAmmunition(10);
                 }
                 money -= shotgun.Price;
+                SelectedGun selectedGun = new ShotgunWeapon();
+                selectedGun.SelectNewGun();
                 return shotgun;
             }
 
@@ -60,6 +67,8 @@ namespace Client.Facade
                     bazooka.AddAmmunition(5);
                 }
                 money -= bazooka.Price;
+                SelectedGun selectedGun = new BazookaWeapon();
+                selectedGun.SelectNewGun();
                 return bazooka;
             }
 
