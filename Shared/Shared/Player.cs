@@ -15,6 +15,7 @@ namespace Shared.Shared
         public int HasCoinValue { get; set; } = 0;
         public int Health = 100;
         protected Position position = new Position();
+        public Bonuses Bonuses = new Bonuses();
 
         public List<DamageDealed> damageDealedList = new List<DamageDealed>();
 

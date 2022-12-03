@@ -110,6 +110,13 @@ namespace Server.Hubs
             }
         }
 
+        public async Task DecreaseCoins(int value, int playerId)
+        {
+            Console.WriteLine("DecreaseCoins " + value);
+            ICommand command = new TakeMoneyCommand(gameManagerServer.GetPlayer(playerId), value);
+            invoker.Run(command);
+        }
+
         public async Task<Player> ConnectPlayer(string nickname)
         {
             if(gameManagerServer.GetPlayersCount() == 2)
