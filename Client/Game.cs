@@ -1000,11 +1000,76 @@ namespace Client
             }
         }
 
+
+
+        private async void DecreaseCoinBuyingWeapon(IShooting weapo, string weaponType)
+        {
+            if(weapo != null)
+            {
+
+                switch (weaponType)
+                {
+                    case "Pistol":
+                        {
+                            var pistol = weapo as Pistol;
+
+                            if (pistol != null)
+                            {
+                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                            }
+                            break;
+                        }
+                    case "Shotgun":
+                        {
+                            var pistol = weapo as Shotgun;
+
+                            if (pistol != null)
+                            {
+                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                            }
+                            break;
+                        }
+                    case "Rifle":
+                        {
+                            var pistol = weapo as Rifle;
+
+                            if (pistol != null)
+                            {
+                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                            }
+                            break;
+                        }
+                    case "Bazooka":
+                        {
+                            var pistol = weapo as Bazooka;
+
+                            if (pistol != null)
+                            {
+                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                            }
+                            break;
+                        }
+                    default:
+                        break;
+                }
+
+                if(weaponType == "Pistol")
+                {
+                    var pistol = weapo as Pistol;
+
+                    if(pistol != null)
+                    {
+                        await connection.SendAsync("DecreaseCoins", pistol.Price * -1,playerId);
+                    }      
+                }
+            }
+        }
         private void buyPistolButton_Click(object sender, EventArgs e)
         {
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Pistol, ref this.money);
             if (weap != null)
             {
+                DecreaseCoinBuyingWeapon(weap, "Pistol");
                 setStrategy(pistol);
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
@@ -1023,6 +1088,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Rifle, ref this.money);
             if (weap != null)
             {
+                DecreaseCoinBuyingWeapon(weap, "Rifle");
                 setStrategy(riffle);
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
@@ -1035,6 +1101,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Shotgun, ref this.money);
             if (weap != null)
             {
+                DecreaseCoinBuyingWeapon(weap, "Shotgun");
                 setStrategy(shotgun);
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
@@ -1047,6 +1114,7 @@ namespace Client
             var weap = weaponShop.BuyWeapon(CurrentWeaponType.Bazooka, ref this.money);
             if (weap != null)
             {
+                DecreaseCoinBuyingWeapon(weap, "Bazooka");
                 setStrategy(bazooka);
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
@@ -1080,6 +1148,11 @@ namespace Client
             weaponShop.BuyAmmunition(CurrentWeaponType.Bazooka, ref _shooting, ref this.money);
             ammoCountLabel.Text = _shooting.Ammunition.ToString();
             moneyCountLabel.Text = money.ToString();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

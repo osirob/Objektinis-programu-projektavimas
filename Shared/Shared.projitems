@@ -22,6 +22,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeDamageCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeMoneyCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\AbstractBonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\ConcreateMediator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\DamageBonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\JumpBonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\Mediator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\SpeedBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\ConcreateSubject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Observer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Observer\Subject.cs" />
@@ -31,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Armor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bazooka.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BazookaBullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\Bonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\MapEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BulletDecorator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DamageDealed.cs" />
