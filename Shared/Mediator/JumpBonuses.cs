@@ -7,15 +7,21 @@ namespace Shared.Mediator
 {
     public class JumpBonuses : AbstractBonuses
     {
-        public bool Active = false;
-        GameManagerServer gameManagerServer = GameManagerServer.Instance;
+        public bool Active;
+        GameManagerServer gameManagerServer;
+
+        public JumpBonuses()
+        {
+            Active = false;
+            gameManagerServer = GameManagerServer.Instance;
+        }
 
         public void ActivateBoost(int id)
         {
             if (!Active)
             {
                 Active = true;
-                gameManagerServer.GetPlayer(id).Bonuses.SpeedBonus = 1.5;
+                gameManagerServer.GetPlayer(id).Bonuses.JumpBonus = 2;
                 this.mediator.Notify(this, "Jump", id);
             }
         }
@@ -23,7 +29,7 @@ namespace Shared.Mediator
         public void DeactivateBoost(int id)
         {
             Active = false;
-            gameManagerServer.GetPlayer(id).Bonuses.SpeedBonus = 1;
+            gameManagerServer.GetPlayer(id).Bonuses.JumpBonus = 1;
         }
     }
 }

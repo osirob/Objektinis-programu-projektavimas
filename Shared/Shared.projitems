@@ -24,7 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeMoneyCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\AbstractBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\ConcreateMediator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Mediator\DamageBonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mediator\DamageReduceBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\JumpBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\Mediator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\SpeedBonuses.cs" />

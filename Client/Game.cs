@@ -78,6 +78,8 @@ namespace Client
 
         Map map;
 
+        Bonuses bonuses;
+
         //Strategy 
         private IShooting _shooting;
         public void setStrategy(IShooting strategy)
@@ -87,6 +89,7 @@ namespace Client
 
         public Game()
         {
+            bonuses = new Bonuses();
             BuildMap();
             InitializeComponent();
             player1 = (PictureBox)this.Controls["player1"];
@@ -98,6 +101,7 @@ namespace Client
             CheckPlayerIndex();
             ManageBulletShot();
             UpdateCointsFromServer();
+            UopdateBonusesFromServer();
 
             StartGame = true;
             
@@ -525,7 +529,7 @@ namespace Client
                         count++;
                         //this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
-                        await connection.SendAsync("TakeDamage", playerId, 10);
+                        await connection.SendAsync("TakeDamage", playerId, Convert.ToInt32(10/bonuses.DamageReducerBonus));
                         if (this.health <= 0)
                         {
                             _ = TestDeathAsync();
@@ -551,7 +555,7 @@ namespace Client
 
         private async void Movement()
         {
-            player.Top += jumpSpeed;
+            player.Top += jumpSpeed * bonuses.JumpBonus;
             if (jumping && force < 0)
             {
                 jumping = false;
@@ -559,12 +563,12 @@ namespace Client
 
             if (goleft)
             {
-                player.Left -= playerSpeed;
+                player.Left -= playerSpeed * bonuses.SpeedBonus;
             }
 
             if (goright)
             {
-                player.Left += playerSpeed;
+                player.Left += playerSpeed * bonuses.SpeedBonus;
             }
 
             if (rotatingUp)
@@ -773,6 +777,16 @@ namespace Client
                 
             });
     
+        }
+
+        private async void UopdateBonusesFromServer()
+        {
+            connection.On<Bonuses>("bonuses", value =>
+            {
+                bonuses = value;
+
+            });
+
         }
 
         private async void SendRequest()
@@ -1001,6 +1015,10 @@ namespace Client
         }
 
 
+        public async void PriceDecreasion(int price)
+        {
+            await connection.SendAsync("DecreaseCoins", price, playerId);
+        }
 
         private async void DecreaseCoinBuyingWeapon(IShooting weapo, string weaponType)
         {
@@ -1015,37 +1033,38 @@ namespace Client
 
                             if (pistol != null)
                             {
-                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                                PriceDecreasion(pistol.Price * -1);
                             }
                             break;
                         }
                     case "Shotgun":
                         {
-                            var pistol = weapo as Shotgun;
+                            var shotgun = weapo as Shotgun;
 
-                            if (pistol != null)
+                            if (shotgun != null)
                             {
-                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                                PriceDecreasion(shotgun.Price * -1);
+
                             }
                             break;
                         }
                     case "Rifle":
                         {
-                            var pistol = weapo as Rifle;
+                            var rifle = weapo as Rifle;
 
-                            if (pistol != null)
+                            if (rifle != null)
                             {
-                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                                PriceDecreasion(riffle.Price * -1);
                             }
                             break;
                         }
                     case "Bazooka":
                         {
-                            var pistol = weapo as Bazooka;
+                            var bazooka = weapo as Bazooka;
 
-                            if (pistol != null)
+                            if (bazooka != null)
                             {
-                                await connection.SendAsync("DecreaseCoins", pistol.Price * -1, playerId);
+                                PriceDecreasion(bazooka.Price * -1);
                             }
                             break;
                         }
@@ -1154,5 +1173,33 @@ namespace Client
         {
 
         }
+
+
+        private async void GetBonuses(string bonusesName)
+        {
+            if(money >= 1000)
+            {
+                
+                await connection.SendAsync("GetBonuses", playerId,bonusesName);
+                PriceDecreasion(-1000);
+            }
+        }
+
+        private void boostSpeedButton_Click(object sender, EventArgs e)
+        {
+            GetBonuses("Speed");
+        }
+
+        private void jumpBoostButton_Click(object sender, EventArgs e)
+        {
+            GetBonuses("Jump");
+        }
+
+        private void damageBoostButton_Click(object sender, EventArgs e)
+        {
+            GetBonuses("Damage");
+        }
+
+
     }
 }
