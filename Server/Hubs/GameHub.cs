@@ -9,6 +9,7 @@ using Shared.Bridge;
 using System.Timers;
 using System.Numerics;
 using Shared.Prototype;
+using Shared.Mediator;
 
 namespace Server.Hubs
 {
@@ -33,13 +34,24 @@ namespace Server.Hubs
         CommandInvoker invoker = new CommandInvoker();
         private static Subject subject = new ConcreateSubject();
 
+        DamageReduceBonuses dmgReducesBonus;
+        SpeedBonuses speedBonus;
+        JumpBonuses jumpBonus;
+        ConcreateMediator m;
+
 
 
         public GameHub()
         {
             //TestSingleton();
             gameManagerServer = GameManagerServer.Instance;
+            dmgReducesBonus = new DamageReduceBonuses();
+            speedBonus = new SpeedBonuses();
+            jumpBonus = new JumpBonuses();
+            m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);     
         }
+
+
 
         //OnlyForTesting
         public void TestSingleton()
@@ -98,6 +110,28 @@ namespace Server.Hubs
 
         }
 
+        public async Task GetBonuses(int playerId, string bonusesName)
+        {
+            switch (bonusesName){
+                case "Damage":{
+                        dmgReducesBonus.ActivateBoost(playerId);
+                    break;
+                }
+                case "Speed": {
+                    speedBonus.ActivateBoost(playerId);
+                    break;
+                }
+                case "Jump":
+                {
+                    jumpBonus.ActivateBoost(playerId);
+                    break;
+                }
+            }
+
+            Console.WriteLine("Speed " + gameManagerServer.GetPlayer(playerId).Bonuses.SpeedBonus);
+            await Clients.Caller.SendAsync("bonuses", gameManagerServer.GetPlayer(playerId).Bonuses);
+        }
+
         public async Task PickedUpCoin(int coinId,int playerId)
         {
             var coin = GameInfo.coins.Where(c => c.Id == coinId).FirstOrDefault();
@@ -115,6 +149,7 @@ namespace Server.Hubs
             Console.WriteLine("DecreaseCoins " + value);
             ICommand command = new TakeMoneyCommand(gameManagerServer.GetPlayer(playerId), value);
             invoker.Run(command);
+            return;
         }
 
         public async Task<Player> ConnectPlayer(string nickname)

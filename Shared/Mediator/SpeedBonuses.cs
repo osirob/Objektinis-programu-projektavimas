@@ -7,15 +7,21 @@ namespace Shared.Mediator
 {
     public class SpeedBonuses :AbstractBonuses
     {
-        public bool Active = false;
-        GameManagerServer gameManagerServer = GameManagerServer.Instance;
+        public bool Active;
+        GameManagerServer gameManagerServer;
+
+        public SpeedBonuses()
+        {
+            Active = false;
+            gameManagerServer = GameManagerServer.Instance;
+        }
 
         public void ActivateBoost(int id)
         {
             if (!Active)
             {
                 Active = true;
-                gameManagerServer.GetPlayer(id).Bonuses.SpeedBonus = 1.5;
+                gameManagerServer.GetPlayer(id).Bonuses.SpeedBonus = 2;
                 this.mediator.Notify(this, "Speed", id);
             }
         }
