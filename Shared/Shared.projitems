@@ -67,4 +67,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Builder\MapDirector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\MapPlan.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Interpreter\" />
+  </ItemGroup>
 </Project>

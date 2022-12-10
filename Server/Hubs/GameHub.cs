@@ -328,5 +328,10 @@ namespace Server.Hubs
         {
             Console.WriteLine(message);
         }
+
+        public async Task TakeCommand(string context)
+        {
+            Console.WriteLine(context);
+        }
     }
 }
