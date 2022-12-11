@@ -332,10 +332,11 @@ namespace Server.Hubs
 
         public async Task TakeCommand(string commandLine)
         {
+            Console.WriteLine(commandLine);
             Context context = new Context(commandLine);
             ExpresionParser parser = new ExpresionParser(context);
             parser.parse();
-            Console.WriteLine(context.Result);
+            await Clients.Caller.SendAsync("reportAboutCommand", context.Result);
         }
     }
 }

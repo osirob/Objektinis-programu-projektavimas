@@ -6,9 +6,9 @@ public class Program
     static HubConnection connection;
     public static void Main()
     {
-        SetUp();
         Console.WriteLine("Write Your command");
         {
+            SetUp();
             while (true)
             {
                 var text = Console.ReadLine();
@@ -40,6 +40,13 @@ public class Program
 
     public static async Task SendMessageAsync(string message)
     {
+        connection.On<string>("reportAboutCommand", result =>
+        {
+            Console.WriteLine("Report: " + result);
+
+
+        });
+
         await connection.SendAsync("TakeCommand", message);
     }
 

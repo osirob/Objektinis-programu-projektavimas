@@ -20,6 +20,11 @@ namespace Shared.Interpreter
         {
             string[] token = context.Input.Split(" ");
 
+            if (token.Length < 4)
+            {
+                context.Result = "Command do not exist";
+                return;
+            }
             player = (Player) new PlayerExpresion(token[0]).intepret();
 
             if(player == null)
@@ -32,7 +37,7 @@ namespace Shared.Interpreter
             {
                 if(token[2] == "coins")
                 {
-                    new AdvanceGiveCoinsExpresion(player, new NumberExpresion(token[3]));
+                    new AdvanceGiveCoinsExpresion(player, new NumberExpresion(token[3])).intepret();
                 }
                 else
                 {
