@@ -147,6 +147,18 @@ namespace Shared.Shared
             return GamePlayers[id];
         }
 
+        public Player? GetPlayerByName(string name)
+        {
+            foreach(var pl in GamePlayers)
+            {
+                if(pl.Name == name)
+                {
+                    return pl;
+                }
+            }
+            return null;
+        }
+
         //Only for testing purpose
         public void PrintDetails(string text)
         {

@@ -22,6 +22,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeDamageCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeMoneyCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\AdvanceGiveCoinsExpresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\Context.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\Expresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\ExpresionParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\NumberExpresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\PlayerExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\AbstractBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\ConcreateMediator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\DamageReduceBonuses.cs" />
@@ -66,8 +72,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Builder\MapBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\MapDirector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\MapPlan.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Interpreter\" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ using System.Timers;
 using System.Numerics;
 using Shared.Prototype;
 using Shared.Mediator;
+using Shared.Interpreter;
 
 namespace Server.Hubs
 {
@@ -329,9 +330,12 @@ namespace Server.Hubs
             Console.WriteLine(message);
         }
 
-        public async Task TakeCommand(string context)
+        public async Task TakeCommand(string commandLine)
         {
-            Console.WriteLine(context);
+            Context context = new Context(commandLine);
+            ExpresionParser parser = new ExpresionParser(context);
+            parser.parse();
+            Console.WriteLine(context.Result);
         }
     }
 }
