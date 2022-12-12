@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shared.Interpreter
 {
-    public class PlayerExpresion : Expresion
+    public class PlayerExpresion : IExpresion
     {
         GameManagerServer gameManagerServer;
         string playerName;

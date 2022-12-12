@@ -38,6 +38,9 @@ namespace Shared.Interpreter
                 if(token[2] == "coins")
                 {
                     new AdvanceGiveCoinsExpresion(player, new NumberExpresion(token[3])).intepret();
+                }else if (token[2] == "health")
+                {
+                    new AdvanceGiveHealthExpresion(player, new NumberExpresion(token[3])).intepret();
                 }
                 else
                 {
