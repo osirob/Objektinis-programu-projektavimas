@@ -102,6 +102,7 @@ namespace Client
             ManageBulletShot();
             UpdateCointsFromServer();
             UopdateBonusesFromServer();
+            UpdateHealthFromServer();
 
             StartGame = true;
             
@@ -363,6 +364,7 @@ namespace Client
                 CoinIntersect();
                 BulletIntersect();
                 SendRequest();
+                SendRequestUpdateHealth();
                 ticks++;
 
                 if (ticks >= 100 && this.gameCoins.Count == 0)
@@ -779,6 +781,17 @@ namespace Client
     
         }
 
+        private async void UpdateHealthFromServer()
+        {
+            connection.On<int>("updateHealth", value =>
+            {
+                health = value;
+                hpCountLabel.Text = value.ToString();
+
+            });
+
+        }
+
         private async void UopdateBonusesFromServer()
         {
             connection.On<Bonuses>("bonuses", value =>
@@ -792,6 +805,11 @@ namespace Client
         private async void SendRequest()
         {
             await connection.SendAsync("RequestUpdateCoins", playerId);
+        }
+
+        private async void SendRequestUpdateHealth()
+        {
+            await connection.SendAsync("RequestUpdateHealth", playerId);
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -40,6 +40,9 @@ namespace Server.Hubs
         JumpBonuses jumpBonus;
         ConcreateMediator m;
 
+        Context context;
+        ExpresionParser parser;
+
 
 
         public GameHub()
@@ -49,7 +52,10 @@ namespace Server.Hubs
             dmgReducesBonus = new DamageReduceBonuses();
             speedBonus = new SpeedBonuses();
             jumpBonus = new JumpBonuses();
-            m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);     
+            m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);
+            context = new Context();
+            parser = new ExpresionParser(context);
+            //Task.Run(WriteCommand);
         }
 
 
@@ -332,11 +338,26 @@ namespace Server.Hubs
 
         public async Task TakeCommand(string commandLine)
         {
-            Console.WriteLine(commandLine);
-            Context context = new Context(commandLine);
-            ExpresionParser parser = new ExpresionParser(context);
+            Console.WriteLine("Received command: "+commandLine);
+            context.Input = commandLine;
             parser.parse();
             await Clients.Caller.SendAsync("reportAboutCommand", context.Result);
+        }
+
+        public async Task RequestUpdateHealth(int id)
+        {
+            await Clients.Caller.SendAsync("updateHealth", gameManagerServer.GetPlayer(id).Health);
+        }
+
+
+        public void WriteCommand()
+        {
+            while (true)
+            {
+                Console.WriteLine("Write your command");
+                var text = Console.ReadLine();
+                Console.WriteLine(text);
+            }
         }
     }
 }

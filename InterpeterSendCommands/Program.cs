@@ -3,6 +3,8 @@ using System;
 
 public class Program
 {
+    //[username] give coins [ammount]
+    //[username] give health [ammount]
     static HubConnection connection;
     public static void Main()
     {

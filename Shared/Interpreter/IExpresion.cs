@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shared.Interpreter
 {
-    public interface Expresion
+    public interface IExpresion
     {
         public Object intepret();
     }

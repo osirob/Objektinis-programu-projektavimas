@@ -13,6 +13,11 @@ namespace Shared.Interpreter
             this.input = input;
         }
 
+        public Context()
+        {
+            this.input = "";
+        }
+
         public string Input
         {
             get { return input; }

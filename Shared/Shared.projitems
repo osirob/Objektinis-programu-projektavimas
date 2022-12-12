@@ -23,8 +23,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeDamageCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeMoneyCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\AdvanceGiveCoinsExpresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\AdvanceGiveHealthExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\Context.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\Expresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interpreter\IExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\ExpresionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\NumberExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\PlayerExpresion.cs" />

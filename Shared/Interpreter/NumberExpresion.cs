@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shared.Interpreter
 {
-    public class NumberExpresion : Expresion
+    public class NumberExpresion : IExpresion
     {
         private int number;
         public NumberExpresion(int number)

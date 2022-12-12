@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Shared.Interpreter
 {
-    public class AdvanceGiveCoinsExpresion : IExpresion
+    public class AdvanceGiveHealthExpresion : IExpresion
     {
         Player player;
         IExpresion ammount;
 
 
-        public AdvanceGiveCoinsExpresion(Player player, IExpresion ammount)
+        public AdvanceGiveHealthExpresion(Player player, IExpresion ammount)
         {
             this.player = player;
             this.ammount = ammount;
@@ -20,7 +20,7 @@ namespace Shared.Interpreter
         public object intepret()
         {
             int value = (int)ammount.intepret();
-            player.AddMoney(value);
+            player.TakeDamage(value*-1);
             return null;
         }
     }
