@@ -8,7 +8,7 @@ namespace Client.Template
 {
     public sealed class RifleWeapon : SelectedGun
     {
-        public override void ChangeNameToSelected()
+        public sealed override void ChangeNameToSelected()
         {
             Label? t = Application.OpenForms["Game"].Controls["updateWeaponNotif"] as Label;
             if (t != null)
@@ -17,7 +17,7 @@ namespace Client.Template
             }
         }
 
-        public override void UpdateCurrentGun()
+        public sealed override void UpdateCurrentGun()
         {
             Label? t = Application.OpenForms["Game"].Controls["weaponNameLabel"] as Label;
             if (t != null)
