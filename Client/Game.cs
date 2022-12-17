@@ -47,6 +47,8 @@ namespace Client
         bool rotatingUp = false;
         bool rotatingDown = false;
         double weaponAngle;
+        double snapshotWeaponAngle;
+        double enemyWeaponAngle;
         int playerWeaponX;
         int playerWeaponY;
         double playerWeaponOffsetX;
@@ -62,6 +64,7 @@ namespace Client
         private Bazooka bazooka;
         PictureBox player1 = null;
         PictureBox player2 = null;
+        bool shootedMyself = true;
 
         // Bullets
         private PistolBullet pistolBulletClass;
@@ -112,6 +115,8 @@ namespace Client
             shopPanel.Enabled = false;
 
             this.weaponAngle = 0;
+            this.enemyWeaponAngle = 0;
+            this.snapshotWeaponAngle = 0;
             this.playerWeaponOffsetX = 20;
             this.playerWeaponOffsetY = 0;
             this.playerId = gameManager.GetYourId();
@@ -130,7 +135,7 @@ namespace Client
                     {
                         if ((string)c.Tag != "player1")
                         {
-                            if ((string)c.Tag != "player2")
+                            if ((string)c.Tag != "player2") 
                             {
                                 if ((string)c.Name != "weapon1")
                                 {
@@ -706,8 +711,8 @@ namespace Client
 
         private void CalculateWeaponParameters()
         {
-            this.playerWeaponOffsetX = Math.Sin(ConvertToRadians(this.weaponAngle)) * this.weaponDistance;
-            this.playerWeaponOffsetY = Math.Cos(ConvertToRadians(this.weaponAngle)) * this.weaponDistance;
+            this.playerWeaponOffsetX = Math.Sin(ConvertToRadians(this.weaponAngle)) * this.weaponDistance*1.5;
+            this.playerWeaponOffsetY = Math.Cos(ConvertToRadians(this.weaponAngle)) * this.weaponDistance*1.5;
             if (this.weaponAngle < 0)
             {
                 this.weaponAngle = 359;
@@ -766,6 +771,7 @@ namespace Client
             connection.On<string>("bulletCords", cords =>
             {
                 string[] cordsArr = cords.Split(',');
+                enemyWeaponAngle = Convert.ToDouble(cordsArr[6]);
                 ShootBullet(Convert.ToInt32(cordsArr[0]), Convert.ToInt32(cordsArr[1]), Convert.ToInt32(cordsArr[2]), Convert.ToInt32(cordsArr[3]), Convert.ToInt32(cordsArr[4]), Convert.ToInt32(cordsArr[5]));
             });
         }
@@ -891,6 +897,7 @@ namespace Client
                 bullet.Location = new Point(Convert.ToInt32(weaponCordX), Convert.ToInt32(weaponCordY));
                 bullet.Left = Convert.ToInt32(left) + Convert.ToInt32(width);
                 bullet.Top = Convert.ToInt32(top) + Convert.ToInt32(heigt);
+                shootedMyself = false;
             }
             else
             {
@@ -899,14 +906,15 @@ namespace Client
                 testCount++;
                 bullet.Left = playerWeapon.Left + playerWeapon.Width;
                 bullet.Top = playerWeapon.Top + playerWeapon.Height;
-
-                await connection.SendAsync("SendBulletCords", bullet.Location.X + "," + bullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height);
+                shootedMyself = true;
+                await connection.SendAsync("SendBulletCords", bullet.Location.X + "," + bullet.Location.Y+","+ playerWeapon.Left + "," + playerWeapon.Width + "," + playerWeapon.Top + "," + playerWeapon.Height + "," + weaponAngle);
             }
             bullet.BringToFront();
             Controls.Add(bullet);
 
             pistonBulletTimer = new Timer();
             pistonBulletTimer.Interval = 20;
+            snapshotWeaponAngle = weaponAngle;
             pistonBulletTimer.Tick += new EventHandler(BulletTimerEvent);
             pistonBulletTimer.Start();
         }
@@ -914,14 +922,29 @@ namespace Client
         private void BulletTimerEvent(object sender, EventArgs e)
         {
 
-            if (weaponAngle >= 0 && weaponAngle <= 180)
+            if(enemyWeaponAngle != 0 && shootedMyself == false)
             {
-                bullet.Left += shootingPower;
+                if (enemyWeaponAngle >= 0 && enemyWeaponAngle <= 180)
+                {
+                    bullet.Left += shootingPower;
+                }
+                if (enemyWeaponAngle <= 360 && enemyWeaponAngle >= 180)
+                {
+                    bullet.Left -= shootingPower;
+                }
             }
-            if (weaponAngle <= 360 && weaponAngle >= 180)
+            else
             {
-                bullet.Left -= shootingPower;
+                if (snapshotWeaponAngle >= 0 && snapshotWeaponAngle <= 180)
+                {
+                    bullet.Left += shootingPower;
+                }
+                if (snapshotWeaponAngle <= 360 && snapshotWeaponAngle >= 180)
+                {
+                    bullet.Left -= shootingPower;
+                }
             }
+
             /*if (pistolBullet.Left > 1000 || pistolBullet.Top > 400)
             {
                 pistonBulletTimer.Stop(); // stop the timer
