@@ -331,6 +331,7 @@ namespace Server.Hubs
         {
             await Clients.Others.SendAsync("receivePlayer2WeaponCoordinates", coordinates);
         }
+
         public async Task printMessage(string message)
         {
             Console.WriteLine(message);
