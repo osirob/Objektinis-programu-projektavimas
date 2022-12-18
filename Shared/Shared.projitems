@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bazooka.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BazookaBullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)State\DefaultState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\MapEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\BulletDecorator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\DamageDealed.cs" />
@@ -72,6 +73,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Shotgun.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\ShotgunBullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\StandartBullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)State\LowHealthState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)State\NoAmmoState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)State\ShoppingState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)State\State.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Unit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Map.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\FirstLevelMapBuilder.cs" />

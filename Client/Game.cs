@@ -4,6 +4,7 @@ using Shared.Shared;
 using Timer = System.Windows.Forms.Timer;
 using Shared.Prototype;
 using Shared.Bridge;
+using Shared.State;
 
 
 namespace Client
@@ -81,7 +82,8 @@ namespace Client
 
         Map map;
 
-        Bonuses bonuses;
+        Bonuses bonuses; 
+        PlayerState playerState;
 
         //Strategy 
         private IShooting _shooting;
@@ -90,9 +92,19 @@ namespace Client
             _shooting = strategy;
         }
 
+        //States
+        private DefaultState defaultState;
+        private ShoppingState shoppingState;
+        private NoAmmoState noAmmoState;
+        private LowHealthState lowHealthState;
+
         public Game()
         {
             bonuses = new Bonuses();
+            defaultState = new DefaultState();
+            shoppingState = new ShoppingState();
+            noAmmoState = new NoAmmoState();
+            lowHealthState = new LowHealthState();
             BuildMap();
             InitializeComponent();
             player1 = (PictureBox)this.Controls["player1"];
@@ -105,6 +117,7 @@ namespace Client
             ManageBulletShot();
             UpdateCointsFromServer();
             UopdateBonusesFromServer();
+            UpdateMovementFromState();
             UpdateHealthFromServer();
 
             StartGame = true;
@@ -340,6 +353,14 @@ namespace Client
         {
             this.hpCountLabel.Text = this.health.ToString();
             this.moneyCountLabel.Text = this.money.ToString();
+            if (health <= 40)
+            {
+                SetState(lowHealthState);
+            }
+            else
+            {
+                SetState(defaultState);
+            }
         }
 
         private void CheckPlayerIndex()
@@ -407,6 +428,7 @@ namespace Client
                 }
                 if (e.KeyCode == Keys.B)
                 {
+                    SetState(shoppingState);
                     shopPanel.Visible = true;
                     shopPanel.Enabled = true;
                 }
@@ -808,6 +830,14 @@ namespace Client
 
         }
 
+        private async void UpdateMovementFromState()
+        {
+            connection.On<int>("getMovement", value =>
+            {
+                playerSpeed += value;
+            });
+        }
+
         private async void SendRequest()
         {
             await connection.SendAsync("RequestUpdateCoins", playerId);
@@ -1141,6 +1171,7 @@ namespace Client
         {
             shopPanel.Visible = false;
             shopPanel.Enabled = false;
+            UpdateStats();
         }
 
         private void buyRifleButton_Click(object sender, EventArgs e)
@@ -1224,6 +1255,11 @@ namespace Client
                 await connection.SendAsync("GetBonuses", playerId,bonusesName);
                 PriceDecreasion(-1000);
             }
+        }
+
+        private async void SetState(PlayerState state)
+        {
+            await connection.SendAsync("GetMovementByStatus", playerId, state);
         }
 
         private void boostSpeedButton_Click(object sender, EventArgs e)
