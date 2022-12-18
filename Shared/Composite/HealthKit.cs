@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Windows.Forms.Control;
 
 namespace Shared.Composite
 {
@@ -23,6 +24,6 @@ namespace Shared.Composite
 
         public abstract void Add(HealthKit healthKit);
         public abstract void Remove(HealthKit healthKit);
-        public abstract void Spawn(Control control, List<HealthKit> healthKits);
+        public abstract void Spawn(ControlCollection control, List<HealthKit> healthKits);
     }
 }

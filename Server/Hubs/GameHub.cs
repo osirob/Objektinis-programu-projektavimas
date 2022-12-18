@@ -12,6 +12,7 @@ using Shared.Prototype;
 using Shared.Mediator;
 using Shared.Interpreter;
 using Shared.Iterator;
+using Shared.Composite;
 
 namespace Server.Hubs
 {
@@ -24,8 +25,9 @@ namespace Server.Hubs
         public static CollectableFactory collectableFactory = new CollectableFactory();
         public static List<Coin> coins = new List<Coin>();
         public static List<Armor> armor = new List<Armor>();
-        public static List<HealthPack> healthPacks = new List<HealthPack>();
+        public static List<HealthKit> healthKits = new List<HealthKit>();
         public static int coinsRequested = 0;
+        public static int hpKitsRequested = 0;
     }
 
     //https://localhost:7021/gameHub
@@ -105,6 +107,35 @@ namespace Server.Hubs
             else { GameInfo.coinsRequested++; }
         }
 
+        public async Task RequestHpKits()
+        {
+            if(GameInfo.healthKits.Count == 0 && GameInfo.hpKitsRequested == 2)
+            {
+                GameInfo.hpKitsRequested = 0;
+                CompositeKit compositeSmall = new CompositeKit(0, 0, 0, 0);
+                //Small ones
+                for(int i = 1; i < 3; i++)
+                {
+                    var kit = new CompositeKit(20, i * 200, 400, i);
+                    compositeSmall.Add(kit);
+                    GameInfo.healthKits.Add(kit);
+                }
+
+                //Big ones
+                CompositeKit compositeBig = new CompositeKit(0, 0, 0, 0);
+                for (int i = 3; i < 5; i++)
+                {
+                    var kit = new CompositeKit(100, i * 200, 400, i);
+                    compositeBig.Add(kit);
+                    GameInfo.healthKits.Add(kit);
+                }
+
+                compositeSmall.Add(compositeBig);
+                await Clients.All.SendAsync("sendHpKits", compositeSmall);
+            }
+            else { GameInfo.hpKitsRequested++; }
+        }
+
         public async Task SendBulletCords(string cords)
         {
             string[] cordsArr = cords.Split(',');
@@ -172,6 +203,16 @@ namespace Server.Hubs
                 invoker.Run(command);
                 GameInfo.coins.Remove(coin);
                 await Clients.Others.SendAsync("removeCoin", coinId);
+            }
+        }
+
+        public async Task PickedUpHealth(int kitId, int playerId)
+        {
+            var kit = GameInfo.healthKits.Where(c => c.Id == kitId).FirstOrDefault();
+            if (kit != null)
+            {
+                GameInfo.healthKits.Remove(kit);
+                await Clients.Others.SendAsync("removeKit", kitId);
             }
         }
 

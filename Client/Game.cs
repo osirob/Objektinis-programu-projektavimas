@@ -6,6 +6,7 @@ using Shared.Prototype;
 using Shared.Bridge;
 using Shared.State;
 using Shared.Iterator;
+using Shared.Composite;
 
 namespace Client
 {
@@ -78,6 +79,7 @@ namespace Client
         private int standartHeight = 1;
 
         List<Coin> gameCoins;
+        List<HealthKit> hpKits;
         private FakeCoinAdapter fakeCoin;
 
         Map map;
@@ -290,6 +292,7 @@ namespace Client
         //upper left corner is 0 0, lower right is 900, 600
         public void InitializeCllectableListeners()
         {
+            //COINS
             gameCoins = new List<Coin>();
             connection.On<CoinCollection>("sendCoins", coins =>
             {
@@ -311,6 +314,19 @@ namespace Client
             connection.On<int>("removeCoin", id =>
             {
                 removeCoin(id);
+            });
+
+
+            //HEALTH KITS
+            hpKits = new List<HealthKit>();
+            connection.On<CompositeKit>("sendHpKits", kits =>
+            {
+                kits.Spawn(this.Controls, hpKits);
+            });
+
+            connection.On<int>("removeKit", id =>
+            {
+                removeKit(id);
             });
         }
 
@@ -359,6 +375,22 @@ namespace Client
             }
         }
 
+        private void removeKit(int coinId)
+        {
+            var kit = this.hpKits.Where(c => c.Id == coinId).FirstOrDefault();
+            if (kit != null)
+            {
+                foreach (Control x in this.Controls)
+                {
+                    if (x is PictureBox && (string)x.Tag == "healthkit" && x.Location.X == kit.XCoord && x.Location.Y == kit.YCoord)
+                    {
+                        this.Controls.Remove(x);
+                        this.hpKits.Remove(kit);
+                    }
+                }
+            }
+        }
+
         private void UpdateStats()
         {
             this.hpCountLabel.Text = this.health.ToString();
@@ -398,6 +430,7 @@ namespace Client
                 UpdateWeaponPositions();
                 Movement();
                 CoinIntersect();
+                HealthIntersect();
                 BulletIntersect();
                 SendRequest();
                 SendRequestUpdateHealth();
@@ -408,6 +441,12 @@ namespace Client
                     ticks = 0;
                     await connection.SendAsync("RequestCoins");
                     await connection.SendAsync("RequestFakeCoins");
+                }
+
+                if (ticks >= 100 && this.hpKits.Count == 0)
+                {
+                    ticks = 0;
+                    await connection.SendAsync("RequestHpKits");
                 }
             }
         }
@@ -545,6 +584,26 @@ namespace Client
                         this.gameCoins.Remove(coin);
                         //send to server for other player to remove same coin
                         await connection.SendAsync("PickedUpCoin", coin.Id, playerId);
+                    }
+                }
+            }
+        }
+
+        private async void HealthIntersect()
+        {
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "healthkit")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        var kit = hpKits.Where(c => c.XCoord == x.Location.X && c.YCoord == x.Location.Y).FirstOrDefault();
+                        this.health += kit.Value;
+                        UpdateStats();
+                        this.Controls.Remove(x);
+                        this.hpKits.Remove(kit);
+                        //send to server for other player to remove same coin
+                        await connection.SendAsync("PickedUpHealth", kit.Id, playerId);
                     }
                 }
             }
