@@ -11,6 +11,7 @@ using System.Numerics;
 using Shared.Prototype;
 using Shared.Mediator;
 using Shared.Interpreter;
+using Shared.Iterator;
 
 namespace Server.Hubs
 {
@@ -91,7 +92,14 @@ namespace Server.Hubs
                     var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 500, i * 150, 570, i);
                     GameInfo.coins.Add(coin as Coin);
                 }
-                await Clients.All.SendAsync("sendCoins", GameInfo.coins);
+
+                CoinCollection collection = new CoinCollection();
+                for(int i = 0; i < GameInfo.coins.Count; i++)
+                {
+                    collection[i] = GameInfo.coins[i];
+                }
+
+                await Clients.All.SendAsync("sendCoins", collection);
                 Console.WriteLine($"Sent coins {GameInfo.coins.Count}");
             }
             else { GameInfo.coinsRequested++; }

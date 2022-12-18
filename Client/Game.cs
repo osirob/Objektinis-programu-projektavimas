@@ -5,7 +5,7 @@ using Timer = System.Windows.Forms.Timer;
 using Shared.Prototype;
 using Shared.Bridge;
 using Shared.State;
-
+using Shared.Iterator;
 
 namespace Client
 {
@@ -124,8 +124,10 @@ namespace Client
             
             weaponShop = new WeaponShop();
             SendCordinatesTimer.Start();
+            shopPanel.BringToFront();
             shopPanel.Visible = false;
             shopPanel.Enabled = false;
+            shopInit();
 
             this.weaponAngle = 0;
             this.enemyWeaponAngle = 0;
@@ -133,6 +135,13 @@ namespace Client
             this.playerWeaponOffsetX = 20;
             this.playerWeaponOffsetY = 0;
             this.playerId = gameManager.GetYourId();
+        }
+
+        public void shopInit()
+        {
+            shopPanel.BringToFront();
+            shopPanel.Visible = false;
+            shopPanel.Enabled = false;
         }
 
         public async Task InilitizeConectionAsync()
@@ -282,11 +291,12 @@ namespace Client
         public void InitializeCllectableListeners()
         {
             gameCoins = new List<Coin>();
-            connection.On<List<Coin>>("sendCoins", coins =>
+            connection.On<CoinCollection>("sendCoins", coins =>
             {
-                gameCoins.AddRange(coins);
-                foreach (Coin coin in gameCoins)
+                Iterator iterator = coins.CreateIterator();
+                for(Coin coin = iterator.First(); !iterator.IsDone; coin = iterator.Next())
                 {
+                    gameCoins.Add(coin);
                     var box = new PictureBox
                     {
                         Tag = coin.Tag,
