@@ -436,14 +436,14 @@ namespace Client
                 SendRequestUpdateHealth();
                 ticks++;
 
-                if (ticks >= 100 && this.gameCoins.Count == 0)
+                if (ticks >= 50 && this.gameCoins.Count == 0)
                 {
                     ticks = 0;
                     await connection.SendAsync("RequestCoins");
                     await connection.SendAsync("RequestFakeCoins");
                 }
 
-                if (ticks >= 100 && this.hpKits.Count == 0)
+                if (ticks >= 50 && this.hpKits.Count == 0)
                 {
                     ticks = 0;
                     await connection.SendAsync("RequestHpKits");
