@@ -10,6 +10,7 @@ using System.Timers;
 using System.Numerics;
 using Shared.Prototype;
 using Shared.Mediator;
+using Shared.Interpreter;
 
 namespace Server.Hubs
 {
@@ -40,6 +41,9 @@ namespace Server.Hubs
         ConcreateMediator m;
         private DefaultState defaultState;
 
+        Context context;
+        ExpresionParser parser;
+
 
 
         public GameHub()
@@ -49,8 +53,11 @@ namespace Server.Hubs
             dmgReducesBonus = new DamageReduceBonuses();
             speedBonus = new SpeedBonuses();
             jumpBonus = new JumpBonuses();
-            defaultState = new DefaultState();
-            m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);     
+            defaultState = new DefaultState();  
+            m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);
+            context = new Context();
+            parser = new ExpresionParser(context);
+            //Task.Run(WriteCommand);
         }
 
 
@@ -340,9 +347,34 @@ namespace Server.Hubs
         {
             await Clients.Others.SendAsync("receivePlayer2WeaponCoordinates", coordinates);
         }
+
         public async Task printMessage(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public async Task TakeCommand(string commandLine)
+        {
+            Console.WriteLine("Received command: "+commandLine);
+            context.Input = commandLine;
+            parser.parse();
+            await Clients.Caller.SendAsync("reportAboutCommand", context.Result);
+        }
+
+        public async Task RequestUpdateHealth(int id)
+        {
+            await Clients.Caller.SendAsync("updateHealth", gameManagerServer.GetPlayer(id).Health);
+        }
+
+
+        public void WriteCommand()
+        {
+            while (true)
+            {
+                Console.WriteLine("Write your command");
+                var text = Console.ReadLine();
+                Console.WriteLine(text);
+            }
         }
     }
 }

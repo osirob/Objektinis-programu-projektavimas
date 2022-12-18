@@ -38,8 +38,6 @@ namespace Shared.Shared
         private GameManagerServer()
         {
             counter++;
-            Console.WriteLine("Counter Value " + counter.ToString());
-            BuildMap();
         }
 
         public static GameManagerServer Instance
@@ -51,6 +49,7 @@ namespace Shared.Shared
                     if (instance == null)
                     {
                         instance = new GameManagerServer();
+                        instance.BuildMap();
                     }
                     return instance;
                 }
@@ -145,6 +144,18 @@ namespace Shared.Shared
         public Player GetPlayer(int id)
         {
             return GamePlayers[id];
+        }
+
+        public Player? GetPlayerByName(string name)
+        {
+            foreach(var pl in GamePlayers)
+            {
+                if(pl.Name == name)
+                {
+                    return pl;
+                }
+            }
+            return null;
         }
 
         //Only for testing purpose

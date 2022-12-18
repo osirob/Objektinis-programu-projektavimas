@@ -15,6 +15,10 @@ namespace Shared.Shared
         private Color color;
         private string tag;
         private string name;
+        public MapEntity()
+        {
+            
+        }
 
         public MapEntity(int posX, int posY, int sizeX, int sizeY, Color color, string tag, string name)
         {
@@ -35,9 +39,17 @@ namespace Shared.Shared
         {
             this.posX = x;
         }
+        public void setPosY(int y)
+        {
+            this.posY = y;
+        }
         public Color getColor()
         {
             return this.color;
+        }
+        public void setColor(Color color)
+        {
+            this.color = color;
         }
         public int getPosY()
         {
@@ -47,6 +59,14 @@ namespace Shared.Shared
         {
             return this.sizeX;
         }
+        public void setSizeX(int x)
+        {
+            this.sizeX = x;
+        }
+        public void setSizeY(int y)
+        {
+            this.sizeY = y;
+        }
         public int getSizeY()
         {
             return this.sizeY;
@@ -55,11 +75,18 @@ namespace Shared.Shared
         {
             return this.tag;
         }
+        public void setTag(string tag)
+        {
+            this.tag = tag;
+        }
         public string getName()
         {
             return this.name;
         }
-
+        public void setName(string name)
+        {
+            this.name = name;
+        }
         public MapObject makeCopy()
         {
             return (MapEntity)this.MemberwiseClone();
