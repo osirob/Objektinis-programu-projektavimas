@@ -1,4 +1,5 @@
 ﻿using Client.Facade;
+using Client.Proxy;
 using Microsoft.AspNetCore.SignalR.Client;
 using Shared.Shared;
 using Timer = System.Windows.Forms.Timer;
@@ -43,6 +44,7 @@ namespace Client
         int testCount = 0;
         // Weapons
         int shootingPower = 1;
+        private int defaultWeaponSize;
         int weaponSize = 10;
         PictureBox playerWeapon;
         bool rotatingUp = false;
@@ -98,6 +100,8 @@ namespace Client
         private NoAmmoState noAmmoState;
         private LowHealthState lowHealthState;
 
+        private WeaponSkinProxy weaponSkinProxy;
+
         public Game()
         {
             bonuses = new Bonuses();
@@ -105,6 +109,7 @@ namespace Client
             shoppingState = new ShoppingState();
             noAmmoState = new NoAmmoState();
             lowHealthState = new LowHealthState();
+            weaponSkinProxy = new WeaponSkinProxy();
             BuildMap();
             InitializeComponent();
             player1 = (PictureBox)this.Controls["player1"];
@@ -119,6 +124,7 @@ namespace Client
             UopdateBonusesFromServer();
             UpdateMovementFromState();
             UpdateHealthFromServer();
+            UpdateWeaponSkin();
 
             StartGame = true;
             
@@ -429,6 +435,7 @@ namespace Client
                 if (e.KeyCode == Keys.B)
                 {
                     SetState(shoppingState);
+
                     shopPanel.Visible = true;
                     shopPanel.Enabled = true;
                 }
@@ -474,8 +481,8 @@ namespace Client
             // Creating the player's weapon.
             this.playerWeapon = new PictureBox();
             this.playerWeapon.Name = "weapon" + playerId;
-            this.playerWeapon.Width = this.weaponSize;
-            this.playerWeapon.Height = this.weaponSize;
+            this.playerWeapon.Width = this.defaultWeaponSize;
+            this.playerWeapon.Height = this.defaultWeaponSize;
             this.playerWeapon.BackColor = playerId == 0 ? Color.DarkBlue : Color.DarkRed;
             this.playerWeapon.Location = this.player.Location;
             this.Controls.Add(this.playerWeapon);
@@ -483,8 +490,8 @@ namespace Client
             // Creating the enemy's weapon.
             this.enemyWeapon = new PictureBox();
             this.enemyWeapon.Name = playerId == 0 ? "weapon" + 1 : "weapon" + 0;
-            this.enemyWeapon.Width = this.weaponSize;
-            this.enemyWeapon.Height = this.weaponSize;
+            this.enemyWeapon.Width = this.defaultWeaponSize;
+            this.enemyWeapon.Height = this.defaultWeaponSize;
             this.enemyWeapon.BackColor = playerId == 0 ? Color.DarkRed : Color.DarkBlue;
             this.enemyWeapon.Location = this.player2.Location;
             this.Controls.Add(this.enemyWeapon);
@@ -505,6 +512,12 @@ namespace Client
 
             weaponNameLabel.Text = _shooting.Name;
             ammoCountLabel.Text = _shooting.Ammunition.ToString();
+        }
+
+        public void UpdateWeaponSkin()
+        {
+            this.playerWeapon.Width = this.weaponSize;
+            this.playerWeapon.Height = this.weaponSize;
         }
 
         private double ConvertToRadians(double angle)
@@ -1164,6 +1177,8 @@ namespace Client
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
+                weaponSize = weaponSkinProxy.Pistol(defaultWeaponSize);
+                UpdateWeaponSkin();
             }
         }
 
@@ -1184,6 +1199,8 @@ namespace Client
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
+                weaponSize = weaponSkinProxy.Riffle(defaultWeaponSize);
+                UpdateWeaponSkin();
             }
         }
 
@@ -1197,6 +1214,8 @@ namespace Client
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
+                weaponSize = weaponSkinProxy.Shotgun(defaultWeaponSize);
+                UpdateWeaponSkin();
             }
         }
 
@@ -1210,6 +1229,8 @@ namespace Client
                 //weaponNameLabel.Text = _shooting.Name;
                 moneyCountLabel.Text = money.ToString();
                 ammoCountLabel.Text = _shooting.Ammunition.ToString();
+                weaponSize = weaponSkinProxy.Bazooka(defaultWeaponSize);
+                UpdateWeaponSkin();
             }
         }
 
