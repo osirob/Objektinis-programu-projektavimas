@@ -20,7 +20,6 @@ namespace Shared.Builder
 
         public void buildGround()
         {
-            Console.WriteLine("THIS HAPPENS");
             for (int i = 0; i <= 1085; i += 10)
             {
                 MapEntity dirtBlock = new MapEntity(i, 630, 50, 50, Color.Violet, "platform", "dirtBlock" + i);

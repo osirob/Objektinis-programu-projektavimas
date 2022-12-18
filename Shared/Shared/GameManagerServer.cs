@@ -38,8 +38,6 @@ namespace Shared.Shared
         private GameManagerServer()
         {
             counter++;
-            Console.WriteLine("Counter Value " + counter.ToString());
-            BuildMap();
         }
 
         public static GameManagerServer Instance
@@ -51,6 +49,7 @@ namespace Shared.Shared
                     if (instance == null)
                     {
                         instance = new GameManagerServer();
+                        instance.BuildMap();
                     }
                     return instance;
                 }

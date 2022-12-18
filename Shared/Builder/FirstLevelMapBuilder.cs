@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using Shared.Prototype;
 using Shared.Bridge;
+using Shared.ChainOfResponsibility;
 
 namespace Shared.Builder
 {
@@ -26,32 +27,28 @@ namespace Shared.Builder
 
         public void buildGround()
         {
-            MapObject dirtBlock = new MapEntity(0, 630, 50, 50, Color.Brown, "platform", "dirtBlock" + 0);
-            MapObject grassBlock = new MapEntity(0, 620, 10, 10, Color.Green, "platform", "grassBlock" + 0);
-            Console.WriteLine("Original dirt block hashcode: " + dirtBlock.GetHashCode());
-            Console.WriteLine("Original grass block hashcode: " + grassBlock.GetHashCode());
-            for (int i = 0; i <= 1085; i += 10)
+            MapEntity block = new MapEntity();
+            BlockHandler blockHandler = new BlockSizeHandler(block);
+            blockHandler.setNextHandler(new BlockPositionHandler())
+                        .setNextHandler(new BlockColorHandler())
+                        .setNextHandler(new BlockNameHandler());
+            for (int i = 0; i <= 1000; i++)
             {
-                MapEntity dirtBlockClone = (MapEntity)dirtBlock.makeCopy();
-                MapEntity grassBlockClone = (MapEntity)grassBlock.makeCopy();
-                Console.WriteLine("Clone dirt block hashcode: " + dirtBlockClone.GetHashCode());
-                Console.WriteLine("Clone grass block hashcode: " + grassBlockClone.GetHashCode());
-                dirtBlockClone.setPosX(i);
-                grassBlockClone.setPosX(i);
-                this.map.addMapEntity(dirtBlockClone);
-                this.map.addMapEntity(grassBlockClone);
+                blockHandler.Handle(block);
+                MapEntity newBlock = new MapEntity(block.getPosX(), block.getPosY(), block.getSizeX(), block.getSizeY(), block.getColor(), block.getTag(), block.getName());
+                this.map.addMapEntity(newBlock);
             }
         }
 
         public void buildFloatingPlatforms()
         {
-            MapObject floatingPlatform1 = new BouncyPlatform(new HealingBlock(170, 500, 216, 20, "floatingPlatform1"));
+            MapObject floatingPlatform1 = new BouncyPlatform(new HealingBlock(170, 450, 216, 20, "floatingPlatform1"));
             this.map.addFloatingPlatform(floatingPlatform1);
-            MapObject floatingPlatform2 = new StickyPlatform(new MaliciousBlock(650, 450, 150, 20, "floatingPlatform1"));
+            MapObject floatingPlatform2 = new StickyPlatform(new MaliciousBlock(650, 400, 150, 20, "floatingPlatform1"));
             this.map.addFloatingPlatform(floatingPlatform2);
-            MapObject floatingPlatform3 = new StickyPlatform(new HealingBlock(300, 400, 150, 20, "floatingPlatform1"));
+            MapObject floatingPlatform3 = new StickyPlatform(new HealingBlock(300, 350, 150, 20, "floatingPlatform1"));
             this.map.addFloatingPlatform(floatingPlatform3);
-            MapObject floatingPlatform4 = new StickyPlatform(new HealingBlock(400, 350, 150, 20, "floatingPlatform1"));
+            MapObject floatingPlatform4 = new StickyPlatform(new HealingBlock(400, 300, 150, 20, "floatingPlatform1"));
             this.map.addFloatingPlatform(floatingPlatform4);
         }
 

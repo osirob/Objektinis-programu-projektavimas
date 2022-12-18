@@ -17,6 +17,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Bridge\StickyPlatform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\ThirdLevelMapBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Builder\SecondLevelMapBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChainOfResponsibility\BlockColorHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChainOfResponsibility\BlockHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChainOfResponsibility\BlockNameHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChainOfResponsibility\BlockPositionHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChainOfResponsibility\BlockSizeHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\CommandInvoker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\DieCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
