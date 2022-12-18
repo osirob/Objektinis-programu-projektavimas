@@ -38,6 +38,7 @@ namespace Server.Hubs
         SpeedBonuses speedBonus;
         JumpBonuses jumpBonus;
         ConcreateMediator m;
+        private DefaultState defaultState;
 
 
 
@@ -48,6 +49,7 @@ namespace Server.Hubs
             dmgReducesBonus = new DamageReduceBonuses();
             speedBonus = new SpeedBonuses();
             jumpBonus = new JumpBonuses();
+            defaultState = new DefaultState();
             m = new ConcreateMediator(speedBonus, jumpBonus, dmgReducesBonus);     
         }
 
@@ -131,6 +133,20 @@ namespace Server.Hubs
             Console.WriteLine("Speed " + gameManagerServer.GetPlayer(playerId).Bonuses.SpeedBonus);
             await Clients.Caller.SendAsync("bonuses", gameManagerServer.GetPlayer(playerId).Bonuses);
         }
+
+        public async Task GetMovementByStatus(int playerId, PlayerState state)
+        {
+            Player player = gameManagerServer.GetPlayer(playerId);
+            if (player.getState() == state)
+            {
+                return;
+            }
+            player.SetPlayerState(state);
+            int movement = player.Request();
+            Console.WriteLine("Player state changed to: " + state.GetType());
+            await Clients.Caller.SendAsync("getMovement", movement);
+        }
+
 
         public async Task PickedUpCoin(int coinId,int playerId)
         {

@@ -16,8 +16,36 @@ namespace Shared.Shared
         public int Health = 100;
         protected Position position = new Position();
         public Bonuses Bonuses = new Bonuses();
+        private DefaultState _defaultState = new DefaultState();
+        private PlayerState _state = new DefaultState();
 
         public List<DamageDealed> damageDealedList = new List<DamageDealed>();
+
+        public Player()
+        {
+            _state = _defaultState;
+        }
+        public void SetPlayerState(PlayerState state)
+        {
+            _state = state;
+        }
+
+        public int Request()
+        {
+            int movement = _state.HandleMovement();
+            return movement;
+        }
+
+        public PlayerState getState()
+        {
+            return _state;
+        }
+
+        public int HandleMovement()
+        {
+            int movement = 0;
+            return movement;
+        }
 
         public override void ReportAboutDeath(int id)
         {
