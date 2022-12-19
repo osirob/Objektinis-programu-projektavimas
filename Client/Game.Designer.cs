@@ -40,6 +40,20 @@
             this.moneyLabel = new System.Windows.Forms.Label();
             this.moneyCountLabel = new System.Windows.Forms.Label();
             this.shopPanel = new System.Windows.Forms.Panel();
+            this.endingPanel = new System.Windows.Forms.Panel();
+            this.level3MoneyRed = new System.Windows.Forms.Label();
+            this.level2MoneyRed = new System.Windows.Forms.Label();
+            this.level1MoneyRed = new System.Windows.Forms.Label();
+            this.level3MoneyBlue = new System.Windows.Forms.Label();
+            this.level2MoneyBlue = new System.Windows.Forms.Label();
+            this.level1MoneyBlue = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.gameOver = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -78,6 +92,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.levelLabel = new System.Windows.Forms.Label();
             this.shopPanel.SuspendLayout();
+            this.endingPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // hpLabel
@@ -205,6 +220,179 @@
             this.shopPanel.Name = "shopPanel";
             this.shopPanel.Size = new System.Drawing.Size(703, 294);
             this.shopPanel.TabIndex = 12;
+            // 
+            // endingPanel
+            // 
+            this.endingPanel.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.endingPanel.Controls.Add(this.level3MoneyRed);
+            this.endingPanel.Controls.Add(this.level2MoneyRed);
+            this.endingPanel.Controls.Add(this.level1MoneyRed);
+            this.endingPanel.Controls.Add(this.level3MoneyBlue);
+            this.endingPanel.Controls.Add(this.level2MoneyBlue);
+            this.endingPanel.Controls.Add(this.level1MoneyBlue);
+            this.endingPanel.Controls.Add(this.label12);
+            this.endingPanel.Controls.Add(this.label11);
+            this.endingPanel.Controls.Add(this.label10);
+            this.endingPanel.Controls.Add(this.label9);
+            this.endingPanel.Controls.Add(this.label8);
+            this.endingPanel.Controls.Add(this.label7);
+            this.endingPanel.Controls.Add(this.gameOver);
+            this.endingPanel.Location = new System.Drawing.Point(181, 78);
+            this.endingPanel.Name = "endingPanel";
+            this.endingPanel.Size = new System.Drawing.Size(580, 259);
+            this.endingPanel.TabIndex = 22;
+            this.endingPanel.Visible = false;
+            // 
+            // level3MoneyRed
+            // 
+            this.level3MoneyRed.AutoSize = true;
+            this.level3MoneyRed.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level3MoneyRed.ForeColor = System.Drawing.Color.OrangeRed;
+            this.level3MoneyRed.Location = new System.Drawing.Point(425, 180);
+            this.level3MoneyRed.Name = "level3MoneyRed";
+            this.level3MoneyRed.Size = new System.Drawing.Size(22, 25);
+            this.level3MoneyRed.TabIndex = 12;
+            this.level3MoneyRed.Text = "0";
+            this.level3MoneyRed.Visible = false;
+            // 
+            // level2MoneyRed
+            // 
+            this.level2MoneyRed.AutoSize = true;
+            this.level2MoneyRed.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level2MoneyRed.ForeColor = System.Drawing.Color.OrangeRed;
+            this.level2MoneyRed.Location = new System.Drawing.Point(424, 155);
+            this.level2MoneyRed.Name = "level2MoneyRed";
+            this.level2MoneyRed.Size = new System.Drawing.Size(22, 25);
+            this.level2MoneyRed.TabIndex = 11;
+            this.level2MoneyRed.Text = "0";
+            this.level2MoneyRed.Visible = false;
+            // 
+            // level1MoneyRed
+            // 
+            this.level1MoneyRed.AutoSize = true;
+            this.level1MoneyRed.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level1MoneyRed.ForeColor = System.Drawing.Color.OrangeRed;
+            this.level1MoneyRed.Location = new System.Drawing.Point(424, 130);
+            this.level1MoneyRed.Name = "level1MoneyRed";
+            this.level1MoneyRed.Size = new System.Drawing.Size(22, 25);
+            this.level1MoneyRed.TabIndex = 10;
+            this.level1MoneyRed.Text = "0";
+            this.level1MoneyRed.Visible = false;
+            // 
+            // level3MoneyBlue
+            // 
+            this.level3MoneyBlue.AutoSize = true;
+            this.level3MoneyBlue.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level3MoneyBlue.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.level3MoneyBlue.Location = new System.Drawing.Point(193, 180);
+            this.level3MoneyBlue.Name = "level3MoneyBlue";
+            this.level3MoneyBlue.Size = new System.Drawing.Size(22, 25);
+            this.level3MoneyBlue.TabIndex = 9;
+            this.level3MoneyBlue.Text = "0";
+            this.level3MoneyBlue.Visible = false;
+            // 
+            // level2MoneyBlue
+            // 
+            this.level2MoneyBlue.AutoSize = true;
+            this.level2MoneyBlue.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level2MoneyBlue.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.level2MoneyBlue.Location = new System.Drawing.Point(193, 155);
+            this.level2MoneyBlue.Name = "level2MoneyBlue";
+            this.level2MoneyBlue.Size = new System.Drawing.Size(22, 25);
+            this.level2MoneyBlue.TabIndex = 8;
+            this.level2MoneyBlue.Text = "0";
+            this.level2MoneyBlue.Visible = false;
+            // 
+            // level1MoneyBlue
+            // 
+            this.level1MoneyBlue.AutoSize = true;
+            this.level1MoneyBlue.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.level1MoneyBlue.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.level1MoneyBlue.Location = new System.Drawing.Point(193, 130);
+            this.level1MoneyBlue.Name = "level1MoneyBlue";
+            this.level1MoneyBlue.Size = new System.Drawing.Size(22, 25);
+            this.level1MoneyBlue.TabIndex = 7;
+            this.level1MoneyBlue.Text = "0";
+            this.level1MoneyBlue.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.Location = new System.Drawing.Point(25, 180);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(71, 25);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "LEVEL3:";
+            this.label12.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(25, 155);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 25);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "LEVEL2:";
+            this.label11.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(25, 130);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 25);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "LEVEL1:";
+            this.label10.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label9.Location = new System.Drawing.Point(409, 93);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 28);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "RED";
+            this.label9.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label8.Location = new System.Drawing.Point(180, 93);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 28);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "BLUE";
+            this.label8.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(117, 54);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(330, 28);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "TOTAL COLLECTED MONEY RESULTS:";
+            this.label7.Visible = false;
+            // 
+            // gameOver
+            // 
+            this.gameOver.AutoSize = true;
+            this.gameOver.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gameOver.Location = new System.Drawing.Point(209, 11);
+            this.gameOver.Name = "gameOver";
+            this.gameOver.Size = new System.Drawing.Size(172, 37);
+            this.gameOver.TabIndex = 0;
+            this.gameOver.Text = "GAME OVER!";
+            this.gameOver.Visible = false;
             // 
             // label4
             // 
@@ -593,6 +781,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1119, 661);
+            this.Controls.Add(this.endingPanel);
             this.Controls.Add(this.levelLabel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.moneyTotalCountLabel);
@@ -618,6 +807,8 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyIsUp);
             this.shopPanel.ResumeLayout(false);
             this.shopPanel.PerformLayout();
+            this.endingPanel.ResumeLayout(false);
+            this.endingPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -673,5 +864,19 @@
         private Label moneyTotalCountLabel;
         private Label label6;
         private Label levelLabel;
+        private Panel endingPanel;
+        private Label level3MoneyRed;
+        private Label level2MoneyRed;
+        private Label level1MoneyRed;
+        private Label level3MoneyBlue;
+        private Label level2MoneyBlue;
+        private Label level1MoneyBlue;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label gameOver;
     }
 }
