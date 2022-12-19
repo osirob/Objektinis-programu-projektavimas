@@ -5,6 +5,7 @@ using Timer = System.Windows.Forms.Timer;
 using Shared.Prototype;
 using Shared.Bridge;
 using Shared.State;
+using Shared.Memento;
 
 
 namespace Client
@@ -80,6 +81,9 @@ namespace Client
         List<Coin> gameCoins;
         private FakeCoinAdapter fakeCoin;
 
+        public static TotalMoneyEditor playerEditor;
+        private static int playerTotalMoneyCount;
+
         Map map;
 
         Bonuses bonuses; 
@@ -100,6 +104,9 @@ namespace Client
 
         public Game()
         {
+            playerEditor = new TotalMoneyEditor();
+            playerTotalMoneyCount = 0;
+
             bonuses = new Bonuses();
             defaultState = new DefaultState();
             shoppingState = new ShoppingState();
@@ -533,6 +540,10 @@ namespace Client
                         UpdateStats();
                         this.Controls.Remove(x);
                         this.gameCoins.Remove(coin);
+
+                        playerTotalMoneyCount += coin.Value;
+                        moneyTotalCountLabel.Text = playerTotalMoneyCount.ToString();
+
                         //send to server for other player to remove same coin
                         await connection.SendAsync("PickedUpCoin", coin.Id, playerId);
                     }
@@ -562,18 +573,23 @@ namespace Client
                         if (this.health <= 0)
                         {
                             _ = TestDeathAsync();
-                            MessageBox.Show(GameManagerServer.currLevel.ToString());
-                            if (GameManagerServer.currLevel == 1)
+                            if (GameManagerServer.Instance.GetCurrLevel() == 1)
                             {
-                                GameManagerServer.currLevel = 2;
+                                await connection.SendAsync("NewLevelStarted", 1);
+                                await connection.SendAsync("ReplenishHealth", playerId);
                                 BuildNewLevel2(2);
-                                this.health = 100;
                             }
-                            if (GameManagerServer.currLevel == 2)
+                            if (GameManagerServer.Instance.GetCurrLevel() == 2)
                             {
-                                GameManagerServer.currLevel = 3;
+                                await connection.SendAsync("NewLevelStarted", 2);
+                                await connection.SendAsync("ReplenishHealth", playerId);
                                 BuildNewLevel3(3);
-                                this.health = 100;
+                            }
+
+                            if (GameManagerServer.Instance.GetCurrLevel() == 3)
+                            {
+                                await connection.SendAsync("NewLevelStarted", 3);
+                                await connection.SendAsync("ReplenishHealth", playerId);
                             }
                         }
 
@@ -781,6 +797,14 @@ namespace Client
                     this.enemyWeaponY = Convert.ToInt32(splitedText[1]);
                 });
             }
+            connection.On<int>("newLevelStartedSignal", (level) =>
+            {
+                this.health = 100;
+                UpdateStats();
+                hpCountLabel.Text = "100";
+                playerEditor.addMoney(playerTotalMoneyCount);
+                levelLabel.Text = level.ToString();
+            });
         }
 
         private void SendCordinatesTimer_Tick(object sender, EventArgs e)

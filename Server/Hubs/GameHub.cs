@@ -376,5 +376,20 @@ namespace Server.Hubs
                 Console.WriteLine(text);
             }
         }
+
+        public async Task NewLevelStarted(int currLevel)
+        {
+            if (currLevel <= GameManagerServer.Instance.GetCurrLevel())
+            {
+                await Clients.All.SendAsync("newLevelStartedSignal", GameManagerServer.Instance.GetCurrLevel() + 1);
+                GameManagerServer.Instance.NextLevel();
+            }
+        }
+
+        public async Task ReplenishHealth(int id)
+        {
+            ICommand command = new TakeDamageCommand(gameManagerServer.GetPlayer(id), -100);
+            invoker.Run(command);
+        }
     }
 }
