@@ -327,7 +327,17 @@ namespace Client
             hpKits = new List<HealthKit>();
             connection.On<CompositeKit>("sendHpKits", kits =>
             {
-                kits.Spawn(this.Controls, hpKits);
+                kits.Spawn(hpKits);
+                foreach(HealthKit hpk in hpKits)
+                {
+                    this.Controls.Add(new PictureBox
+                    {
+                        Tag = hpk.Tag,
+                        Size = new Size(40, 40),
+                        Location = new Point(hpk.XCoord, hpk.YCoord),
+                        BackColor = Color.White
+                    });
+                }
             });
 
             connection.On<int>("removeKit", id =>
