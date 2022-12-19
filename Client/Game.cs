@@ -83,6 +83,9 @@ namespace Client
 
         public static TotalMoneyEditor playerEditor;
         private static int playerTotalMoneyCount;
+        public int currLevel = 1;
+
+        public bool GameOver = false;
 
         Map map;
 
@@ -541,8 +544,9 @@ namespace Client
                         this.Controls.Remove(x);
                         this.gameCoins.Remove(coin);
 
-                        playerTotalMoneyCount += coin.Value;
-                        moneyTotalCountLabel.Text = playerTotalMoneyCount.ToString();
+                        //playerTotalMoneyCount += coin.Value;
+                        playerEditor.AddTempMoney(coin.Value);
+                        moneyTotalCountLabel.Text = playerEditor.getCurrTempMoneyCount().ToString();
 
                         //send to server for other player to remove same coin
                         await connection.SendAsync("PickedUpCoin", coin.Id, playerId);
@@ -572,27 +576,25 @@ namespace Client
                         await connection.SendAsync("TakeDamage", playerId, Convert.ToInt32(10/bonuses.DamageReducerBonus));
                         if (this.health <= 0)
                         {
+
                             _ = TestDeathAsync();
-                            if (GameManagerServer.Instance.GetCurrLevel() == 1)
+                            if (this.currLevel == 1)
                             {
-                                await connection.SendAsync("NewLevelStarted", 1);
+                                await connection.SendAsync("NewLevelStarted", this.currLevel);
                                 await connection.SendAsync("ReplenishHealth", playerId);
                                 BuildNewLevel2(2);
                             }
-                            if (GameManagerServer.Instance.GetCurrLevel() == 2)
+                            else if (this.currLevel == 2)
                             {
-                                await connection.SendAsync("NewLevelStarted", 2);
+                                await connection.SendAsync("NewLevelStarted", this.currLevel);
                                 await connection.SendAsync("ReplenishHealth", playerId);
                                 BuildNewLevel3(3);
                             }
-
-                            if (GameManagerServer.Instance.GetCurrLevel() == 3)
+                            else if (this.currLevel == 3)
                             {
-                                await connection.SendAsync("NewLevelStarted", 3);
-                                await connection.SendAsync("ReplenishHealth", playerId);
+                                await connection.SendAsync("GameEnded");
                             }
                         }
-
                     }
                 }
             }
@@ -802,8 +804,52 @@ namespace Client
                 this.health = 100;
                 UpdateStats();
                 hpCountLabel.Text = "100";
-                playerEditor.addMoney(playerTotalMoneyCount);
+                playerEditor.addMoney();
                 levelLabel.Text = level.ToString();
+                this.currLevel = level;
+            });
+            connection.On<int>("gameEndedSignal", (signal) =>
+            {
+                GameOver = true;
+                int _level3MoneyBlue = playerEditor.getCurrMoney();
+                playerEditor.undo();
+                int _level2MoneyBlue = playerEditor.getCurrMoney();
+                playerEditor.undo();
+                int _level1MoneyBlue = playerEditor.getCurrMoney();
+
+                endingPanel.Visible = true;
+                endingPanel.BringToFront();
+                gameOver.Visible = true;
+                gameOver.BringToFront();
+                label7.Visible = true;
+                label7.BringToFront();
+                label8.Visible = true;
+                label8.BringToFront();
+                label9.Visible = true;
+                label9.BringToFront();
+                label10.Visible = true;
+                label10.BringToFront();
+                label11.Visible = true;
+                label11.BringToFront();
+                label12.Visible = true;
+                label12.BringToFront();
+                level1MoneyBlue.Visible = true;
+                level1MoneyBlue.BringToFront();
+                level1MoneyBlue.Text = _level1MoneyBlue.ToString();
+                level2MoneyBlue.Visible = true;
+                level2MoneyBlue.BringToFront();
+                level2MoneyBlue.Text = _level2MoneyBlue.ToString();
+                level3MoneyBlue.Visible = true;
+                level3MoneyBlue.BringToFront();
+                level3MoneyBlue.Text = _level3MoneyBlue.ToString();
+                level1MoneyRed.Visible = true;
+                level1MoneyRed.BringToFront();
+                level2MoneyRed.Visible = true;
+                level2MoneyRed.BringToFront();
+                level3MoneyRed.Visible = true;
+                level3MoneyRed.BringToFront();
+
+                gameTimer.Stop();
             });
         }
 

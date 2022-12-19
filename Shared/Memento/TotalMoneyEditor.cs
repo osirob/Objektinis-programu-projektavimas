@@ -18,9 +18,8 @@ namespace Shared.Memento
             playerTotalMoneyCount = 0;
         }
 
-        public void addMoney(int money)
+        public void addMoney()
         {
-            totalMoneyOriginator.addMoney(money);
             stateHistory.Add(totalMoneyOriginator.takeSnapshot());
         }
 
@@ -37,12 +36,12 @@ namespace Shared.Memento
 
         public void AddTempMoney(int value)
         {
-            this.playerTotalMoneyCount += value;
+            this.totalMoneyOriginator.addMoney(value);
         }
 
         public int getCurrTempMoneyCount()
         {
-            return this.playerTotalMoneyCount;
+            return this.totalMoneyOriginator.totalMoney;
         }
     }
 }

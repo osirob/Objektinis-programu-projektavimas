@@ -379,17 +379,19 @@ namespace Server.Hubs
 
         public async Task NewLevelStarted(int currLevel)
         {
-            if (currLevel <= GameManagerServer.Instance.GetCurrLevel())
-            {
-                await Clients.All.SendAsync("newLevelStartedSignal", GameManagerServer.Instance.GetCurrLevel() + 1);
-                GameManagerServer.Instance.NextLevel();
-            }
+            GameManagerServer.Instance.NextLevel();
+            await Clients.All.SendAsync("newLevelStartedSignal", GameManagerServer.Instance.GetCurrLevel());
         }
 
         public async Task ReplenishHealth(int id)
         {
             ICommand command = new TakeDamageCommand(gameManagerServer.GetPlayer(id), -100);
             invoker.Run(command);
+        }
+
+        public async Task GameEnded()
+        {
+            await Clients.All.SendAsync("gameEndedSignal", 1);
         }
     }
 }

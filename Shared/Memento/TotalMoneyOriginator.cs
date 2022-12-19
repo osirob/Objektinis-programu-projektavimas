@@ -6,7 +6,7 @@ namespace Shared.Memento
 {
     public class TotalMoneyOriginator
     {
-        private int totalMoney = 0;
+        public int totalMoney = 0;
 
         public void addMoney(int money)
         {
