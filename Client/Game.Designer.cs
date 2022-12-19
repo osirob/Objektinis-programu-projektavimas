@@ -73,6 +73,10 @@
             this.weaponLabel = new System.Windows.Forms.Label();
             this.weaponNameLabel = new System.Windows.Forms.Label();
             this.updateWeaponNotif = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.moneyTotalCountLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.levelLabel = new System.Windows.Forms.Label();
             this.shopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -543,12 +547,56 @@
             this.updateWeaponNotif.TabIndex = 17;
             this.updateWeaponNotif.Visible = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(12, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(230, 22);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Total money collected:";
+            // 
+            // moneyTotalCountLabel
+            // 
+            this.moneyTotalCountLabel.AutoSize = true;
+            this.moneyTotalCountLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.moneyTotalCountLabel.Location = new System.Drawing.Point(238, 31);
+            this.moneyTotalCountLabel.Name = "moneyTotalCountLabel";
+            this.moneyTotalCountLabel.Size = new System.Drawing.Size(20, 22);
+            this.moneyTotalCountLabel.TabIndex = 19;
+            this.moneyTotalCountLabel.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(370, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 22);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "LEVEL:";
+            // 
+            // levelLabel
+            // 
+            this.levelLabel.AutoSize = true;
+            this.levelLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.levelLabel.Location = new System.Drawing.Point(440, 34);
+            this.levelLabel.Name = "levelLabel";
+            this.levelLabel.Size = new System.Drawing.Size(20, 22);
+            this.levelLabel.TabIndex = 21;
+            this.levelLabel.Text = "1";
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1119, 661);
+            this.Controls.Add(this.levelLabel);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.moneyTotalCountLabel);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.updateWeaponNotif);
             this.Controls.Add(this.weaponNameLabel);
             this.Controls.Add(this.weaponLabel);
@@ -621,5 +669,9 @@
         private Button boostSpeedButton;
         private Button jumpBoostButton;
         private Label label1;
+        private Label label5;
+        private Label moneyTotalCountLabel;
+        private Label label6;
+        private Label levelLabel;
     }
 }

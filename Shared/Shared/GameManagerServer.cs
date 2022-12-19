@@ -1,5 +1,6 @@
 ﻿using Shared.Bridge;
 using Shared.Builder;
+using Shared.Memento;
 using Shared.Prototype;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,18 @@ namespace Shared.Shared
 
         public static int currLevel = 1;
 
+        public static TotalMoneyEditor player1Editor;
+        public static TotalMoneyEditor player2Editor;
+        private static int player1TotalMoneyCount;
+        private static int player2TotalMoneyCount;
+
         //private static CollectableFactory collectableFactory = new CollectableFactory();
 
         private GameManagerServer()
         {
             counter++;
+            player1Editor = new TotalMoneyEditor();
+            player2Editor = new TotalMoneyEditor();
         }
 
         public static GameManagerServer Instance
@@ -198,6 +206,46 @@ namespace Shared.Shared
         public List<MapObject> GetFloatingPlatforms()
         {
             return map.getFloatingPlatforms();
+        }
+
+        public void AddPlayer1TotalMoneyCount(int value)
+        {
+            player1Editor.AddTempMoney(value);
+        }
+
+        public void AddPlayer2TotalMoneyCount(int value)
+        {
+            player2Editor.AddTempMoney(value);
+        }
+
+        public int getPlayer1TotalMoneyCount()
+        {
+            return player1Editor.getCurrTempMoneyCount();
+        }
+
+        public int getPlayer2TotalMoneyCount()
+        {
+            return player2Editor.getCurrTempMoneyCount();
+        }
+
+        public TotalMoneyEditor getPlayer1Editor()
+        {
+            return player1Editor;
+        }
+
+        public TotalMoneyEditor getPlayer2Editor()
+        {
+            return player2Editor;
+        }
+
+        public void NextLevel()
+        {
+            currLevel++;
+        }
+
+        public int GetCurrLevel()
+        {
+            return currLevel;
         }
     }
 }
