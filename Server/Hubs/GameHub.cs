@@ -393,5 +393,10 @@ namespace Server.Hubs
         {
             await Clients.All.SendAsync("gameEndedSignal", 1);
         }
+        public async Task SendMyMoneyStatsToOtherPlayer(int money1, int money2, int money3)
+        {
+            await Clients.Others.SendAsync("otherPlayerMoneyStats", money1, money2, money3);
+        }
+
     }
 }

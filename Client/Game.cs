@@ -19,6 +19,7 @@ namespace Client
     }
     public partial class Game : Form
     {
+        private bool alreadySent = false;
         private HubConnection connection;
         GameManager gameManager = GameManager.Instance;
         private WeaponShop weaponShop;
@@ -104,6 +105,10 @@ namespace Client
         private ShoppingState shoppingState;
         private NoAmmoState noAmmoState;
         private LowHealthState lowHealthState;
+
+        private int otherPlayer_level1Money = 0;
+        private int otherPlayer_level2Money = 0;
+        private int otherPlayer_level3Money = 0;
 
         public Game()
         {
@@ -808,6 +813,34 @@ namespace Client
                 levelLabel.Text = level.ToString();
                 this.currLevel = level;
             });
+            connection.On<int, int, int>("otherPlayerMoneyStats", (money1, money2, money3) =>
+            {
+                if (playerId == 1)
+                {
+                    level1MoneyRed.Visible = true;
+                    level1MoneyRed.BringToFront();
+                    level1MoneyRed.Text = money1.ToString();
+                    level2MoneyRed.Visible = true;
+                    level2MoneyRed.BringToFront();
+                    level2MoneyRed.Text = money2.ToString();
+                    level3MoneyRed.Visible = true;
+                    level3MoneyRed.BringToFront();
+                    level3MoneyRed.Text = money3.ToString();
+                }
+                else if (playerId == 0)
+                {
+                    level1MoneyBlue.Visible = true;
+                    level1MoneyBlue.BringToFront();
+                    level1MoneyBlue.Text = money1.ToString();
+                    level2MoneyBlue.Visible = true;
+                    level2MoneyBlue.BringToFront();
+                    level2MoneyBlue.Text = money2.ToString();
+                    level3MoneyBlue.Visible = true;
+                    level3MoneyBlue.BringToFront();
+                    level3MoneyBlue.Text = money3.ToString();
+                }
+                
+            });
             connection.On<int>("gameEndedSignal", (signal) =>
             {
                 GameOver = true;
@@ -816,7 +849,12 @@ namespace Client
                 int _level2MoneyBlue = playerEditor.getCurrMoney();
                 playerEditor.undo();
                 int _level1MoneyBlue = playerEditor.getCurrMoney();
-
+                if (!alreadySent)
+                { 
+                    connection.SendAsync("SendMyMoneyStatsToOtherPlayer", _level1MoneyBlue, _level2MoneyBlue,
+                    _level3MoneyBlue);
+                    alreadySent = true;
+                }
                 endingPanel.Visible = true;
                 endingPanel.BringToFront();
                 gameOver.Visible = true;
@@ -833,21 +871,30 @@ namespace Client
                 label11.BringToFront();
                 label12.Visible = true;
                 label12.BringToFront();
-                level1MoneyBlue.Visible = true;
-                level1MoneyBlue.BringToFront();
-                level1MoneyBlue.Text = _level1MoneyBlue.ToString();
-                level2MoneyBlue.Visible = true;
-                level2MoneyBlue.BringToFront();
-                level2MoneyBlue.Text = _level2MoneyBlue.ToString();
-                level3MoneyBlue.Visible = true;
-                level3MoneyBlue.BringToFront();
-                level3MoneyBlue.Text = _level3MoneyBlue.ToString();
-                level1MoneyRed.Visible = true;
-                level1MoneyRed.BringToFront();
-                level2MoneyRed.Visible = true;
-                level2MoneyRed.BringToFront();
-                level3MoneyRed.Visible = true;
-                level3MoneyRed.BringToFront();
+                if (playerId == 1)
+                {
+                    level1MoneyBlue.Visible = true;
+                    level1MoneyBlue.BringToFront();
+                    level1MoneyBlue.Text = _level1MoneyBlue.ToString();
+                    level2MoneyBlue.Visible = true;
+                    level2MoneyBlue.BringToFront();
+                    level2MoneyBlue.Text = _level2MoneyBlue.ToString();
+                    level3MoneyBlue.Visible = true;
+                    level3MoneyBlue.BringToFront();
+                    level3MoneyBlue.Text = _level3MoneyBlue.ToString();
+                }
+                else if (playerId == 0)
+                {
+                    level1MoneyRed.Visible = true;
+                    level1MoneyRed.BringToFront();
+                    level1MoneyRed.Text = _level1MoneyBlue.ToString();
+                    level2MoneyRed.Visible = true;
+                    level2MoneyRed.BringToFront();
+                    level2MoneyRed.Text = _level2MoneyBlue.ToString();
+                    level3MoneyRed.Visible = true;
+                    level3MoneyRed.BringToFront();
+                    level3MoneyRed.Text = _level3MoneyBlue.ToString();
+                }
 
                 gameTimer.Stop();
             });
