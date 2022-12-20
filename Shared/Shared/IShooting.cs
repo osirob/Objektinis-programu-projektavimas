@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shared.Shared
 {
-    public interface IShooting
+    internal interface IShooting
     {
         int Ammunition { get; set; }
         string Name { get; set; }

@@ -11,6 +11,8 @@ using System.Numerics;
 using Shared.Prototype;
 using Shared.Mediator;
 using Shared.Interpreter;
+using Shared.Iterator;
+using Shared.Composite;
 
 namespace Server.Hubs
 {
@@ -24,7 +26,9 @@ namespace Server.Hubs
         public static List<Coin> coins = new List<Coin>();
         public static List<Armor> armor = new List<Armor>();
         public static List<HealthPack> healthPacks = new List<HealthPack>();
+        public static List<HealthKit> healthKits = new List<HealthKit>();
         public static int coinsRequested = 0;
+        public static int hpKitsRequested = 0;
     }
 
     //https://localhost:7021/gameHub
@@ -86,15 +90,73 @@ namespace Server.Hubs
             if(GameInfo.coinsRequested == 2 && GameInfo.coins.Count == 0)
             {
                 GameInfo.coinsRequested = 0;
-                for(int i = 1; i < 6; i++)
+                for (int i = 1; i < 6; i++)
                 {
-                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 500, i * 150, 570, i);
+                    var coin = GameInfo.collectableFactory.MakeCollectable(CollectableFactory.CollectableTypes.Coin, 1000, i * 150, 500, i);
                     GameInfo.coins.Add(coin as Coin);
                 }
-                await Clients.All.SendAsync("sendCoins", GameInfo.coins);
-                Console.WriteLine($"Sent coins {GameInfo.coins.Count}");
+
+                CoinCollection collection = new CoinCollection();
+                for (int i = 0; i < GameInfo.coins.Count; i++)
+                {
+                    collection[i] = GameInfo.coins[i];
+                }
+
+                Iterator iterator = collection.CreateIterator();
+                for (Coin coin = iterator.First(); !iterator.IsDone; coin = iterator.Next())
+                {
+                    //Console.WriteLine(coin.ToString());
+                }
+
+                await Clients.All.SendAsync("sendCoins", collection);
+                //Console.WriteLine($"Sent coins {GameInfo.coins.Count}");
             }
             else { GameInfo.coinsRequested++; }
+        }
+
+        public async Task RequestHpKits()
+        {
+            if (GameInfo.healthKits.Count == 0 && GameInfo.hpKitsRequested == 2)
+            {
+                GameInfo.hpKitsRequested = 0;
+                List<PrimitiveKit> kits = new List<PrimitiveKit>();
+                CompositeKit compositeSmall = new CompositeKit(0, 0, 0, 0);
+                //Small ones
+                for (int i = 1; i < 3; i++)
+                {
+                    var kit = new PrimitiveKit(20, i * 200, 400, i);
+                    compositeSmall.Add(kit);
+                    kits.Add(kit);
+                    GameInfo.healthKits.Add(kit);
+                }
+
+                //Big ones
+                CompositeKit compositeBig = new CompositeKit(0, 0, 0, 0);
+                for (int i = 3; i < 5; i++)
+                {
+                    var kit = new PrimitiveKit(100, i * 200, 300, i);
+                    compositeBig.Add(kit);
+                    kits.Add(kit);
+                    GameInfo.healthKits.Add(kit);
+                }
+
+                compositeSmall.Add(compositeBig);
+                //compositeSmall.Spawn(ref kits);
+                await Clients.All.SendAsync("sendHpKits", kits);
+                //Console.WriteLine("SENT HP KITS");
+            }
+            else { GameInfo.hpKitsRequested++; }
+        }
+
+        public async Task PickedUpHealth(int kitId, int playerId)
+        {
+            Console.WriteLine("Picked up HP");
+            var kit = GameInfo.healthKits.Where(c => c.Id == kitId).FirstOrDefault();
+            if (kit != null)
+            {
+                GameInfo.healthKits.Remove(kit);
+                await Clients.Others.SendAsync("removeKit", kitId);
+            }
         }
 
         public async Task SendBulletCords(string cords)

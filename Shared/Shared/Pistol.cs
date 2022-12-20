@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shared.Shared
 {
-    public class Pistol : IShooting
+    internal class Pistol : IShooting
     {
         public string Name { get; set; }
         public int Ammunition { get; set; }

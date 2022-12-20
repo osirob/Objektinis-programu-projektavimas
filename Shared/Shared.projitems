@@ -27,6 +27,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Command\ICommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeDamageCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Command\TakeMoneyCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Composite\CompositeKit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Composite\HealthKit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Composite\PrimitiveKit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flyweight\FlyweightFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\AdvanceGiveCoinsExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\AdvanceGiveHealthExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\Context.cs" />
@@ -34,6 +38,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\ExpresionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\NumberExpresion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interpreter\PlayerExpresion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Iterator\CoinCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Iterator\IAbstractCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Iterator\IAbstractIterator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Iterator\Iterator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\AbstractBonuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\ConcreateMediator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mediator\DamageReduceBonuses.cs" />

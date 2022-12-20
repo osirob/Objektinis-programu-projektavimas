@@ -22,7 +22,7 @@ namespace Client.Facade
             bazooka = new Bazooka("Bazooka");
         }
 
-        public IShooting BuyWeapon(CurrentWeaponType weaponType, ref int money)
+        internal IShooting BuyWeapon(CurrentWeaponType weaponType, ref int money)
         {
             if (weaponType == CurrentWeaponType.Pistol && money >= pistol.Price)
             {
@@ -75,7 +75,7 @@ namespace Client.Facade
             return null;
         }
 
-        public void BuyAmmunition(CurrentWeaponType type, ref IShooting weapon, ref int money)
+        internal void BuyAmmunition(CurrentWeaponType type, ref IShooting weapon, ref int money)
         {
             if (weapon.Name == pistol.Name && type == CurrentWeaponType.Pistol)
             {
